@@ -10,6 +10,8 @@
        Shell.BackgroundColor="#155ca1">
 
     <FlyoutItem>
+        <ShellContent Title="Home"
+                      ContentTemplate="{x:DataTemplate views:HomeView}"/>
         <ShellContent Title="Capture New Bottles"
                       ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"/>
         <ShellContent Title="Create User Account"
