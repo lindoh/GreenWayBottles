@@ -49,10 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Views\CaptureNewBottlesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
