@@ -13,6 +13,7 @@ namespace GreenWayBottles.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
         }
 
+        //User's First Name
         private string firstName;
         public string FirstName
         {
@@ -28,6 +29,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Last name
         private string lastName;
         public string LastName
         {
@@ -42,6 +44,68 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Id Number
+        private string idNumber;
+        public string IdNumber
+        {
+            get => idNumber;
+            set
+            {
+                if (value != null && value.Length == 13)
+                {
+                    idNumber = value;
+                    OnPropertyChanged(nameof(IdNumber));    
+                }
+            }
+        }
+
+        //User's Gender
+        private string gender;
+        public string Gender
+        {
+            get => gender;
+            set
+            {
+                if (value != null)
+                {
+                    gender = value;
+                    OnPropertyChanged(nameof(Gender));
+                }
+            }
+        }
+
+        //User's Highest Qualification
+        private string highestQlfn;
+        public string HighestQlfn
+        {
+            get => highestQlfn;
+            set
+            {
+                if (value != null)
+                {
+                    highestQlfn = value;
+                    OnPropertyChanged(nameof(highestQlfn));
+                }
+            }
+
+        }
+
+        //User's Income Range
+        private string incomeRange;
+        public string IncomeRange
+        {
+            get => incomeRange;
+            set
+            {
+                if (value != null)
+                {
+                    incomeRange = value;
+                    OnPropertyChanged(nameof(IncomeRange)); 
+                }
+            }
+        }
+
+        //User's Email Address
         private string email;
         public string Email
         {
