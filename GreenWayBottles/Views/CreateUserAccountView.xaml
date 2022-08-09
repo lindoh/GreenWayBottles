@@ -2,8 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.CreateUserAccountView"
+             xmlns:viewModels="clr-namespace:GreenWayBottles.ViewModels"
              Title="CreateUserAccountView"
-             WidthRequest="450">
+             WidthRequest="600">
+    
+    <!-- To Do: Find better way to populate street address, suburb, and city data -->
 
     <ScrollView>
         <Grid Margin="10">
@@ -79,15 +82,11 @@
             Margin="10, 5, 5, 0"/>
             <Picker 
                 Grid.Row="4" Grid.Column="1" x:Name="genderPicker"
-                VerticalOptions="Start" HorizontalOptions="Fill" 
-                FontSize="Caption" TextColor="Black" Margin="10, 0, 5, 5">
-
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Male</x:String>
-                        <x:String>Female</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </Picker.Items>
             </Picker>
 
             <!-- Highest Qualification Tag                                 -->
@@ -96,10 +95,22 @@
             Text="Highest Qualification" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="6" Grid.Column="0" x:Name="highestQlfnTxt"
-            VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            <Picker
+                Grid.Row="6" Grid.Column="0" x:Name="highestQlfnPicker"
+                FontSize="Caption" TextColor="Black">
+                <Picker.Items>
+                    <x:String>Grade 9</x:String>
+                    <x:String>Grade 10 or National (vocational) Certificates level 2</x:String>
+                    <x:String>Grade 11 or National (vocational) Certificates level 3</x:String>
+                    <x:String>Grade 12 (National Senior Certificate) or National (vocational) Cert. level 4</x:String>
+                    <x:String>Higher Certificates or Advanced National (vocational) Cert.</x:String>
+                    <x:String>National Diploma or Advanced certificates</x:String>
+                    <x:String>Bachelor's degree, Advanced Diplomas, Post Graduate Certificate or B-tech</x:String>
+                    <x:String>Honours degree, Post Graduate diploma or other Professional Qualifications</x:String>
+                    <x:String>Master's degree</x:String>
+                    <x:String>Doctor's degree</x:String>
+                </Picker.Items>
+            </Picker>
 
             <!-- Income Range Tag                                 -->
             <Label 
@@ -107,11 +118,19 @@
             Text="Income Range" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="6" Grid.Column="1" x:Name="incomeRangeTxt"
-            VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
-
+            <Picker 
+                Grid.Row="6" Grid.Column="1" x:Name="incomeRangePicker"
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Less than R1000</x:String>
+                    <x:String>Between R1001 and R5000</x:String>
+                    <x:String>Between R5001 and R10000</x:String>
+                    <x:String>Between R10001 and R20000</x:String>
+                    <x:String>Between R20001 and R50000</x:String>
+                    <x:String>Between R50001 and R100000</x:String>
+                    <x:String>Over R100000</x:String>
+                </Picker.Items>
+            </Picker>
             <!-- Email Address Tag                                 -->
             <Label 
             Grid.Row="7" Grid.Column="0"
@@ -180,10 +199,21 @@
             Text="Province" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="13" Grid.Column="1" x:Name="provinceTxt"
-            VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            <Picker 
+                Grid.Row="13" Grid.Column="1" x:Name="provincePicker"
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Eastern Cape</x:String>
+                    <x:String>Free State</x:String>
+                    <x:String>Gauteng</x:String>
+                    <x:String>KwaZulu-Natal</x:String>
+                    <x:String>Limpopo</x:String>
+                    <x:String>Mpumalanga</x:String>
+                    <x:String>Northern Cape</x:String>
+                    <x:String>North West</x:String>
+                    <x:String>Western Cape</x:String>
+                </Picker.Items>
+            </Picker>
 
             <!-- Country Tag                                 -->
             <Label 
@@ -191,10 +221,14 @@
             Text="Country" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="15" Grid.Column="0" x:Name="countryTxt"
-            VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            <Picker 
+                Grid.Row="15" Grid.Column="0" x:Name="countryPicker"
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String></x:String>
+                    <x:String>South Africa</x:String>
+                </Picker.Items>
+            </Picker>
 
             <!-- Save Button Tag                                 -->
             <Button 
