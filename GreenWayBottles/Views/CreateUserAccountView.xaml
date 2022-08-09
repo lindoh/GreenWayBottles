@@ -2,11 +2,133 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.CreateUserAccountView"
-             Title="CreateUserAccountView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Create User Account"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="CreateUserAccountView"
+             WidthRequest="450" >
+
+    <ScrollView>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label 
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            Text="Create A New User Account" VerticalOptions="Center" HorizontalOptions="Center" 
+            FontSize="Title" TextColor="#155ca1"
+            Margin="10"/>
+
+            <Label 
+            Grid.Row="1" Grid.Column="0"
+            Text="First Name" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="2" Grid.Column="0" x:Name="firstNameTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="1" Grid.Column="1"
+            Text="Last Name" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="2" Grid.Column="1" x:Name="lastNameTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="3" Grid.Column="0"
+            Text="Email Address" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="4" Grid.Column="0" x:Name="emailTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="3" Grid.Column="1"
+            Text="Cell Number" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="4" Grid.Column="1" x:Name="cellNumberTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+            Text="Physical Address" VerticalOptions="End" HorizontalOptions="Center" 
+            FontSize="Subtitle" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+
+            <Label 
+            Grid.Row="6" Grid.Column="0"
+            Text="Street Address" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="7" Grid.Column="0" x:Name="streetAddTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="6" Grid.Column="1"
+            Text="Suburb" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="7" Grid.Column="1" x:Name="suburbTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="8" Grid.Column="0"
+            Text="City" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="9" Grid.Column="0" x:Name="cityTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="8" Grid.Column="1"
+            Text="Province" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="9" Grid.Column="1" x:Name="provinceTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+            <Label 
+            Grid.Row="10" Grid.Column="0"
+            Text="Country" VerticalOptions="End" HorizontalOptions="Start" 
+            FontSize="Caption" TextColor="Gray"
+            Margin="10, 5, 5, 0"/>
+            <Entry Grid.Row="11" Grid.Column="0" x:Name="countryTxt"
+            VerticalOptions="Start" HorizontalOptions="Fill" 
+            FontSize="Caption" TextColor="Black"
+            Margin="10, 0, 5, 5"/>
+
+        </Grid>
+    </ScrollView>
+    
 </ContentPage>
