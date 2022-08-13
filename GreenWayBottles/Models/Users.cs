@@ -5,6 +5,7 @@ namespace GreenWayBottles.Models
 {
     public class Users : INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged_Implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string propertyname)
@@ -12,7 +13,9 @@ namespace GreenWayBottles.Models
             if(PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
         }
+        #endregion
 
+        #region Class Properties
         //User's First Name
         private string firstName;
         public string FirstName
@@ -120,6 +123,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Cell Number
         private string cellNumber;
         public string CellNumber
         {
@@ -134,6 +138,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Street Address
         private string streetAddress;
         public string StreetAddress
         {
@@ -148,6 +153,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Suburb Name
         private string suburb;
         public string Suburb
         {
@@ -162,6 +168,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's City Name
         private string city;
         public string City
         {
@@ -176,6 +183,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Province Name
         private string province;
         public string Province
         {
@@ -190,6 +198,7 @@ namespace GreenWayBottles.Models
             }
         }
 
+        //User's Country Name
         private string country;
         public string Country
         {
@@ -203,6 +212,8 @@ namespace GreenWayBottles.Models
                 }
             }
         }
-       
+
+        #endregion
+
     }
 }
