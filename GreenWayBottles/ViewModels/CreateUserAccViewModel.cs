@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using GreenWayBottles.Models;
+using GreenWayBottles.Services;
 
 
 namespace GreenWayBottles.ViewModels
@@ -12,7 +13,8 @@ namespace GreenWayBottles.ViewModels
         /// </summary>
         public CreateUserAccViewModel()
         {
-            
+            User = new Users();
+            dataService = new DatabaseService();
         }
         #endregion
 
@@ -28,9 +30,21 @@ namespace GreenWayBottles.ViewModels
         #endregion
 
         #region Class Members
-        Users user = new();
+        DatabaseService dataService;
 
+        private Users user;
+        public Users User
+        {
+            get => user;
+            set
+            {
+                user = value;
+                OnPropertyChanged(nameof(user));
+            }
+        }
         #endregion
+
+        
 
         #region Helper Methods
 

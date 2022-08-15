@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.CreateUserAccountView"
-             xmlns:viewModels="clr-namespace:GreenWayBottles.ViewModels"
              Title="CreateUserAccountView"
              WidthRequest="600">
     
@@ -50,7 +49,7 @@
             <Entry Grid.Row="2" Grid.Column="0" x:Name="firstNameTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding Path=User.FirstName}"/>
 
             <!-- Last Name Tag                                 -->
             <Label 
