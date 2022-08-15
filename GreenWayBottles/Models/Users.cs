@@ -1,51 +1,25 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
 
 
 namespace GreenWayBottles.Models
 {
-    public class Users : INotifyPropertyChanged
+    public partial class Users : ObservableObject
     {
-        #region INotifyPropertyChanged_Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyname)
+        public Users()
         {
-            if(PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+            FirstName = "Lindo";
+            LastName = "Gamede";
         }
-        #endregion
 
         #region Class Properties
         //User's First Name
+        [ObservableProperty]
         private string firstName;
-        public string FirstName
-        {
-            get => firstName;
-
-            set
-            {
-                if (value != null)
-                {
-                    firstName = value;
-                    OnPropertyChanged(nameof(FirstName));
-                }
-            }
-        }
 
         //User's Last name
+        [ObservableProperty]
         private string lastName;
-        public string LastName
-        {
-            get => lastName;
-            set
-            {
-                if (value != null)
-                {
-                    lastName = value;
-                    OnPropertyChanged(nameof(LastName));
-                }
-            }
-        }
 
         //User's Id Number
         private string idNumber;
@@ -63,155 +37,45 @@ namespace GreenWayBottles.Models
         }
 
         //User's Gender
+        [ObservableProperty]
         private string gender;
-        public string Gender
-        {
-            get => gender;
-            set
-            {
-                if (value != null)
-                {
-                    gender = value;
-                    OnPropertyChanged(nameof(Gender));
-                }
-            }
-        }
+
 
         //User's Highest Qualification
+        [ObservableProperty]
         private string highestQlfn;
-        public string HighestQlfn
-        {
-            get => highestQlfn;
-            set
-            {
-                if (value != null)
-                {
-                    highestQlfn = value;
-                    OnPropertyChanged(nameof(highestQlfn));
-                }
-            }
-
-        }
 
         //User's Income Range
+        [ObservableProperty]
         private string incomeRange;
-        public string IncomeRange
-        {
-            get => incomeRange;
-            set
-            {
-                if (value != null)
-                {
-                    incomeRange = value;
-                    OnPropertyChanged(nameof(IncomeRange)); 
-                }
-            }
-        }
 
         //User's Email Address
+        [ObservableProperty]
         private string email;
-        public string Email
-        {
-            get => email;
-            set
-            {
-                if (value != null)
-                {
-                    email = value;
-                    OnPropertyChanged(nameof(Email));
-                }
-            }
-        }
 
         //User's Cell Number
+        [ObservableProperty]
         private string cellNumber;
-        public string CellNumber
-        {
-            get => cellNumber;
-            set
-            {
-                if (value != null)
-                {
-                   cellNumber = value;
-                    OnPropertyChanged(nameof(cellNumber));
-                }
-            }
-        }
 
         //User's Street Address
+        [ObservableProperty]
         private string streetAddress;
-        public string StreetAddress
-        {
-            get => streetAddress;
-            set
-            {
-                if (value != null)
-                {
-                    streetAddress = value;
-                    OnPropertyChanged(nameof(StreetAddress));
-                }
-            }
-        }
 
         //User's Suburb Name
+        [ObservableProperty]
         private string suburb;
-        public string Suburb
-        {
-            get => suburb;
-            set
-            {
-                if (value != null)
-                {
-                    suburb = value;
-                    OnPropertyChanged(nameof(Suburb));
-                }
-            }
-        }
 
         //User's City Name
+        [ObservableProperty]
         private string city;
-        public string City
-        {
-            get => city;
-            set
-            {
-                if (value != null)
-                {
-                    city = value;
-                    OnPropertyChanged(nameof (City));
-                }
-            }
-        }
 
         //User's Province Name
+        [ObservableProperty]
         private string province;
-        public string Province
-        {
-            get => province;
-            set
-            {
-                if (value != null)
-                {
-                    province = value;
-                    OnPropertyChanged(nameof(Province));
-                }
-            }
-        }
 
         //User's Country Name
+        [ObservableProperty]
         private string country;
-        public string Country
-        {
-            get => country;
-            set
-            {
-                if (value != null)
-                {
-                    country = value;
-                    OnPropertyChanged(nameof(Country));
-                }
-            }
-        }
 
         #endregion
 
