@@ -17,16 +17,17 @@ namespace GreenWayBottles.ViewModels
         {
             User = new Users();
             dataService = new DatabaseService();
+            alerts = new AlertService();
         }
         #endregion
-
-        
 
         #region Class Members
         DatabaseService dataService;
 
         [ObservableProperty]
         private Users user;
+
+        AlertService alerts;
 
         #endregion
 
@@ -40,26 +41,54 @@ namespace GreenWayBottles.ViewModels
         {
             if (CheckTextFields())
             {
-                dataService.SaveData(user); 
-                
+                dataService.SaveData(user);
+                await alerts.ShowAlertAsync("Success", "User Account Created Successfully");
+                Clear();    //Clear text fields
+            }
+            else
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "One or more empty text fields found");
             }
             
                 
         }
 
+        /// <summary>
+        /// Check if any text field is empty
+        /// </summary>
+        /// <returns>Return false if empty else return True</returns>
         bool CheckTextFields()
         {
             bool emptyFields = false;
 
-            if(user.FirstName == "" || user.LastName == "" || user.IdNumber == "" || 
+            if (!(user.FirstName == "" || user.LastName == "" || user.IdNumber == "" ||
                 user.Gender == "" || user.HighestQlfn == "" || user.IncomeRange == "" ||
                 user.Email == "" || user.CellNumber == "" || user.StreetAddress == "" ||
-                user.Suburb == "" || user.City == "" || user.Province == "" || user.Country == "")
+                user.Suburb == "" || user.City == "" || user.Province == "" || user.Country == ""))
+            {
                 emptyFields = true;
+               
+            }
 
             return emptyFields;
         }
 
+        void Clear()
+        {
+            user.FirstName = "";
+            user.LastName = "";
+            user.IdNumber = "";
+            user.Gender = ""; 
+            user.HighestQlfn = "";
+            user.IncomeRange = "";
+            user.Email = "";
+            user.CellNumber = "";
+            user.StreetAddress = "";
+            user.Suburb = "";
+            user.City = "";
+            user.Province = "";
+            user.Country = "";
+        }
 
         #endregion
     }
