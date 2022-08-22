@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
 
 
+
 namespace GreenWayBottles.ViewModels
 { 
-    public class CreateUserAccViewModel : INotifyPropertyChanged
+    public partial class CreateUserAccViewModel : ObservableObject
     {
         #region Default Constructor
         /// <summary>
@@ -18,35 +20,45 @@ namespace GreenWayBottles.ViewModels
         }
         #endregion
 
-        #region INotifyPropertyChanged Implementation Method
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
-        {
-            if(PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        
 
         #region Class Members
         DatabaseService dataService;
 
+        [ObservableProperty]
         private Users user;
-        public Users User
-        {
-            get => user;
-            set
-            {
-                user = value;
-                OnPropertyChanged(nameof(user));
-            }
-        }
+
         #endregion
 
-        
-
         #region Helper Methods
+        /// <summary>
+        /// The Save Method calls databaseService method to
+        /// Save the user data in the database
+        /// </summary>
+        [RelayCommand]
+        async void Save()
+        {
+            if (CheckTextFields())
+            {
+                dataService.SaveData(user); 
+                
+            }
+            
+                
+        }
+
+        bool CheckTextFields()
+        {
+            bool emptyFields = false;
+
+            if(user.FirstName == "" || user.LastName == "" || user.IdNumber == "" || 
+                user.Gender == "" || user.HighestQlfn == "" || user.IncomeRange == "" ||
+                user.Email == "" || user.CellNumber == "" || user.StreetAddress == "" ||
+                user.Suburb == "" || user.City == "" || user.Province == "" || user.Country == "")
+                emptyFields = true;
+
+            return emptyFields;
+        }
 
 
         #endregion

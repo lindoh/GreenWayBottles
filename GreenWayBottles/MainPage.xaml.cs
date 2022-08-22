@@ -1,16 +1,14 @@
-﻿using GreenWayBottles.ViewModels;
-using System.Data;
+﻿using System.Data;
+using GreenWayBottles.ViewModels;
 
 namespace GreenWayBottles;
 
 public partial class MainPage : Shell
 {
-	CreateUserAccViewModel createUserAccViewModel;
 	public MainPage()
 	{
 		InitializeComponent();
-		createUserAccViewModel = new CreateUserAccViewModel();
-		
+		BindingContext = new CreateUserAccViewModel();
 	}
 
 	

@@ -7,9 +7,8 @@ namespace GreenWayBottles.Models
     public partial class Users : ObservableObject
     {
         public Users()
-        {
-            FirstName = "Lindo";
-            LastName = "Gamede";
+        {           
+            
         }
 
         #region Class Properties
@@ -39,7 +38,6 @@ namespace GreenWayBottles.Models
         //User's Gender
         [ObservableProperty]
         private string gender;
-
 
         //User's Highest Qualification
         [ObservableProperty]

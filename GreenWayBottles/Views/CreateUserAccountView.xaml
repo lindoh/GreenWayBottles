@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.CreateUserAccountView"
+             xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+             x:DataType="viewmodel:CreateUserAccViewModel"
              Title="CreateUserAccountView"
              WidthRequest="600">
     
@@ -49,7 +51,7 @@
             <Entry Grid.Row="2" Grid.Column="0" x:Name="firstNameTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5" Text="{Binding Path=User.FirstName}"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.FirstName}"/>
 
             <!-- Last Name Tag                                 -->
             <Label 
@@ -60,7 +62,7 @@
             <Entry Grid.Row="2" Grid.Column="1" x:Name="lastNameTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.LastName}"/>
 
             <!-- Id Number Tag                                 -->
             <Label 
@@ -71,7 +73,7 @@
             <Entry Grid.Row="4" Grid.Column="0" x:Name="idNumberTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.IdNumber}"/>
 
             <!-- Gender Tag                                 -->
             <Label 
@@ -80,7 +82,7 @@
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="4" Grid.Column="1" x:Name="genderPicker"
+                Grid.Row="4" Grid.Column="1" x:Name="genderPicker" SelectedItem="{Binding User.Gender}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String>Male</x:String>
@@ -96,7 +98,7 @@
             Margin="10, 5, 5, 0"/>
             <Picker
                 Grid.Row="6" Grid.Column="0" x:Name="highestQlfnPicker"
-                FontSize="Caption" TextColor="Black">
+                FontSize="Caption" TextColor="Black" SelectedItem="{Binding User.HighestQlfn}">
                 <Picker.Items>
                     <x:String>Grade 9</x:String>
                     <x:String>Grade 10 or National (vocational) Certificates level 2</x:String>
@@ -118,7 +120,7 @@
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="6" Grid.Column="1" x:Name="incomeRangePicker"
+                Grid.Row="6" Grid.Column="1" x:Name="incomeRangePicker" SelectedItem="{Binding User.IncomeRange}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String>Less than R1000</x:String>
@@ -139,7 +141,7 @@
             <Entry Grid.Row="8" Grid.Column="0" x:Name="emailTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.Email}"/>
 
             <!-- Cell Number Tag                                 -->
             <Label 
@@ -150,7 +152,7 @@
             <Entry Grid.Row="8" Grid.Column="1" x:Name="cellNumberTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.CellNumber}"/>
 
             <!-- Physical Address Tag                                 -->
             <Label 
@@ -168,7 +170,7 @@
             <Entry Grid.Row="11" Grid.Column="0" x:Name="streetAddTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.StreetAddress}"/>
 
             <!-- Suburb Tag                                 -->
             <Label 
@@ -179,7 +181,7 @@
             <Entry Grid.Row="11" Grid.Column="1" x:Name="suburbTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.Suburb}"/>
 
             <!-- City Tag                                 -->
             <Label 
@@ -190,7 +192,7 @@
             <Entry Grid.Row="13" Grid.Column="0" x:Name="cityTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5"/>
+            Margin="10, 0, 5, 5" Text="{Binding User.City}"/>
 
             <!-- Province Tag                                 -->
             <Label 
@@ -199,7 +201,7 @@
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="13" Grid.Column="1" x:Name="provincePicker"
+                Grid.Row="13" Grid.Column="1" x:Name="provincePicker" SelectedItem="{Binding User.Province}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String>Eastern Cape</x:String>
@@ -221,7 +223,7 @@
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="15" Grid.Column="0" x:Name="countryPicker"
+                Grid.Row="15" Grid.Column="0" x:Name="countryPicker" SelectedItem="{Binding User.Country}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String></x:String>
@@ -233,7 +235,8 @@
             <Button 
                 Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2"
                 x:Name="saveBtn" Text="Save" FontSize="Small" BackgroundColor="#155ca1"
-                Margin="20" Padding="5" WidthRequest="200"/>
+                Margin="20" Padding="5" WidthRequest="200"
+                Command="{Binding SaveCommand}"/>
 
         </Grid>
     </ScrollView>

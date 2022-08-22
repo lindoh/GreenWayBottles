@@ -11,7 +11,9 @@ namespace GreenWayBottles.Services
 
         public DatabaseService()
         {
-            string DataConnection = "data source = localhost; integrated security = true; initial catalog=GreenWayData";
+            string DataConnection = "Server = LAPTOP-J3M5FNUA; Database = GreenWayData; " +
+                                    "Integrated Security=True; Encrypt=True; TrustServerCertificate=True;" +
+                                    "User Instance=False";
             sqlConnection = new SqlConnection(DataConnection);
             sqlCommand = new SqlCommand();
             sqlCommand.Connection = sqlConnection;
