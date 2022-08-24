@@ -11,8 +11,10 @@ namespace GreenWayBottles.ViewModels
         public UpdateUserAccViewModel()
         {
             dataService = new();
-            user = new();
+            User = new();
+            LoadData();
             alerts = new();
+           
         }
 
         #endregion
@@ -25,9 +27,18 @@ namespace GreenWayBottles.ViewModels
 
         AlertService alerts;
 
+        [ObservableProperty]
         ObservableCollection<Users> usersList;
         #endregion
 
+        #region Helper Methods
+        void LoadData()
+        {
+            
+            UsersList = new ObservableCollection<Users>(dataService.GetAll());           
+        }
 
+
+        #endregion
     }
 }

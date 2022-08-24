@@ -83,10 +83,11 @@ namespace GreenWayBottles.Services
 
                 if(sqlDataReader.HasRows)
                 {
-                    Users user = new();
+                    Users user;
 
                     while(sqlDataReader.Read())
                     {
+                        user = new();
                         user.Id = sqlDataReader.GetInt32(0);
                         user.FirstName = sqlDataReader.GetString(1);
                         user.LastName = sqlDataReader.GetString(2);
