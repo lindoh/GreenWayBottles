@@ -12,6 +12,10 @@ namespace GreenWayBottles.Models
         }
 
         #region Class Properties
+        //User's Database Id
+        [ObservableProperty]
+        private int id;
+
         //User's First Name
         [ObservableProperty]
         private string firstName;
@@ -21,19 +25,8 @@ namespace GreenWayBottles.Models
         private string lastName;
 
         //User's Id Number
+        [ObservableProperty]
         private string idNumber;
-        public string IdNumber
-        {
-            get => idNumber;
-            set
-            {
-                if (value != null && value.Length == 13)
-                {
-                    idNumber = value;
-                    OnPropertyChanged(nameof(IdNumber));    
-                }
-            }
-        }
 
         //User's Gender
         [ObservableProperty]

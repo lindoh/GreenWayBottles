@@ -20,6 +20,11 @@ namespace GreenWayBottles.Services
             sqlCommand.CommandType = CommandType.StoredProcedure;
         }
 
+        /// <summary>
+        /// Save Collector's Data in the Collector's Database Table
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public bool SaveData(Users user)
         {
             bool isSaved = false;
@@ -62,6 +67,47 @@ namespace GreenWayBottles.Services
             
 
             return isSaved;
+        }
+
+        public List<Users> GetAll()
+        {
+            List<Users> usersList = new();
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "GetAllCollectors";
+
+                sqlConnection.Open();
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if(sqlDataReader.HasRows)
+                {
+                    Users user = new();
+
+                    while(sqlDataReader.Read())
+                    {
+                        user.Id = sqlDataReader.GetInt32(0);
+                        user.FirstName = sqlDataReader.GetString(1);
+                        user.LastName = sqlDataReader.GetString(2);
+
+                        usersList.Add(user);
+                    }
+                    sqlDataReader.Close();
+
+                }
+
+                return usersList;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
 
     }

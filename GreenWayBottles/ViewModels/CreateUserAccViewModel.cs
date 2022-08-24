@@ -3,7 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
 
-
+//TO DO!!
+//ADD EMAIL VERIFICATION
 
 namespace GreenWayBottles.ViewModels
 { 
@@ -39,7 +40,11 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         async void Save()
         {
-            if (CheckTextFields())
+            if (user.IdNumber.Length != 13)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "Id Number must be 13 digits long");
+            }
+            else if (CheckTextFields())
             {
                 dataService.SaveData(user);
                 await alerts.ShowAlertAsync("Success", "User Account Created Successfully");
@@ -54,7 +59,7 @@ namespace GreenWayBottles.ViewModels
         }
 
         /// <summary>
-        /// Check if any text field is empty
+        /// Check if any text fields are empty
         /// </summary>
         /// <returns>Return false if empty else return True</returns>
         bool CheckTextFields()
@@ -73,6 +78,9 @@ namespace GreenWayBottles.ViewModels
             return emptyFields;
         }
 
+        /// <summary>
+        /// Clear all text fields
+        /// </summary>
         void Clear()
         {
             user.FirstName = "";
