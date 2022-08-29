@@ -10,6 +10,7 @@ public partial class MainPage : Shell
 		InitializeComponent();
 		BindingContext = new CreateUserAccViewModel();
 		BindingContext = new UpdateUserAccViewModel();	
+		BindingContext = new DeleteUserAccViewModel();	
 	}
 
 	

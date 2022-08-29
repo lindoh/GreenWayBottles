@@ -20,6 +20,8 @@
                       ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"/>
         <ShellContent Title="Update Banking Details"
                       ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
+        <ShellContent Title="Delete User Account"
+                      ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
         <ShellContent Title="Update Admin Account"
                       ContentTemplate="{x:DataTemplate views:UpdateAdminAccountView}"/>
     </FlyoutItem>

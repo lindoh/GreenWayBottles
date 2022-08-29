@@ -1,43 +1,36 @@
-﻿using GreenWayBottles.Services;
-using GreenWayBottles.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+using System.Collections.ObjectModel;
 
 namespace GreenWayBottles.ViewModels
 {
-    public partial class UpdateUserAccViewModel : ObservableObject
+    public partial class DeleteUserAccViewModel : ObservableObject
     {
-        #region Default Constructor
-        public UpdateUserAccViewModel()
+        public DeleteUserAccViewModel()
         {
             dataService = new DatabaseService();
-            User = new Users();
-            usersList = new ObservableCollection<Users>();
             alerts = new AlertService();
-            createUserAccViewModel = new CreateUserAccViewModel();  
+            user = new Users();
+            UsersList = new ObservableCollection<Users>();
         }
-
-        #endregion
 
         #region Class Properties
         //Database service object
         DatabaseService dataService;
 
-        //CreateUserAccViewModel
-        //To assist with common methods needed by this
-        //ViewModel Class
-        CreateUserAccViewModel createUserAccViewModel;
-
         //Alert service object
         AlertService alerts;
 
+        //The current user
         [ObservableProperty]
         Users user;
 
         //To store the list of users
         [ObservableProperty]
         ObservableCollection<Users> usersList;
+
         #endregion
 
         #region ViewModel Buttons
@@ -51,33 +44,21 @@ namespace GreenWayBottles.ViewModels
             UsersList = new ObservableCollection<Users>(dataService.SearchCollector(name));
         }
 
-        /// <summary>
-        /// Update Method calls the Database service Update Method
-        /// to update the User's details
-        /// </summary>
         [RelayCommand]
-        async void Update()
+        async void Delete()
         {
-            if (user.IdNumber.Length != 13)
-            {
-                await alerts.ShowAlertAsync("Operation Failed", "Id Number must be 13 digits long");
-            }
-            else if (createUserAccViewModel.CheckTextFields(this.user))
-            {
-                bool isUpdated = dataService.Update(user);
+            bool isDeleted = dataService.Delete(user.Id);
 
-                if(isUpdated)
-                {
-                    await alerts.ShowAlertAsync("Success", "User Account Updated Successfully");
-                    createUserAccViewModel.Clear(this.user);    //Clear text fields
-                }
+            if(isDeleted)
+            {
+                await alerts.ShowAlertAsync("Operation Successful", "User Account Deleted Successfully");
+                return;
             }
             else
             {
-                await alerts.ShowAlertAsync("Operation Failed", "One or more empty text fields found");
+
             }
         }
-
         #endregion
 
         #region Helper Methods

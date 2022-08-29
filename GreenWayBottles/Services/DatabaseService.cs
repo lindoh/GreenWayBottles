@@ -79,7 +79,7 @@ namespace GreenWayBottles.Services
 
         #endregion
 
-        #region GetAll Collector's Data Method
+        #region GetAll Collector's Data 
         /// <summary>
         /// Get all data that matches a given name, i.e., Firstname
         /// </summary>
@@ -182,6 +182,40 @@ namespace GreenWayBottles.Services
             }
 
             return isUpdated;
+        }
+
+        #endregion
+
+        #region Delete Collector's Data
+        public bool Delete(int id)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();      //Clear Parameters
+                sqlCommand.CommandText = "DeleteCollector";
+
+                sqlCommand.Parameters.AddWithValue("@CollectorId", id);
+
+                //Open Sql database connection
+                sqlConnection.Open();
+
+                //If number of rows affected > 0 then the data is deleted succesfully
+                int noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isDeleted = noOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isDeleted;
         }
 
         #endregion
