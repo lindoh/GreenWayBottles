@@ -2,6 +2,7 @@
 using GreenWayBottles.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace GreenWayBottles.ViewModels
 {
@@ -10,11 +11,10 @@ namespace GreenWayBottles.ViewModels
         #region Default Constructor
         public UpdateUserAccViewModel()
         {
-            dataService = new();
-            User = new();
-            LoadData();
-            alerts = new();
-           
+            dataService = new DatabaseService();
+            User = new Users();
+            usersList = new ObservableCollection<Users>(dataService.GetAll(""));
+            alerts = new AlertService();
         }
 
         #endregion
@@ -22,23 +22,34 @@ namespace GreenWayBottles.ViewModels
         #region Class Members
         DatabaseService dataService;
 
-        [ObservableProperty]
-        Users user;
-
         AlertService alerts;
 
         [ObservableProperty]
+        Users user;
+
+        [ObservableProperty]
         ObservableCollection<Users> usersList;
+
+        [RelayCommand]
+        void Search(string query)
+        {
+            UsersList = new ObservableCollection<Users>(dataService.GetAll(query));
+        }
+
+        [RelayCommand]
+        void Update()
+        {
+
+        }
+
         #endregion
 
         #region Helper Methods
-        void LoadData()
+
+        public void selectedItem(object sender, SelectedItemChangedEventArgs args)
         {
-            
-            UsersList = new ObservableCollection<Users>(dataService.GetAll());           
+            User = args.SelectedItem as Users;
         }
-
-
         #endregion
     }
 }

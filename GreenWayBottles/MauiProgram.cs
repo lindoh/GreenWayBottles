@@ -16,8 +16,10 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<MainPage>();
+
 		builder.Services.AddSingleton<CreateUserAccViewModel>();
 		builder.Services.AddSingleton<UpdateUserAccViewModel>();
+
 		builder.Services.AddSingleton<IAlertService, AlertService>();
 
 		return builder.Build();

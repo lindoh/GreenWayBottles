@@ -39,7 +39,7 @@
             <Label 
             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
             Text="Create A New User Account" VerticalOptions="Center" HorizontalOptions="Center" 
-            FontSize="Title" TextColor="#155ca1"
+            FontSize="Title" TextColor="#155ca1" 
             Margin="10"/>
             
             <!-- First Name Tag                                 -->

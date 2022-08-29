@@ -69,7 +69,7 @@ namespace GreenWayBottles.Services
             return isSaved;
         }
 
-        public List<Users> GetAll()
+        public List<Users> GetAll(string query)
         {
             List<Users> usersList = new();
 
@@ -77,6 +77,7 @@ namespace GreenWayBottles.Services
             {
                 sqlCommand.Parameters.Clear();
                 sqlCommand.CommandText = "GetAllCollectors";
+                sqlCommand.Parameters.AddWithValue("@FirstName", query);
 
                 sqlConnection.Open();
                 var sqlDataReader = sqlCommand.ExecuteReader();
@@ -91,6 +92,17 @@ namespace GreenWayBottles.Services
                         user.Id = sqlDataReader.GetInt32(0);
                         user.FirstName = sqlDataReader.GetString(1);
                         user.LastName = sqlDataReader.GetString(2);
+                        user.IdNumber = sqlDataReader.GetString(3);
+                        user.Gender = sqlDataReader.GetString(4);
+                        user.HighestQlfn = sqlDataReader.GetString(5);
+                        user.IncomeRange = sqlDataReader.GetString(6);
+                        user.Email = sqlDataReader.GetString(7);
+                        user.CellNumber = sqlDataReader.GetString(8);
+                        user.StreetAddress = sqlDataReader.GetString(9);
+                        user.Suburb = sqlDataReader.GetString(10);
+                        user.City = sqlDataReader.GetString(11);
+                        user.Province = sqlDataReader.GetString(12);
+                        user.Country = sqlDataReader.GetString(13);
 
                         usersList.Add(user);
                     }
