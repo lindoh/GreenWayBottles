@@ -32,7 +32,7 @@ namespace GreenWayBottles.ViewModels
 
         #endregion
 
-        #region Helper Methods
+        #region ViewModel Buttons
         /// <summary>
         /// The Save Method calls databaseService method to
         /// Save the user data in the database
@@ -44,25 +44,27 @@ namespace GreenWayBottles.ViewModels
             {
                 await alerts.ShowAlertAsync("Operation Failed", "Id Number must be 13 digits long");
             }
-            else if (CheckTextFields())
+            else if (CheckTextFields(this.user))
             {
                 dataService.SaveData(user);
                 await alerts.ShowAlertAsync("Success", "User Account Created Successfully");
-                Clear();    //Clear text fields
+                Clear(this.user);    //Clear text fields
             }
             else
             {
                 await alerts.ShowAlertAsync("Operation Failed", "One or more empty text fields found");
             }
-            
-                
+            #endregion
+
         }
+
+        #region Helper Methods
 
         /// <summary>
         /// Check if any text fields are empty
         /// </summary>
         /// <returns>Return false if empty else return True</returns>
-        bool CheckTextFields()
+        public bool CheckTextFields(Users user)
         {
             bool emptyFields = false;
 
@@ -81,7 +83,7 @@ namespace GreenWayBottles.ViewModels
         /// <summary>
         /// Clear all text fields
         /// </summary>
-        void Clear()
+        public void Clear(Users user)
         {
             user.FirstName = "";
             user.LastName = "";

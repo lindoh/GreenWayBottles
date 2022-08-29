@@ -2,6 +2,10 @@
 using Microsoft.Data.SqlClient;
 using GreenWayBottles.Models;
 
+//    TO DO:
+// Formalize SqlExceptions to match what caused the error
+// Add Comments
+
 namespace GreenWayBottles.Services
 {
     public class DatabaseService
@@ -9,6 +13,7 @@ namespace GreenWayBottles.Services
         SqlConnection sqlConnection;
         SqlCommand sqlCommand;
 
+        #region Default Constructor
         public DatabaseService()
         {
             string DataConnection = "Server = LAPTOP-J3M5FNUA; Database = GreenWayData; " +
@@ -20,6 +25,9 @@ namespace GreenWayBottles.Services
             sqlCommand.CommandType = CommandType.StoredProcedure;
         }
 
+        #endregion
+
+        #region SaveData Method for Collector
         /// <summary>
         /// Save Collector's Data in the Collector's Database Table
         /// </summary>
@@ -69,15 +77,22 @@ namespace GreenWayBottles.Services
             return isSaved;
         }
 
-        public List<Users> GetAll(string query)
+        #endregion
+
+        #region GetAll Collector's Data Method
+        /// <summary>
+        /// Get all data that matches a given name, i.e., Firstname
+        /// </summary>
+        /// <returns>List of users that matches Firstname</returns>
+        public List<Users> SearchCollector(string name)
         {
             List<Users> usersList = new();
 
             try
             {
                 sqlCommand.Parameters.Clear();
-                sqlCommand.CommandText = "GetAllCollectors";
-                sqlCommand.Parameters.AddWithValue("@FirstName", query);
+                sqlCommand.CommandText = "SearchCollector";
+                sqlCommand.Parameters.AddWithValue("@FirstName", name);
 
                 sqlConnection.Open();
                 var sqlDataReader = sqlCommand.ExecuteReader();
@@ -122,6 +137,54 @@ namespace GreenWayBottles.Services
                 sqlConnection.Close();
             }
         }
+        #endregion
+
+        #region Update Collector's Data
+        public bool Update(Users user)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "UpdateCollector";
+
+                sqlCommand.Parameters.AddWithValue("@CollectorId", user.Id);
+                sqlCommand.Parameters.AddWithValue("@FirstName", user.FirstName);
+                sqlCommand.Parameters.AddWithValue("@LastName", user.LastName);
+                sqlCommand.Parameters.AddWithValue("@IdNumber", user.IdNumber);
+                sqlCommand.Parameters.AddWithValue("@Gender", user.Gender);
+                sqlCommand.Parameters.AddWithValue("@HighestQlfn", user.HighestQlfn); ;
+                sqlCommand.Parameters.AddWithValue("@IncomeRange", user.IncomeRange);
+                sqlCommand.Parameters.AddWithValue("@Email", user.Email);
+                sqlCommand.Parameters.AddWithValue("@CellNumber", user.CellNumber);
+                sqlCommand.Parameters.AddWithValue("@StreetAddress", user.StreetAddress);
+                sqlCommand.Parameters.AddWithValue("@Suburb", user.Suburb);
+                sqlCommand.Parameters.AddWithValue("@City", user.City);
+                sqlCommand.Parameters.AddWithValue("@Province", user.Province);
+                sqlCommand.Parameters.AddWithValue("@Country", user.Country);
+
+                //Open Sql database connection
+                sqlConnection.Open();
+
+                //If affected number of rows is > 0, then data is updated successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isUpdated = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isUpdated;
+        }
+
+        #endregion
 
     }
 }
