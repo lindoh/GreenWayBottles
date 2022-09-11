@@ -10,8 +10,11 @@ namespace GreenWayBottles.Services
 {
     public class DatabaseService
     {
+        #region Class Properties
         SqlConnection sqlConnection;
         SqlCommand sqlCommand;
+
+        #endregion
 
         #region Default Constructor
         public DatabaseService()
@@ -146,36 +149,33 @@ namespace GreenWayBottles.Services
             }
         }
         #endregion
-        public List<Users> SearchAdmin(string name)
-        {
-            List<Users> usersList = new List<Users>();
-
-
-            return usersList;
-        }
-        #region GetAll Admin's Data
-
-        #endregion
 
         #region Update User's Data
         public bool Update(Users user, string selectedUser)
         {
             bool isUpdated = false;
-            string userToUpdate = string.Empty;
+            string userToUpdate = "UpdateCollector";
+            string userId = "@CollectorId";
 
             //Update the userToUpdate variable to select the correct 
             //Stored Procedure for the updatec function
             if (selectedUser == "Admin")
+            {
                 userToUpdate = "UpdateAdmin";
-            else if (selectedUser == "Admin")
+                userId = "@AdminId";
+            }
+            else if (selectedUser == "Collector")
+            {
                 userToUpdate = "UpdateCollector";
+                userId = "@CollectorId";
+            }
 
             try
             {
                 sqlCommand.Parameters.Clear();
                 sqlCommand.CommandText = userToUpdate;
 
-                sqlCommand.Parameters.AddWithValue("@CollectorId", user.Id);
+                sqlCommand.Parameters.AddWithValue(userId, user.Id);
                 sqlCommand.Parameters.AddWithValue("@FirstName", user.FirstName);
                 sqlCommand.Parameters.AddWithValue("@LastName", user.LastName);
                 sqlCommand.Parameters.AddWithValue("@IdNumber", user.IdNumber);
@@ -212,17 +212,32 @@ namespace GreenWayBottles.Services
 
         #endregion
 
-        #region Delete Collector's Data
-        public bool Delete(int id)
+        #region Delete User's Data
+        public bool Delete(int id, string selectedUser)
         {
             bool isDeleted = false;
+            string userToDelete = "DeleteCollector";
+            string userId = "@CollectorId";
+
+            //Update the userToUpdate variable to select the correct 
+            //Stored Procedure for the updatec function
+            if (selectedUser == "Admin")
+            {
+                userToDelete = "DeleteAdmin";
+                userId = "@AdminId";
+            }
+            else if (selectedUser == "Collector")
+            {
+                userToDelete = "DeleteCollector";
+                userId = "@CollectorId";
+            }
 
             try
             {
                 sqlCommand.Parameters.Clear();      //Clear Parameters
-                sqlCommand.CommandText = "DeleteCollector";
+                sqlCommand.CommandText = userToDelete;
 
-                sqlCommand.Parameters.AddWithValue("@CollectorId", id);
+                sqlCommand.Parameters.AddWithValue(userId, id);
 
                 //Open Sql database connection
                 sqlConnection.Open();

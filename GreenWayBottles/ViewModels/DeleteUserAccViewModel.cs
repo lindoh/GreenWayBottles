@@ -45,15 +45,25 @@ namespace GreenWayBottles.ViewModels
         /// to search for the current user in the database
         /// </summary>
         [RelayCommand]
-        void Search(string name)
+        async void Search(string name)
         {
-            UsersList = new ObservableCollection<Users>(dataService.Search(name, selectedUser));
+            if (selectedUser != null)
+            {
+                //Get the list of users that match the given name
+                UsersList = new ObservableCollection<Users>(dataService.Search(name, selectedUser));
+
+                //If the user is not found, notify the user
+                if (usersList.Count == 0)
+                    await alerts.ShowAlertAsync("Search Operation Failed", "User not found");
+            }
+            else
+                await alerts.ShowAlertAsync("Search Operation Failed", "The User Category Must be Selected First");
         }
 
         [RelayCommand]
         async void Delete()
         {
-            bool isDeleted = dataService.Delete(user.Id);
+            bool isDeleted = dataService.Delete(user.Id, selectedUser);
 
             if(isDeleted)
             {

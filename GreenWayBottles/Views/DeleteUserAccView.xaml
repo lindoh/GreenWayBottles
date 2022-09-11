@@ -5,31 +5,24 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              Title="DeleteUserAccView"
              WidthRequest="600">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                   Text="Delete Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
-                   FontSize="Title" TextColor="#155ca1" Margin="10"/>
+    <VerticalStackLayout>
+        <Label Text="Delete Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
+               FontSize="Title" TextColor="#155ca1" Margin="10"/>
 
-        <SearchBar Grid.Row="1" Grid.Column="0" 
-                       x:Name="searchBar"  
-                       SearchCommand="{Binding SearchCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+        <HorizontalStackLayout>
+            <RadioButton x:Name="AdminRadioBtn" Content="Admin" CheckedChanged="RadioButton_CheckedChanged"/>
+            <RadioButton x:Name="CollectorRadioBtn" Content="Collector" CheckedChanged="RadioButton_CheckedChanged"/>
+        </HorizontalStackLayout>
+        
+        <SearchBar x:Name="searchBar"  
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
 
-        <ListView Grid.Row="2" Grid.Column="0" Margin="10" Header="Results"
-                      x:Name="usersListView" BackgroundColor="LightGray" 
-                      ItemSelected="usersListView_ItemSelected"
-                      ItemsSource="{Binding UsersList}">
+        <ListView Margin="10" Header="Results"
+                  x:Name="usersListView" BackgroundColor="LightGray" 
+                  ItemSelected="usersListView_ItemSelected"
+                  ItemsSource="{Binding UsersList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -43,10 +36,9 @@
         </ListView>
 
         <!-- Delete Button Tag                                 -->
-        <Button 
-                Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2"
-                x:Name="deleteBtn" Text="Delete" FontSize="Small" BackgroundColor="#155ca1"
+        <Button x:Name="deleteBtn" Text="Delete" FontSize="Small" BackgroundColor="#155ca1"
                 Margin="20" Padding="5" WidthRequest="200"
                 Command="{Binding DeleteCommand}"/>
-    </Grid>
+    </VerticalStackLayout>
+      
 </ContentPage>

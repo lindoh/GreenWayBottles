@@ -1,3 +1,4 @@
+
 using GreenWayBottles.ViewModels;
 
 namespace GreenWayBottles.Views;
@@ -7,13 +8,22 @@ public partial class DeleteUserAccView : ContentPage
 	public DeleteUserAccView()
 	{
 		InitializeComponent();
-		deleteUserAccViewModel = new DeleteUserAccViewModel();
+        viewModel = new DeleteUserAccViewModel();
+        BindingContext = viewModel;
 	}
 
-	private void usersListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)
+    DeleteUserAccViewModel viewModel;
+
+    private void usersListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)
 	{
-		deleteUserAccViewModel.selectedItem(sender, args);
+        viewModel.selectedItem(sender, args);
 	}
 
-	DeleteUserAccViewModel deleteUserAccViewModel;
+	private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+	{
+        if (AdminRadioBtn.IsChecked)
+            viewModel.SelectedUser = "Admin";
+        else if (CollectorRadioBtn.IsChecked)
+            viewModel.SelectedUser = "Collector";
+    }
 }
