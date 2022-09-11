@@ -22,8 +22,6 @@
                       ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
         <ShellContent Title="Delete User Account"
                       ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
-        <ShellContent Title="Update Admin Account"
-                      ContentTemplate="{x:DataTemplate views:UpdateAdminAccountView}"/>
     </FlyoutItem>
     
  

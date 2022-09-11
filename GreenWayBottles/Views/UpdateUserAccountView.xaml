@@ -6,6 +6,11 @@
              Title="UpdateUserAccountView"
              WidthRequest="600">
 
+    <!--TO DO
+        Seperate the Search Bar/List view from 
+        the User Details section with a ContentPage
+        To fix the Data Binding Issue-->
+    
     <ScrollView>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -74,8 +79,7 @@
             <Label 
             Grid.Row="4" Grid.Column="0"
             Text="First Name" VerticalOptions="End" HorizontalOptions="Start" 
-            FontSize="Caption" TextColor="Gray"
-            Margin="10, 5, 5, 0"/>
+            FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
             <Entry Grid.Row="5" Grid.Column="0" x:Name="firstNameTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black" 

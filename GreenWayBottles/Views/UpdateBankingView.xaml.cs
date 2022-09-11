@@ -6,4 +6,9 @@ public partial class UpdateBankingView : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+	{
+
+	}
 }
