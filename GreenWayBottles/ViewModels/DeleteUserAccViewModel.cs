@@ -17,11 +17,14 @@ namespace GreenWayBottles.ViewModels
             alerts = new AlertService();
             User = new Users();
             UsersList = new ObservableCollection<Users>();
+            searchService = new SearchService();
         }
 
         #region Class Properties
         //Database service object
         DatabaseService dataService;
+
+        SearchService searchService;
 
         //Alert service object
         AlertService alerts;
@@ -45,19 +48,9 @@ namespace GreenWayBottles.ViewModels
         /// to search for the current user in the database
         /// </summary>
         [RelayCommand]
-        async void Search(string name)
+        void Search(string name)
         {
-            if (selectedUser != null)
-            {
-                //Get the list of users that match the given name
-                UsersList = new ObservableCollection<Users>(dataService.Search(name, selectedUser));
-
-                //If the user is not found, notify the user
-                if (usersList.Count == 0)
-                    await alerts.ShowAlertAsync("Search Operation Failed", "User not found");
-            }
-            else
-                await alerts.ShowAlertAsync("Search Operation Failed", "The User Category Must be Selected First");
+            UsersList = searchService.FindUser(name, selectedUser);
         }
 
         [RelayCommand]

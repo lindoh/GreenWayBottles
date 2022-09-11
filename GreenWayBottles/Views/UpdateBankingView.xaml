@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.UpdateBankingView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
-             x:DataType="viewmodel:UpdateBankingViewModel"
              Title="UpdateBankingView"
              WidthRequest="600">
     
@@ -17,16 +16,20 @@
             <RadioButton x:Name="CollectorRadioBtn" Content="Collector" CheckedChanged="RadioButton_CheckedChanged"/>
         </HorizontalStackLayout>
 
-        <SearchBar x:Name="searchBar"  />
+        <SearchBar x:Name="searchBar"  
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
 
         <ListView Margin="10" Header="Results"
-                  x:Name="usersListView" BackgroundColor="LightGray" >
+                  x:Name="usersListView" BackgroundColor="LightGray" 
+                  ItemSelected="usersListView_ItemSelected"
+                  ItemsSource="{Binding UsersList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <HorizontalStackLayout Spacing="2">
-                            <Label Text=""/>
-                            <Label Text=""/>
+                            <Label Text="{Binding FirstName}"/>
+                            <Label Text="{Binding LastName}"/>
                         </HorizontalStackLayout>
                     </ViewCell>
                 </DataTemplate>
