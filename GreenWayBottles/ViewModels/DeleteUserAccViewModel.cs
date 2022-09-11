@@ -4,6 +4,9 @@ using GreenWayBottles.Models;
 using GreenWayBottles.Services;
 using System.Collections.ObjectModel;
 
+//      TO DO
+//Allow the user to see their info before deletion
+
 namespace GreenWayBottles.ViewModels
 {
     public partial class DeleteUserAccViewModel : ObservableObject
@@ -12,7 +15,7 @@ namespace GreenWayBottles.ViewModels
         {
             dataService = new DatabaseService();
             alerts = new AlertService();
-            user = new Users();
+            User = new Users();
             UsersList = new ObservableCollection<Users>();
         }
 
@@ -52,11 +55,10 @@ namespace GreenWayBottles.ViewModels
             if(isDeleted)
             {
                 await alerts.ShowAlertAsync("Operation Successful", "User Account Deleted Successfully");
-                return;
             }
             else
             {
-
+                await alerts.ShowAlertAsync("Operation Failed", "User Account Could Not Be Deleted");
             }
         }
         #endregion
@@ -76,3 +78,4 @@ namespace GreenWayBottles.ViewModels
         #endregion
     }
 }
+ 

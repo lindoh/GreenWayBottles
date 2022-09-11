@@ -42,7 +42,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Update Button Tag                                 -->
+        <!-- Delete Button Tag                                 -->
         <Button 
                 Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2"
                 x:Name="deleteBtn" Text="Delete" FontSize="Small" BackgroundColor="#155ca1"

@@ -138,6 +138,16 @@ namespace GreenWayBottles.Services
             }
         }
         #endregion
+        public List<Users> SearchAdmin(string name)
+        {
+            List<Users> usersList = new List<Users>();
+
+
+            return usersList;
+        }
+        #region GetAll Admin's Data
+
+        #endregion
 
         #region Update Collector's Data
         public bool Update(Users user)
@@ -180,6 +190,16 @@ namespace GreenWayBottles.Services
             {
                 sqlConnection.Close();
             }
+
+            return isUpdated;
+        }
+
+        #endregion
+
+        #region Update Admin's Data
+        public bool UpdateAdmin(Users user)
+        {
+            bool isUpdated = false;
 
             return isUpdated;
         }

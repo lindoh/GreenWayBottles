@@ -38,6 +38,11 @@ namespace GreenWayBottles.ViewModels
         //To store the list of users
         [ObservableProperty]
         ObservableCollection<Users> usersList;
+
+        //Which user details are being updated
+        [ObservableProperty]
+        string selectedUser;
+
         #endregion
 
         #region ViewModel Buttons
@@ -46,9 +51,14 @@ namespace GreenWayBottles.ViewModels
         /// to search for the current user in the database
         /// </summary>
         [RelayCommand]
-        void Search(string name)
+        async void Search(string name)
         {
-            UsersList = new ObservableCollection<Users>(dataService.SearchCollector(name));
+            if (selectedUser == "Collector")
+                UsersList = new ObservableCollection<Users>(dataService.SearchCollector(name));
+            else if (selectedUser == "Admin")
+                usersList = new ObservableCollection<Users>(dataService.SearchAdmin(name));
+            else
+                await alerts.ShowAlertAsync("Search Operation Failed", "The User Category Must be Selected Above");
         }
 
         /// <summary>
@@ -86,8 +96,6 @@ namespace GreenWayBottles.ViewModels
         /// The selectedItem method updates the User object
         /// with the selected user from the ListView
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
         public void selectedItem(object sender, SelectedItemChangedEventArgs args)
         {
             User = args.SelectedItem as Users;
