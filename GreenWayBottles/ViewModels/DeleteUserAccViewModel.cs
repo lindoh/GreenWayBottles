@@ -34,6 +34,9 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         ObservableCollection<Users> usersList;
 
+        [ObservableProperty]
+        string selectedUser;
+
         #endregion
 
         #region ViewModel Buttons
@@ -44,7 +47,7 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         void Search(string name)
         {
-            UsersList = new ObservableCollection<Users>(dataService.SearchCollector(name));
+            UsersList = new ObservableCollection<Users>(dataService.Search(name, selectedUser));
         }
 
         [RelayCommand]

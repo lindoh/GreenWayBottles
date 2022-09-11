@@ -79,23 +79,31 @@ namespace GreenWayBottles.Services
 
         #endregion
 
-        #region GetAll Collector's Data 
+        #region GetAll User's Data 
         /// <summary>
         /// Get all data that matches a given name, i.e., Firstname
         /// </summary>
         /// <returns>List of users that matches Firstname</returns>
-        public List<Users> SearchCollector(string name)
+        public List<Users> Search(string name, string selectedUser)
         {
             List<Users> usersList = new();
+            string userToSearch = "SearchCollector";
+
+            //Update the userToSearch variable to select the correct 
+            //Stored Procedure for the search
+            if (selectedUser == "Admin")
+                userToSearch = "SearchAdmin";
+            else if (selectedUser == "Admin")
+                userToSearch = "SearchCollector";
 
             try
             {
                 sqlCommand.Parameters.Clear();
-                sqlCommand.CommandText = "SearchCollector";
+                sqlCommand.CommandText = userToSearch;
                 sqlCommand.Parameters.AddWithValue("@FirstName", name);
 
                 sqlConnection.Open();
-                var sqlDataReader = sqlCommand.ExecuteReader();
+               var sqlDataReader = sqlCommand.ExecuteReader();
 
                 if(sqlDataReader.HasRows)
                 {
@@ -149,15 +157,23 @@ namespace GreenWayBottles.Services
 
         #endregion
 
-        #region Update Collector's Data
-        public bool Update(Users user)
+        #region Update User's Data
+        public bool Update(Users user, string selectedUser)
         {
             bool isUpdated = false;
+            string userToUpdate = string.Empty;
+
+            //Update the userToUpdate variable to select the correct 
+            //Stored Procedure for the updatec function
+            if (selectedUser == "Admin")
+                userToUpdate = "UpdateAdmin";
+            else if (selectedUser == "Admin")
+                userToUpdate = "UpdateCollector";
 
             try
             {
                 sqlCommand.Parameters.Clear();
-                sqlCommand.CommandText = "UpdateCollector";
+                sqlCommand.CommandText = userToUpdate;
 
                 sqlCommand.Parameters.AddWithValue("@CollectorId", user.Id);
                 sqlCommand.Parameters.AddWithValue("@FirstName", user.FirstName);
@@ -190,16 +206,6 @@ namespace GreenWayBottles.Services
             {
                 sqlConnection.Close();
             }
-
-            return isUpdated;
-        }
-
-        #endregion
-
-        #region Update Admin's Data
-        public bool UpdateAdmin(Users user)
-        {
-            bool isUpdated = false;
 
             return isUpdated;
         }

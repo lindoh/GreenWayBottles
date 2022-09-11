@@ -53,12 +53,17 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         async void Search(string name)
         {
-            if (selectedUser == "Collector")
-                UsersList = new ObservableCollection<Users>(dataService.SearchCollector(name));
-            else if (selectedUser == "Admin")
-                usersList = new ObservableCollection<Users>(dataService.SearchAdmin(name));
+            if (selectedUser != null)
+            {
+                //Get the list of users that match the given name
+                UsersList = new ObservableCollection<Users>(dataService.Search(name, selectedUser));
+
+                //If the user is not found, notify the user
+                if (usersList.Count == 0)
+                    await alerts.ShowAlertAsync("Search Operation Failed", "User not found");
+            }
             else
-                await alerts.ShowAlertAsync("Search Operation Failed", "The User Category Must be Selected Above");
+                await alerts.ShowAlertAsync("Search Operation Failed", "The User Category Must be Selected First");
         }
 
         /// <summary>
@@ -74,7 +79,8 @@ namespace GreenWayBottles.ViewModels
             }
             else if (createUserAccViewModel.CheckTextFields(this.user))
             {
-                bool isUpdated = dataService.Update(user);
+                bool isUpdated = dataService.Update(user, selectedUser);
+
 
                 if(isUpdated)
                 {
