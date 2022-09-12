@@ -106,7 +106,7 @@ namespace GreenWayBottles.Services
                 sqlCommand.Parameters.AddWithValue("@FirstName", name);
 
                 sqlConnection.Open();
-               var sqlDataReader = sqlCommand.ExecuteReader();
+                var sqlDataReader = sqlCommand.ExecuteReader();
 
                 if(sqlDataReader.HasRows)
                 {
@@ -114,7 +114,7 @@ namespace GreenWayBottles.Services
 
                     while(sqlDataReader.Read())
                     {
-                        user = new();
+                        user = new Users();
                         user.Id = sqlDataReader.GetInt32(0);
                         user.FirstName = sqlDataReader.GetString(1);
                         user.LastName = sqlDataReader.GetString(2);
@@ -257,6 +257,142 @@ namespace GreenWayBottles.Services
             }
 
             return isDeleted;
+        }
+
+        #endregion
+
+        #region Insert and Update User Banking Details
+
+        /// <summary>
+        /// The method searches for the Collector's banking details
+        /// Using the provided CollectorId
+        /// </summary>
+        /// <param name="CollectorId"></param>
+        /// <returns>A List with the User's banking details</returns>
+        public List<Banking> SearchBanking(int CollectorId)
+        {
+            List<Banking> userBankDetails = new List<Banking>();
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "SearchBankingDetails";
+                sqlCommand.Parameters.AddWithValue("@CollectorId", CollectorId);
+
+                sqlConnection.Open();
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if (sqlDataReader.HasRows)
+                {
+                    Banking banker;
+
+                    while(sqlDataReader.Read())
+                    {
+                        banker = new Banking();
+
+                        banker.BankDetailsId = sqlDataReader.GetInt32(0);
+                        banker.BankName = sqlDataReader.GetString(1);
+                        banker.BranchName = sqlDataReader.GetString(2);
+                        banker.BranchCode = sqlDataReader.GetString(3);
+                        banker.AccountType = sqlDataReader.GetString(4);
+                        banker.AccountNumber = sqlDataReader.GetString(5);
+
+                        userBankDetails.Add(banker);
+                    } 
+                    sqlDataReader.Close();  
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return userBankDetails;
+        }
+
+        /// <summary>
+        /// To save the banking the details of the Collector 
+        /// for the first time
+        /// </summary>
+        /// <param name="banker"></param>
+        /// <param name="user"></param>
+        /// <returns>Return True if successful, else False</returns>
+        public bool NewBankingDetails(Banking banker, Users user)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "NewBankingDetails";
+
+                sqlCommand.Parameters.AddWithValue("@BankName", banker.BankName);
+                sqlCommand.Parameters.AddWithValue("@BranchName", banker.BranchName);
+                sqlCommand.Parameters.AddWithValue("@BranchCode", banker.BranchCode);
+                sqlCommand.Parameters.AddWithValue("@AccType", banker.AccountType);
+                sqlCommand.Parameters.AddWithValue("@AccNumber", banker.AccountNumber);
+                sqlCommand.Parameters.AddWithValue("@CollectorId", user.Id);
+
+                //Open Sql connection
+                sqlConnection.Open();
+
+                //If number of rows affected is > 0, data is saved successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            { 
+                sqlConnection.Close(); 
+            }
+
+            return isSaved;
+        }
+
+        public bool UpdateBankingDetails(Banking banker)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "UpdateBankingDetails";
+
+                sqlCommand.Parameters.AddWithValue("@BankDetailsId", banker.BankDetailsId);
+                sqlCommand.Parameters.AddWithValue("@BankName", banker.BankName);
+                sqlCommand.Parameters.AddWithValue("@BranchName", banker.BranchName);
+                sqlCommand.Parameters.AddWithValue("@BranchCode", banker.BranchCode);
+                sqlCommand.Parameters.AddWithValue("@AccType", banker.AccountType);
+                sqlCommand.Parameters.AddWithValue("@AccNumber", banker.AccountNumber);
+
+                //Open Sql connection
+                sqlConnection.Open();
+
+                //If the number of rows affected > 0, then the data is succesfully updated
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isUpdated = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            { 
+                sqlConnection.Close(); 
+            }
+
+            return isUpdated;
         }
 
         #endregion

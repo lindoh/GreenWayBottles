@@ -12,6 +12,10 @@ namespace GreenWayBottles.Models
         #endregion
 
         #region Class Properties
+        //User's BankingDetailsId
+        [ObservableProperty]
+        private int bankDetailsId;
+
         //User's Bank name
         [ObservableProperty]
         private string bankName;

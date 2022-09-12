@@ -62,7 +62,6 @@ namespace GreenWayBottles.ViewModels
             User = args.SelectedItem as Users;
         }
 
-    
 
         #endregion
     }
