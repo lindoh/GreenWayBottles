@@ -96,7 +96,7 @@ namespace GreenWayBottles.Services
             //Stored Procedure for the search
             if (selectedUser == "Admin")
                 userToSearch = "SearchAdmin";
-            else if (selectedUser == "Admin")
+            else if (selectedUser == "Collector")
                 userToSearch = "SearchCollector";
 
             try
@@ -269,9 +269,9 @@ namespace GreenWayBottles.Services
         /// </summary>
         /// <param name="CollectorId"></param>
         /// <returns>A List with the User's banking details</returns>
-        public List<Banking> SearchBanking(int CollectorId)
+        public Banking SearchBanking(int CollectorId)
         {
-            List<Banking> userBankDetails = new List<Banking>();
+            Banking banker = new Banking();
 
             try
             {
@@ -284,20 +284,15 @@ namespace GreenWayBottles.Services
 
                 if (sqlDataReader.HasRows)
                 {
-                    Banking banker;
 
                     while(sqlDataReader.Read())
                     {
-                        banker = new Banking();
-
                         banker.BankDetailsId = sqlDataReader.GetInt32(0);
                         banker.BankName = sqlDataReader.GetString(1);
                         banker.BranchName = sqlDataReader.GetString(2);
                         banker.BranchCode = sqlDataReader.GetString(3);
                         banker.AccountType = sqlDataReader.GetString(4);
                         banker.AccountNumber = sqlDataReader.GetString(5);
-
-                        userBankDetails.Add(banker);
                     } 
                     sqlDataReader.Close();  
                 }
@@ -312,7 +307,7 @@ namespace GreenWayBottles.Services
                 sqlConnection.Close();
             }
 
-            return userBankDetails;
+            return banker;
         }
 
         /// <summary>
@@ -359,6 +354,11 @@ namespace GreenWayBottles.Services
             return isSaved;
         }
 
+        /// <summary>
+        /// To update existing Collector's banking details
+        /// </summary>
+        /// <param name="banker"></param>
+        /// <returns>Return true if successful, else false</returns>
         public bool UpdateBankingDetails(Banking banker)
         {
             bool isUpdated = false;

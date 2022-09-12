@@ -6,86 +6,87 @@
              xmlns:views="clr-namespace:GreenWayBottles.Views"
              Title="UpdateBankingView"
              WidthRequest="600">
-    
-    <VerticalStackLayout>
-        <Label Text="Update Banking Account Details" VerticalOptions="Center" HorizontalOptions="Center" 
-               FontSize="Title" TextColor="#155ca1" Margin="10"/>
-        
-        <Label Text="Select User"/>
-        <HorizontalStackLayout>
-            <RadioButton x:Name="AdminRadioBtn" Content="Admin" CheckedChanged="RadioButton_CheckedChanged"/>
-            <RadioButton x:Name="CollectorRadioBtn" Content="Collector" CheckedChanged="RadioButton_CheckedChanged"/>
-        </HorizontalStackLayout>
 
-        <SearchBar x:Name="searchBar"  
-                   SearchCommand="{Binding SearchCommand}"
-                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
-
-        <ListView Margin="10" Header="Results"
-                  x:Name="usersListView" BackgroundColor="LightGray" 
-                  ItemSelected="usersListView_ItemSelected"
-                  ItemsSource="{Binding UsersList}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <HorizontalStackLayout Spacing="2">
-                            <Label Text="{Binding FirstName}"/>
-                            <Label Text="{Binding LastName}"/>
-                        </HorizontalStackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
+    <ScrollView>
         <VerticalStackLayout>
-            <!--Bank Name Tag-->
-            <Label Text="Bank Name" VerticalOptions="End" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black"
-                SelectedItem="{Binding Banking.BankName, Mode=TwoWay}">
-                <Picker.Items>
-                    <x:String>Absa</x:String>
-                    <x:String>Capitec</x:String>
-                    <x:String>First National Bank</x:String>
-                    <x:String>Nedbank</x:String>
-                    <x:String>Standard Bank</x:String>
-                    <x:String>Tyme Bank</x:String>
-                </Picker.Items>
-            </Picker>
-            
-            <!--Branch Name Tag-->
-            <Label Text="Branch Name" VerticalOptions="End" HorizontalOptions="Start" 
+            <Label Text="Update Banking Account Details" VerticalOptions="Center" HorizontalOptions="Center" 
+                   FontSize="Title" TextColor="#155ca1" Margin="10"/>
+
+            <SearchBar x:Name="searchBar"  
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+
+            <ListView Margin="10" Header="Results"
+                      x:Name="usersListView" BackgroundColor="LightGray" 
+                      ItemSelected="usersListView_ItemSelected"
+                      ItemsSource="{Binding UsersList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout Spacing="2">
+                                <Label Text="{Binding FirstName}"/>
+                                <Label Text="{Binding LastName}"/>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <VerticalStackLayout>
+                <!--Bank Name Tag-->
+                <Label Text="Bank Name" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Entry VerticalOptions="Start" HorizontalOptions="Start" 
-                   FontSize="Caption" TextColor="Black" 
-                   Text="{Binding Banking.BranchName, Mode=TwoWay}"/>
+                <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black"
+                    SelectedItem="{Binding Banker.BankName, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Absa</x:String>
+                        <x:String>Capitec</x:String>
+                        <x:String>First National Bank</x:String>
+                        <x:String>Nedbank</x:String>
+                        <x:String>Standard Bank</x:String>
+                        <x:String>Tyme Bank</x:String>
+                    </Picker.Items>
+                </Picker>
 
-            <!--Branch Code Tag-->
-            <Label Text="Branch Code" VerticalOptions="End" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Entry VerticalOptions="Start" HorizontalOptions="Start" 
-                   FontSize="Caption" TextColor="Black"
-                   Text="{Binding Banking.BranchCode, Mode=TwoWay}"/>
+                <!--Branch Name Tag-->
+                <Label Text="Branch Name" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+                <Entry VerticalOptions="Start" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black" 
+                       Text="{Binding Banker.BranchName, Mode=TwoWay}"/>
 
-            <!--Account Type Tag-->
-            <Label Text="Account Type" VerticalOptions="End" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black"
-                    SelectedItem="{Binding Banking.AccountType, Mode=TwoWay}">
-                <Picker.Items>
-                    <x:String>Savings</x:String>
-                    <x:String>Cheque</x:String>
-                </Picker.Items>
-            </Picker>
+                <!--Branch Code Tag-->
+                <Label Text="Branch Code" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+                <Entry VerticalOptions="Start" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black"
+                       Text="{Binding Banker.BranchCode, Mode=TwoWay}"/>
 
-            <!--Account Number Tag-->
-            <Label Text="Account Number" VerticalOptions="End" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Entry VerticalOptions="Start" HorizontalOptions="Start" 
-                   FontSize="Caption" TextColor="Black"
-                   Text="{Binding Banking.AccountNumber, Mode=TwoWay}"/>
+                <!--Account Type Tag-->
+                <Label Text="Account Type" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+                <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black"
+                        SelectedItem="{Binding Banker.AccountType, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Savings</x:String>
+                        <x:String>Cheque</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <!--Account Number Tag-->
+                <Label Text="Account Number" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+                <Entry VerticalOptions="Start" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black"
+                       Text="{Binding Banker.AccountNumber, Mode=TwoWay}"/>
+
+                <!-- Update/Save Button Tag   -->
+                <Button 
+                    x:Name="updateBtn" Text="{Binding UpdateSaveBtnText}" FontSize="Small" BackgroundColor="#155ca1"
+                    Margin="20" Padding="5" WidthRequest="200" 
+                    Command="{Binding UpdateSaveCommand}"/>
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
-
-       
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

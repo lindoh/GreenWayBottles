@@ -13,10 +13,11 @@ namespace GreenWayBottles.ViewModels
         public UpdateBankingViewModel()
         {
             user = new Users();
-            banking = new Banking();
+            banker = new Banking();
             dataService = new DatabaseService();
             alerts = new AlertService();
             searchService = new SearchService();
+            updateSaveBtnText = "Update";
         }
         #endregion
 
@@ -31,7 +32,7 @@ namespace GreenWayBottles.ViewModels
         Users user;
 
         [ObservableProperty]
-        Banking banking;
+        Banking banker;
 
         //To store the list of users
         [ObservableProperty]
@@ -39,6 +40,9 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         string selectedUser;
+
+        [ObservableProperty]
+        string updateSaveBtnText;
 
         #endregion
 
@@ -50,19 +54,63 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         void Search(string name)
         {
-            UsersList = searchService.FindUser(name, selectedUser);
+            UsersList = searchService.FindUser(name, "Collector");
         }
 
         /// <summary>
         /// The selectedItem method updates the User object
         /// with the selected user from the ListView
         /// </summary>
-        public void selectedItem(object sender, SelectedItemChangedEventArgs args)
+        public async void selectedItem(object sender, SelectedItemChangedEventArgs args)
         {
             User = args.SelectedItem as Users;
+
+            //If an existing user is found and is selected from the list
+            if (user.Id != 0)
+            {
+                Banker = dataService.SearchBanking(user.Id);
+
+                //If the user have existing banking details
+                if (banker.BankDetailsId != 0)
+                {
+                    //Alert the Admin that user has already existing banking details
+                    await alerts.ShowConfirmationAsync("Banking Details Found", "The User Has Existing Banking Details, Update Instead?");
+                    updateSaveBtnText = "Update";
+                }
+                else
+                {
+                    //Alert the Admin that the user doesn't have existing banking details
+                    await alerts.ShowConfirmationAsync("No Existing Banking Details", "User Doesn't Have Existing Banking Details, Add New Banking Details");
+                    updateSaveBtnText = "Save";
+                }
+            }
         }
 
+        [RelayCommand]
+        async void UpdateSave()
+        {
+            if(updateSaveBtnText == "Update")
+            {
+                bool isUpdated = dataService.UpdateBankingDetails(banker);
 
+                if (isUpdated)
+                    await alerts.ShowAlertAsync("Update Operation Successful", "User Banking Details Updated Successfully");
+                else
+                    await alerts.ShowAlertAsync("Update Operation Failed", "User banking Details Could Not Be Updated");
+            }
+            else if (updateSaveBtnText == "Save")
+            {
+
+                bool isSaved = dataService.NewBankingDetails(banker, user);
+
+                if (isSaved)
+                    await alerts.ShowAlertAsync("Save Operation Successful", "User Banking Details Were Saved Successfully");
+                else
+                    await alerts.ShowAlertAsync("Save Operation Failed", "User banking Details Could Not Be Saved");
+            }
+        }
+
+        
         #endregion
     }
 }
