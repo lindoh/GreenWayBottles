@@ -8,10 +8,13 @@ public partial class UpdateBankingView : ContentPage
 	{
 		InitializeComponent();
 		viewModel = new UpdateBankingViewModel();
+       // bankingView = new UpdateBankingView_1();    
         BindingContext = viewModel;
+       // BindingContext = bankingView;
 	}
 
 	UpdateBankingViewModel viewModel;
+  //  UpdateBankingView_1 bankingView;
 
 
     private void usersListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.UpdateBankingView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+             xmlns:views="clr-namespace:GreenWayBottles.Views"
              Title="UpdateBankingView"
              WidthRequest="600">
     
@@ -35,48 +36,56 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
-        <!--Bank Name Tag-->
-        <Label Text="Bank Name" VerticalOptions="End" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-        <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black">
-            <Picker.Items>
-                <x:String>Absa</x:String>
-                <x:String>Capitec</x:String>
-                <x:String>First National Bank</x:String>
-                <x:String>Nedbank</x:String>
-                <x:String>Standard Bank</x:String>
-                <x:String>Tyme Bank</x:String>
-            </Picker.Items>
-        </Picker>
 
-        <!--Branch Name Tag-->
-        <Label Text="Branch Name" VerticalOptions="End" HorizontalOptions="Start" 
+        <VerticalStackLayout>
+            <!--Bank Name Tag-->
+            <Label Text="Bank Name" VerticalOptions="End" HorizontalOptions="Start" 
                FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-        <Entry VerticalOptions="Start" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Black"/>
+            <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black"
+                SelectedItem="{Binding Banking.BankName, Mode=TwoWay}">
+                <Picker.Items>
+                    <x:String>Absa</x:String>
+                    <x:String>Capitec</x:String>
+                    <x:String>First National Bank</x:String>
+                    <x:String>Nedbank</x:String>
+                    <x:String>Standard Bank</x:String>
+                    <x:String>Tyme Bank</x:String>
+                </Picker.Items>
+            </Picker>
+            
+            <!--Branch Name Tag-->
+            <Label Text="Branch Name" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+            <Entry VerticalOptions="Start" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Black" 
+                   Text="{Binding Banking.BranchName, Mode=TwoWay}"/>
 
-        <!--Branch Code Tag-->
-        <Label Text="Branch Code" VerticalOptions="End" HorizontalOptions="Start" 
+            <!--Branch Code Tag-->
+            <Label Text="Branch Code" VerticalOptions="End" HorizontalOptions="Start" 
                FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-        <Entry VerticalOptions="Start" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Black"/>
+            <Entry VerticalOptions="Start" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Black"
+                   Text="{Binding Banking.BranchCode, Mode=TwoWay}"/>
 
-        <!--Account Type Tag-->
-        <Label Text="Account Type" VerticalOptions="End" HorizontalOptions="Start" 
+            <!--Account Type Tag-->
+            <Label Text="Account Type" VerticalOptions="End" HorizontalOptions="Start" 
                FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-        <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black">
-            <Picker.Items>
-                <x:String>Savings</x:String>
-                <x:String>Cheque</x:String>
-            </Picker.Items>
-        </Picker>
+            <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black"
+                    SelectedItem="{Binding Banking.AccountType, Mode=TwoWay}">
+                <Picker.Items>
+                    <x:String>Savings</x:String>
+                    <x:String>Cheque</x:String>
+                </Picker.Items>
+            </Picker>
 
-        <!--Account Number Tag-->
-        <Label Text="Account Number" VerticalOptions="End" HorizontalOptions="Start" 
+            <!--Account Number Tag-->
+            <Label Text="Account Number" VerticalOptions="End" HorizontalOptions="Start" 
                FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-        <Entry VerticalOptions="Start" HorizontalOptions="Start" 
-               FontSize="Caption" TextColor="Black"/>
+            <Entry VerticalOptions="Start" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Black"
+                   Text="{Binding Banking.AccountNumber, Mode=TwoWay}"/>
+        </VerticalStackLayout>
 
+       
     </VerticalStackLayout>
 </ContentPage>

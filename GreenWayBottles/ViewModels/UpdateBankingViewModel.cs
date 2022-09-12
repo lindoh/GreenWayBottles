@@ -22,13 +22,16 @@ namespace GreenWayBottles.ViewModels
 
         #region Class Properties
        
-        Banking banking;
+        
         DatabaseService dataService;
         AlertService alerts;
         SearchService searchService;
 
         [ObservableProperty]
         Users user;
+
+        [ObservableProperty]
+        Banking banking;
 
         //To store the list of users
         [ObservableProperty]
