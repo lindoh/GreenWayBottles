@@ -82,6 +82,58 @@ namespace GreenWayBottles.Services
 
         #endregion
 
+        #region SaveData Method for Admin
+        /// <summary>
+        /// Save Collector's Data in the Collector's Database Table
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool SaveAdminData(Users user)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "AddAdmin";
+
+                sqlCommand.Parameters.AddWithValue("@FirstName", user.FirstName);
+                sqlCommand.Parameters.AddWithValue("@LastName", user.LastName);
+                sqlCommand.Parameters.AddWithValue("@IdNumber", user.IdNumber);
+                sqlCommand.Parameters.AddWithValue("@Gender", user.Gender);
+                sqlCommand.Parameters.AddWithValue("@HighestQlfn", user.HighestQlfn); ;
+                sqlCommand.Parameters.AddWithValue("@IncomeRange", user.IncomeRange);
+                sqlCommand.Parameters.AddWithValue("@Email", user.Email);
+                sqlCommand.Parameters.AddWithValue("@CellNumber", user.CellNumber);
+                sqlCommand.Parameters.AddWithValue("@StreetAddress", user.StreetAddress);
+                sqlCommand.Parameters.AddWithValue("@Suburb", user.Suburb);
+                sqlCommand.Parameters.AddWithValue("@City", user.City);
+                sqlCommand.Parameters.AddWithValue("@Province", user.Province);
+                sqlCommand.Parameters.AddWithValue("@Country", user.Country);
+
+                //Open Sql database connection
+                sqlConnection.Open();
+
+                //If affected number of rows is > 0, then data is saved successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isSaved;
+        }
+
+        #endregion
+
         #region GetAll User's Data 
         /// <summary>
         /// Get all data that matches a given name, i.e., Firstname

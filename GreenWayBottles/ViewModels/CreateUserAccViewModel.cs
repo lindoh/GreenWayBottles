@@ -40,7 +40,7 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         async void Save()
         {
-            if (user.IdNumber.Length != 13)
+            if (user.IdNumber == null || user.IdNumber.Length != 13)
             {
                 await alerts.ShowAlertAsync("Operation Failed", "Id Number must be 13 digits long");
             }

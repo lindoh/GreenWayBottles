@@ -11,6 +11,7 @@ public partial class MainPage : Shell
 		BindingContext = new CreateUserAccViewModel();
 		BindingContext = new UpdateUserAccViewModel();	
 		BindingContext = new DeleteUserAccViewModel();	
+		BindingContext = new UpdateBankingViewModel();
 	}
 
 	
