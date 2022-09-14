@@ -4,7 +4,7 @@
              x:Class="GreenWayBottles.Views.UpdateUserAccountView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels" 
              Title="UpdateUserAccountView"
-             WidthRequest="600">
+             WidthRequest="450">
 
     <!--TO DO
         Seperate the Search Bar/List view from 

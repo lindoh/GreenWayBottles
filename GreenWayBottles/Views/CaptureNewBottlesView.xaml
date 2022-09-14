@@ -1,11 +1,68 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              x:Class="GreenWayBottles.Views.CaptureNewBottlesView"
-             Title="CaptureNewBottlesView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Capture New Bottles"
-             />
-    </VerticalStackLayout>
+             Title="CaptureNewBottlesView"
+             WidthRequest="450">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 
+                   FontSize="Title" TextColor="#155ca1" Margin="10"/>
+
+            <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10"/>
+            <SearchBar x:Name="searchBar"  
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+
+            <ListView Margin="10" Header="Results"
+                      x:Name="usersListView" BackgroundColor="LightGray" 
+                      ItemSelected="usersListView_ItemSelected"
+                      ItemsSource="{Binding UsersList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout Spacing="2">
+                                <Label Text="{Binding FirstName}"/>
+                                <Label Text="{Binding LastName}"/>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Bottle Type Name Tag -->
+            <Label Text="Bottle Type" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+            <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black">
+                <Picker.Items>
+                    <x:String></x:String>
+                </Picker.Items>
+            </Picker>
+            
+            <!-- Bottle Quantity Tags-->
+            <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+            <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
+                    TextColor="Black"/>
+            
+            <!-- Add New Data Button Tag -->
+            <Button x:Name="addNewDataBtn" Text="Add New Data" FontSize="Small" BackgroundColor="#155ca1"
+                    Margin="20" Padding="5" WidthRequest="200"/>
+
+            <HorizontalStackLayout>
+                <Label Text="Current Amount" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"
+                       FontAttributes="Bold"/>
+                <Label Text="R0.00" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black" Margin="10, 5, 5, 0"/>
+            </HorizontalStackLayout>
+
+            <!-- Submit Button Tag -->
+            <Button x:Name="submitBtn" Text="Submit" FontSize="Small" BackgroundColor="#155ca1"
+                    Margin="20" Padding="5" WidthRequest="200"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

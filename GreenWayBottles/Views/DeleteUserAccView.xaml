@@ -4,7 +4,7 @@
              x:Class="GreenWayBottles.Views.DeleteUserAccView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              Title="DeleteUserAccView"
-             WidthRequest="600">
+             WidthRequest="450">
 
     <VerticalStackLayout>
         <Label Text="Delete Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
@@ -15,7 +15,9 @@
             <RadioButton x:Name="AdminRadioBtn" Content="Admin" CheckedChanged="RadioButton_CheckedChanged"/>
             <RadioButton x:Name="CollectorRadioBtn" Content="Collector" CheckedChanged="RadioButton_CheckedChanged"/>
         </HorizontalStackLayout>
-        
+
+        <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
+               FontSize="Caption" TextColor="Gray" Margin="10"/>
         <SearchBar x:Name="searchBar" 
                    SearchCommand="{Binding SearchCommand}"
                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>

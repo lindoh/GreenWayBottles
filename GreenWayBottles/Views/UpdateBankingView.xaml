@@ -5,13 +5,15 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              xmlns:views="clr-namespace:GreenWayBottles.Views"
              Title="UpdateBankingView"
-             WidthRequest="600">
+             WidthRequest="450">
 
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Update Banking Account Details" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>
 
+            <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10"/>
             <SearchBar x:Name="searchBar"  
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
@@ -32,7 +34,6 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <VerticalStackLayout>
                 <!--Bank Name Tag-->
                 <Label Text="Bank Name" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
@@ -81,12 +82,10 @@
                        Text="{Binding Banker.AccountNumber, Mode=TwoWay}"/>
 
                 <!-- Update/Save Button Tag   -->
-                <Button 
+            <Button 
                     x:Name="updateBtn" Text="{Binding UpdateSaveBtnText}" FontSize="Small" BackgroundColor="#155ca1"
                     Margin="20" Padding="5" WidthRequest="200" 
                     Command="{Binding UpdateSaveCommand}"/>
-            </VerticalStackLayout>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

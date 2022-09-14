@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GreenWayBottles.Views.CreateUserAccountView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
-             x:DataType="viewmodel:CreateUserAccViewModel"
-             Title="CreateUserAccountView"
-             WidthRequest="450">
-    
-    <!-- To Do: Find better way to populate street address, suburb, and city data -->
-
+             x:Class="GreenWayBottles.Views.RegistrationView"
+             Title="RegistrationView">
     <ScrollView>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -38,10 +33,10 @@
             <!-- Title Tag                                 -->
             <Label 
             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-            Text="Create A New User Account" VerticalOptions="Center" HorizontalOptions="Center" 
+            Text="Register A New Admin Account" VerticalOptions="Center" HorizontalOptions="Center" 
             FontSize="Title" TextColor="#155ca1" 
             Margin="10"/>
-            
+
             <!-- First Name Tag                                 -->
             <Label 
             Grid.Row="1" Grid.Column="0"
@@ -236,9 +231,8 @@
                 Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2"
                 x:Name="saveBtn" Text="Save" FontSize="Small" BackgroundColor="#155ca1"
                 Margin="20" Padding="5" WidthRequest="200"
-                Command="{Binding SaveCommand}"/>
+                Command="{Binding RegisterCommand}"/>
 
         </Grid>
     </ScrollView>
-    
 </ContentPage>

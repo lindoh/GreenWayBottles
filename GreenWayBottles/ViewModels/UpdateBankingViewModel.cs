@@ -18,6 +18,7 @@ namespace GreenWayBottles.ViewModels
             alerts = new AlertService();
             searchService = new SearchService();
             updateSaveBtnText = "Update";
+            selectedUser = "Collector";
         }
         #endregion
 
@@ -54,7 +55,7 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         void Search(string name)
         {
-            UsersList = searchService.FindUser(name, "Collector");
+            UsersList = searchService.FindUser(name, selectedUser);
         }
 
         /// <summary>
