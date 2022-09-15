@@ -17,4 +17,9 @@ public partial class CaptureNewBottlesView : ContentPage
 	{
 		viewModel.selectedItem(sender, args);
 	}
+
+	private void bottlesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+	{
+
+	}
 }

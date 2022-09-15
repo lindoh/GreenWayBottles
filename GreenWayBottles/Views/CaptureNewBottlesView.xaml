@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+             xmlns:model="clr-namespace:GreenWayBottles.Models"
+             x:DataType="viewmodel:CaptureBottlesViewModel"
              x:Class="GreenWayBottles.Views.CaptureNewBottlesView"
              Title="CaptureNewBottlesView"
              WidthRequest="450">
@@ -16,12 +18,12 @@
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
 
-            <ListView Margin="10" Header="Results"
+            <ListView Margin="10" Header="Results" MaximumHeightRequest="90"
                       x:Name="usersListView" BackgroundColor="LightGray" 
                       ItemSelected="usersListView_ItemSelected"
                       ItemsSource="{Binding UsersList}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="model:Users">
                         <ViewCell>
                             <HorizontalStackLayout Spacing="2">
                                 <Label Text="{Binding FirstName}"/>
@@ -33,14 +35,22 @@
             </ListView>
 
             <!-- Bottle Type Name Tag -->
-            <Label Text="Bottle Type" VerticalOptions="End" HorizontalOptions="Start" 
+            <Label Text="Bottle Name and Size" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Picker HorizontalOptions="Start" FontSize="Caption" TextColor="Black">
-                <Picker.Items>
-                    <x:String></x:String>
-                </Picker.Items>
-            </Picker>
-            
+            <ListView Margin="10" MaximumHeightRequest="90"
+                      x:Name="bottlesListView" BackgroundColor="LightGray"
+                      ItemSelected="bottlesListView_ItemSelected"
+                      ItemsSource="{Binding BottlesList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:BottleDataSource">
+                        <TextCell Text="{Binding BottleName}" Detail="{Binding Size}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
+
+
+
             <!-- Bottle Quantity Tags-->
             <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>

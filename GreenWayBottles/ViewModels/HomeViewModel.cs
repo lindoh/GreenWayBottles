@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace GreenWayBottles.ViewModels
 {
-    internal class HomeViewModel
+    public class HomeViewModel
     {
+        public HomeViewModel()
+        {
+
+        }
+
+
     }
 }

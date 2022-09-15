@@ -13,9 +13,12 @@ namespace GreenWayBottles.ViewModels
             dataService = new DatabaseService();
             searchService = new SearchService();
             user = new Users();
+            bottle = new BottlesDataSource();
             selectedUser = "Collector";
+            GetBottles();
         }
 
+        #region Class Properties
         DatabaseService dataService;
         SearchService searchService;
 
@@ -28,12 +31,25 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         string selectedUser;
 
+        [ObservableProperty]
+        BottlesDataSource bottle;
+
+        [ObservableProperty]
+        ObservableCollection<BottleDataSource> bottlesList;
+
+        #endregion
+
+        #region Button Methods
+
         [RelayCommand]
         public void Search(string name)
         {
             UsersList = searchService.FindUser(name, selectedUser);
         }
 
+        #endregion
+
+        #region Helper Methods
         /// <summary>
         /// The selectedItem method updates the User object
         /// with the selected user from the ListView
@@ -42,5 +58,12 @@ namespace GreenWayBottles.ViewModels
         {
             User = args.SelectedItem as Users;
         }
+
+        public void GetBottles()
+        {
+            BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());
+        }
+
+        #endregion
     }
 }

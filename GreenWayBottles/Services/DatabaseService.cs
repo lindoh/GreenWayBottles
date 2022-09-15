@@ -449,5 +449,53 @@ namespace GreenWayBottles.Services
 
         #endregion
 
+        #region Get The List of Bottles
+        public List<BottleDataSource> GetBottleList()
+        {
+            List<BottleDataSource> bottleList = new List<BottleDataSource>();
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "GetBottles";
+
+                sqlConnection.Open();
+
+                var sqlDataReader = sqlCommand.ExecuteReader(); 
+
+                if(sqlDataReader.HasRows)
+                {
+                    BottleDataSource bottle;
+
+                    while (sqlDataReader.Read())
+                    {
+                        bottle = new BottleDataSource();
+
+                        bottle.BottleDataSourceId = sqlDataReader.GetInt32(0);
+                        bottle.BottleName = sqlDataReader.GetString(1);
+                        bottle.Size = sqlDataReader.GetString(2);
+
+                        bottleList.Add(bottle);
+
+                    }
+                    sqlDataReader.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            { 
+                sqlConnection.Close(); 
+            }  
+
+
+            return bottleList;
+        }
+
+        #endregion
+
     }
 }
