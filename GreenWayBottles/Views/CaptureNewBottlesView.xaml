@@ -46,27 +46,26 @@
                         <TextCell Text="{Binding BottleName}" Detail="{Binding Size}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
-            </ListView>
 
+            </ListView>
 
 
             <!-- Bottle Quantity Tags-->
             <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
             <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
-                    TextColor="Black"/>
+                    TextColor="Black" Text="{Binding Quantity}"/>
             
             <!-- Add New Data Button Tag -->
-            <Button x:Name="addNewDataBtn" Text="Add New Data" FontSize="Small" BackgroundColor="#155ca1"
-                    Margin="20" Padding="5" WidthRequest="200"/>
+            <Button x:Name="addNewDataBtn" Text="Calculate and Add New Entry" FontSize="Small" BackgroundColor="#155ca1"
+                    Margin="20" Padding="5" Command="{Binding Add_and_CalculateCommand}"/>
 
             <HorizontalStackLayout>
                 <Label Text="Current Amount" VerticalOptions="End" HorizontalOptions="Start" 
                        FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"
                        FontAttributes="Bold"/>
-                <Label Text="R0.00" VerticalOptions="End" HorizontalOptions="Start" 
-                       FontSize="Caption" TextColor="Black" Margin="10, 5, 5, 0"/>
+                <Label Text="{Binding AmountString}" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black" Margin="0, 5, 5, 0"/>
             </HorizontalStackLayout>
 
             <!-- Submit Button Tag -->
