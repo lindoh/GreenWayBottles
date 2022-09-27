@@ -15,7 +15,8 @@ namespace GreenWayBottles.ViewModels
             searchService = new SearchService();
             alerts = new AlertService();    
             user = new Users();
-            bottle = new BottleDataSource();    
+            bottleData = new BottleDataSource();
+            bottle = new Bottles();
             selectedUser = "Collector";
             GetBottles();
             Amount = 0.0;
@@ -36,14 +37,20 @@ namespace GreenWayBottles.ViewModels
         string selectedUser;
 
         [ObservableProperty]
-        BottleDataSource bottle;
+        BottleDataSource bottleData;
 
+        [ObservableProperty]
+        Bottles bottle;
+
+        //List of Bottles from the database
         [ObservableProperty]
         ObservableCollection<BottleDataSource> bottlesList;
 
+        //The quantity of bottles submitted by the Collector
         [ObservableProperty]
         int quantity;
 
+        //The amount due to the collector
         [ObservableProperty]
         static double amount;
 
@@ -63,8 +70,18 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         public void Add_and_Calculate()
         {
-            //Calculate amount due
-            CalculateAmount();
+            //Update the Bottle Object
+            if(user.Id !=0 && bottleData.BottleDataSourceId != 0)
+            {
+                //Calculate amount due
+                CalculateAmount();
+
+                Bottle.Quantity = quantity;
+                Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
+                Bottle.CollectorId = user.Id;
+                
+                Bottle.Amount = amount;
+            }
 
             //Reset Bottle size and Quantity
             Clear();
@@ -84,7 +101,7 @@ namespace GreenWayBottles.ViewModels
 
         public void selectedBottle(object sender, SelectedItemChangedEventArgs args)
         {
-            Bottle = args.SelectedItem as BottleDataSource;
+            BottleData = args.SelectedItem as BottleDataSource;
         }
         public void GetBottles()
         {
@@ -95,9 +112,9 @@ namespace GreenWayBottles.ViewModels
         {
             string bottleSize;
 
-            if (bottle.Size != null)
+            if (bottleData.Size != null)
             {
-                bottleSize = bottle.Size.Replace("ml", string.Empty);
+                bottleSize = bottleData.Size.Replace("ml", string.Empty);
                 bottleSize = bottleSize.Trim();
            
                 int size = Int32.Parse(bottleSize);
@@ -116,7 +133,7 @@ namespace GreenWayBottles.ViewModels
 
         private void Clear()
         {
-            bottle.Size = null;
+            bottleData.Size = null;
             Quantity = 0;
         }
 

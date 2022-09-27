@@ -8,6 +8,8 @@
        Shell.TabBarBackgroundColor="#6e9b19"
        Shell.TabBarForegroundColor="Black"
        Shell.BackgroundColor="#155ca1">
+    
+    <!--Need a Data binding to enable and disable the View using "isLoggedIn" from the Login Model-->
 
     <FlyoutItem>
         <ShellContent Title="Home"

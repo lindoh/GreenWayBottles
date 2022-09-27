@@ -566,11 +566,12 @@ namespace GreenWayBottles.Services
                     {
                         buyBackCentre.BBCId = sqlDataReader.GetInt32(0);
                         buyBackCentre.BuyBackCentreName = sqlDataReader.GetString(1);
-                        buyBackCentre.StreetAddress = sqlDataReader.GetString(2);
-                        buyBackCentre.Suburb = sqlDataReader.GetString(3);
-                        buyBackCentre.City = sqlDataReader.GetString(4);
-                        buyBackCentre.Province = sqlDataReader.GetString(5);
-                        buyBackCentre.Country = sqlDataReader.GetString(6);
+                        buyBackCentre.AdminId = sqlDataReader.GetInt32(2);
+                        buyBackCentre.StreetAddress = sqlDataReader.GetString(3);
+                        buyBackCentre.Suburb = sqlDataReader.GetString(4);
+                        buyBackCentre.City = sqlDataReader.GetString(5);
+                        buyBackCentre.Province = sqlDataReader.GetString(6);
+                        buyBackCentre.Country = sqlDataReader.GetString(7);
                     }
                     sqlDataReader.Close();
                 }
@@ -600,6 +601,7 @@ namespace GreenWayBottles.Services
                 sqlCommand.Parameters.Clear();
                 sqlCommand.CommandText = "UpdateBBCDetails";
 
+                sqlCommand.Parameters.AddWithValue("@BBCId", buyBackCentre.BBCId);
                 sqlCommand.Parameters.AddWithValue("@BBCName", buyBackCentre.BuyBackCentreName);
                 sqlCommand.Parameters.AddWithValue("@StreetAddress", buyBackCentre.StreetAddress);
                 sqlCommand.Parameters.AddWithValue("@Suburb", buyBackCentre.Suburb);

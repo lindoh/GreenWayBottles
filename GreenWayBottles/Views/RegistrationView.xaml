@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+             x:DataType="viewmodel:RegistrationViewModel"
              x:Class="GreenWayBottles.Views.RegistrationView"
-             Title="RegistrationView">
+             Title="RegistrationView"
+             WidthRequest="600">
     <ScrollView>
         <Grid Margin="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -229,9 +232,15 @@
             <!-- Save Button Tag                                 -->
             <Button 
                 Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2"
-                x:Name="saveBtn" Text="Save" FontSize="Small" BackgroundColor="#155ca1"
+                Text="Save" FontSize="Small" BackgroundColor="#155ca1"
                 Margin="20" Padding="5" WidthRequest="200"
                 Command="{Binding RegisterCommand}"/>
+
+            <Button 
+                Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="GoBack" FontSize="Small" BackgroundColor="#155ca1"
+                Margin="20" Padding="5" WidthRequest="200"
+                Command="{Binding GoBackCommand}"/>
 
         </Grid>
     </ScrollView>

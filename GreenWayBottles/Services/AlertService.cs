@@ -36,7 +36,7 @@ namespace GreenWayBottles.Services
         /// </summary>
         /// <param name="callback">Action to perform afaterwards</param>
 
-        public async void ShowConfirmation(string title, string message, Action<bool> callback, string accept = "Yes", string cancel = "No")
+        public void ShowConfirmation(string title, string message, Action<bool> callback, string accept = "Yes", string cancel = "No")
         {
             Application.Current.MainPage.Dispatcher.Dispatch(async () =>
             {

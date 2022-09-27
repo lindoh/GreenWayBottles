@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+             x:DataType="viewmodel:HomeViewModel"
              x:Class="GreenWayBottles.Views.HomeView"
              Title="HomeView"
              WidthRequest="600">
@@ -19,6 +21,7 @@
         <Label Text="Not to Worry, Register a new Account now.."
                FontSize="Caption" TextColor="Black" HorizontalOptions="Start"/>
         <Button Text="Register" FontSize="Small" BackgroundColor="#6e9b19"
-                Margin="20" Padding="5" WidthRequest="200" HorizontalOptions="Center"/>
+                Margin="20" Padding="5" WidthRequest="200" HorizontalOptions="Center"
+                 Command="{Binding RegisterCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

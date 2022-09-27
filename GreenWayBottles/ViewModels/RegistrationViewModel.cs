@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GreenWayBottles.Views;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
 
@@ -47,9 +48,14 @@ namespace GreenWayBottles.ViewModels
             {
                 await alerts.ShowAlertAsync("Operation Failed", "One or more empty text fields found");
             }
-            #endregion
-
         }
+
+        [RelayCommand]
+        async void GoBack()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+        #endregion
 
         #region Helper Methods
 

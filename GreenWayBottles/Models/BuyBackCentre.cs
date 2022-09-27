@@ -10,10 +10,13 @@ namespace GreenWayBottles.Models
         }
 
         [ObservableProperty]
-        int bBCId;
+        private int bBCId;
 
         [ObservableProperty]
-        string buyBackCentreName;
+        private string buyBackCentreName;
+
+        [ObservableProperty]
+        int adminId;
 
         //BBC Street Address
         [ObservableProperty]
