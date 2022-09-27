@@ -233,7 +233,7 @@
 
             <!-- Save Button Tag                                 -->
             <Button 
-                Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True"
+                Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2"
                 x:Name="saveBtn" Text="Save" FontSize="Small" BackgroundColor="#155ca1"
                 Margin="20" Padding="5" WidthRequest="200"
                 Command="{Binding SaveCommand}"/>

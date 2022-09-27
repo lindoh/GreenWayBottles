@@ -13,10 +13,12 @@ namespace GreenWayBottles.ViewModels
         {
             dataService = new DatabaseService();
             User = new Users();
+            buyBackCentre = new BuyBackCentre();
             usersList = new ObservableCollection<Users>();
             alerts = new AlertService();
             createUserAccViewModel = new CreateUserAccViewModel();  
             searchService = new SearchService();
+            ShowBBCSection = false;
         }
 
         #endregion
@@ -38,6 +40,10 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         Users user;
 
+        //Buy Back Centre 
+        [ObservableProperty]
+        BuyBackCentre buyBackCentre;
+
         //To store the list of users
         [ObservableProperty]
         ObservableCollection<Users> usersList;
@@ -45,6 +51,9 @@ namespace GreenWayBottles.ViewModels
         //Which user details are being updated
         [ObservableProperty]
         string selectedUser;
+
+        [ObservableProperty]
+        bool showBBCSection;
 
         #endregion
 
@@ -57,6 +66,7 @@ namespace GreenWayBottles.ViewModels
         void Search(string name)
         {
            UsersList = searchService.FindUser(name, selectedUser);
+
         }
 
         /// <summary>
@@ -98,6 +108,7 @@ namespace GreenWayBottles.ViewModels
         public void selectedItem(object sender, SelectedItemChangedEventArgs args)
         {
             User = args.SelectedItem as Users;
+
         }
         #endregion
     }

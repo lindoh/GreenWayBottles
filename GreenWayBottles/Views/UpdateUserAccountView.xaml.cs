@@ -1,4 +1,3 @@
-
 using GreenWayBottles.ViewModels;
 
 namespace GreenWayBottles.Views;
@@ -20,8 +19,14 @@ public partial class UpdateUserAccountView : ContentPage
 	private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs args)
 	{
 		if (AdminRadioBtn.IsChecked)
+		{
 			viewModel.SelectedUser = "Admin";
+			viewModel.ShowBBCSection = true;
+		}
 		else if (CollectorRadioBtn.IsChecked)
+		{
 			viewModel.SelectedUser = "Collector";
+			viewModel.ShowBBCSection = false;
+		}
 	}
 }

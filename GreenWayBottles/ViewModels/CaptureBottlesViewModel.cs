@@ -13,6 +13,7 @@ namespace GreenWayBottles.ViewModels
         {
             dataService = new DatabaseService();
             searchService = new SearchService();
+            alerts = new AlertService();    
             user = new Users();
             bottle = new BottleDataSource();    
             selectedUser = "Collector";
@@ -23,6 +24,7 @@ namespace GreenWayBottles.ViewModels
         #region Class Properties
         DatabaseService dataService;
         SearchService searchService;
+        AlertService alerts;
 
         [ObservableProperty]
         Users user;
@@ -64,6 +66,8 @@ namespace GreenWayBottles.ViewModels
             //Calculate amount due
             CalculateAmount();
 
+            //Reset Bottle size and Quantity
+            Clear();
             
         }
         #endregion
@@ -90,17 +94,30 @@ namespace GreenWayBottles.ViewModels
         private void CalculateAmount()
         {
             string bottleSize;
-            bottleSize = bottle.Size.Replace("ml", string.Empty);
-            bottleSize = bottleSize.Trim();
 
-            int size = Int32.Parse(bottleSize);
+            if (bottle.Size != null)
+            {
+                bottleSize = bottle.Size.Replace("ml", string.Empty);
+                bottleSize = bottleSize.Trim();
+           
+                int size = Int32.Parse(bottleSize);
 
-            if (size > 0 && size < 2000)
-                Amount += Quantity;
-            else if (size >= 2000)
-                Amount += Quantity * 1.5;
+                if (size > 0 && size < 2000)
+                    Amount += Quantity;
+                else if (size >= 2000)
+                    Amount += Quantity * 1.5;
 
-            AmountString = $"R{amount}";
+                AmountString = $"R{amount}";
+
+                }
+                else
+                    alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
+        }
+
+        private void Clear()
+        {
+            bottle.Size = null;
+            Quantity = 0;
         }
 
         #endregion

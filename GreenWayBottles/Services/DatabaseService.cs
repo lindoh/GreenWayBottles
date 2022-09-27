@@ -497,5 +497,137 @@ namespace GreenWayBottles.Services
 
         #endregion
 
+        #region Save BuyBackCentre Details
+        /// <summary>
+        /// Save the Data for the BuyBackCentre with the Associated Admin details
+        /// Admin ID is sufficient in this case
+        /// </summary>
+        /// <param name="buyBackCentre"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool SaveBBCData(BuyBackCentre buyBackCentre, Users user)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "NewBBCDetails";
+
+                sqlCommand.Parameters.AddWithValue("@BBCName", buyBackCentre.BuyBackCentreName);    
+                sqlCommand.Parameters.AddWithValue("@StreetAddress", buyBackCentre.StreetAddress);
+                sqlCommand.Parameters.AddWithValue("@Suburb", buyBackCentre.Suburb);
+                sqlCommand.Parameters.AddWithValue("@City", buyBackCentre.City);
+                sqlCommand.Parameters.AddWithValue("@Province", buyBackCentre.Province);
+                sqlCommand.Parameters.AddWithValue("@Country", buyBackCentre.Country);
+                sqlCommand.Parameters.AddWithValue("@AdminId", user.Id);
+
+                //Open Sql database connection
+                sqlConnection.Open();
+
+                //If affected number of rows is > 0, then data is saved successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isSaved;
+        }
+
+        #endregion
+
+        #region Search BuyBackCentre Details
+        public BuyBackCentre SearchBBC(Users user)
+        {
+            BuyBackCentre buyBackCentre = new BuyBackCentre();
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "SearchBBC";
+                sqlCommand.Parameters.AddWithValue("@AdminId", user.Id);
+
+                sqlConnection.Open();
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if(sqlDataReader.HasRows)
+                {
+                    while(sqlDataReader.Read())
+                    {
+                        buyBackCentre.BBCId = sqlDataReader.GetInt32(0);
+                        buyBackCentre.BuyBackCentreName = sqlDataReader.GetString(1);
+                        buyBackCentre.StreetAddress = sqlDataReader.GetString(2);
+                        buyBackCentre.Suburb = sqlDataReader.GetString(3);
+                        buyBackCentre.City = sqlDataReader.GetString(4);
+                        buyBackCentre.Province = sqlDataReader.GetString(5);
+                        buyBackCentre.Country = sqlDataReader.GetString(6);
+                    }
+                    sqlDataReader.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return buyBackCentre;
+        }
+
+        #endregion
+
+        #region Update BuyBackCentre Details
+        public bool UpdateBBC(BuyBackCentre buyBackCentre)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "UpdateBBCDetails";
+
+                sqlCommand.Parameters.AddWithValue("@BBCName", buyBackCentre.BuyBackCentreName);
+                sqlCommand.Parameters.AddWithValue("@StreetAddress", buyBackCentre.StreetAddress);
+                sqlCommand.Parameters.AddWithValue("@Suburb", buyBackCentre.Suburb);
+                sqlCommand.Parameters.AddWithValue("@City", buyBackCentre.City);
+                sqlCommand.Parameters.AddWithValue("@Province", buyBackCentre.Province);
+                sqlCommand.Parameters.AddWithValue("@Country", buyBackCentre.Country);
+
+                //Open Sql database connection
+                sqlConnection.Open();
+
+                //If affected number of rows is > 0, then data is updated successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isUpdated = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isUpdated;
+        }
+
+        #endregion
+
     }
 }
