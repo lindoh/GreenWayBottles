@@ -134,6 +134,99 @@ namespace GreenWayBottles.Services
 
         #endregion
 
+        #region SaveData Method for Admin Logins
+        /// <summary>
+        /// A Method to Save Admin Login Details
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public bool SaveLogins(Login login)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "AddAdminLogins";
+
+                sqlCommand.Parameters.AddWithValue("@Username", login.Username);
+                sqlCommand.Parameters.AddWithValue("@Password", login.Password);
+                sqlCommand.Parameters.AddWithValue("@AdminId", login.AdminId);
+
+                //Open Sql Connection
+                sqlConnection.Open();
+
+                //If affected number of rows is > 0, then data is saved successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isSaved;
+        }
+        #endregion
+
+        #region Search Admin Logins in the Database
+        /// <summary>
+        /// Search the Admin Login details to find a match of
+        /// Username and Password and Read the Data including 
+        /// the AdminId
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public Login SearchLogins(Login login)
+        {
+            Login userLogin = new Login();
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "SearchAdminLogins";
+
+                sqlCommand.Parameters.AddWithValue("@Username", login.Username);
+                sqlCommand.Parameters.AddWithValue("@Password", login.Password);
+
+                //Open Sql Connection
+                sqlConnection.Open();
+
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if (sqlDataReader.HasRows)
+                {
+                    userLogin.IsLoggedIn = true;
+
+                    while (sqlDataReader.Read())
+                    {
+                        userLogin.Username = sqlDataReader.GetString(0);
+                        userLogin.Password = sqlDataReader.GetString(1);
+                        userLogin.AdminId = sqlDataReader.GetInt32(2);
+                    }
+                    sqlDataReader.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return userLogin;
+        }
+
+        #endregion
+
         #region GetAll User's Data 
         /// <summary>
         /// Get all data that matches a given name, i.e., Firstname

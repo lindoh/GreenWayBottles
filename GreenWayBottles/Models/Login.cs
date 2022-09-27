@@ -6,7 +6,7 @@ namespace GreenWayBottles.Models
     {
         public Login()
         {
-
+            IsLoggedIn = false;
         }
 
         //Username can be an Email or any combination of text
@@ -18,6 +18,9 @@ namespace GreenWayBottles.Models
 
         [ObservableProperty]
         bool isLoggedIn;
+
+        [ObservableProperty]
+        int adminId;
 
         [ObservableProperty]
         int bBCId;
