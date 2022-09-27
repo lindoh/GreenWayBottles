@@ -123,7 +123,7 @@ namespace GreenWayBottles.ViewModels
         {
             if(user.Id != 0)
             {
-                BBC = dataService.SearchBBC(user);
+                BBC = dataService.SearchBBC(user.Id);
 
                 if (BBC.BBCId == 0)
                 {

@@ -34,7 +34,11 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CaptureBottlesViewModel>();
 
 		builder.Services.AddTransient<RegistrationView>();
+		builder.Services.AddTransient<CreateLoginsView>();
 		builder.Services.AddTransient<RegistrationViewModel>();
+
+		builder.Services.AddTransient<LoginView>();
+		builder.Services.AddTransient<LoginViewModel>();
 
 		builder.Services.AddSingleton<IAlertService, AlertService>();
 

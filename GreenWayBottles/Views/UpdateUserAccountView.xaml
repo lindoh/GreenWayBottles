@@ -45,7 +45,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                   Text="Update Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
+                   Text="Update User Account" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>
 
             <StackLayout Grid.Row="1" Grid.Column="0" >

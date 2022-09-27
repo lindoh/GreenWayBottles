@@ -13,6 +13,7 @@ public partial class MainPage : Shell
 		BindingContext = new DeleteUserAccViewModel();	
 		BindingContext = new UpdateBankingViewModel();
 		BindingContext = new CaptureBottlesViewModel();
+		BindingContext = new RegistrationViewModel();
 	}
 
 	

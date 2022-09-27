@@ -2,6 +2,8 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:GreenWayBottles.Views"
+       xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+       x:DataType="viewmodel:LoginViewModel"
        x:Class="GreenWayBottles.MainPage"
        Shell.FlyoutBehavior="Disabled"
        Shell.NavBarIsVisible="False"
@@ -12,17 +14,17 @@
     <!--Need a Data binding to enable and disable the View using "isLoggedIn" from the Login Model-->
 
     <FlyoutItem>
-        <ShellContent Title="Home"
+        <ShellContent Title="Home" 
                       ContentTemplate="{x:DataTemplate views:HomeView}"/>
-        <ShellContent Title="Capture New Bottles"
+        <ShellContent Title="Capture New Bottles" IsEnabled="{Binding IsBBCUpdated}"
                       ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"/>
-        <ShellContent Title="Create User Account"
+        <ShellContent Title="Create User Account" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"/>
-        <ShellContent Title="Update User Account"
+        <ShellContent Title="Update User Account" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"/>
-        <ShellContent Title="Update Banking Details"
+        <ShellContent Title="Update Banking Details" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
-        <ShellContent Title="Delete User Account"
+        <ShellContent Title="Delete User Account" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
     </FlyoutItem>
     

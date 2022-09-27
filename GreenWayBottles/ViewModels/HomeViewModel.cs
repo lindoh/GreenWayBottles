@@ -16,5 +16,10 @@ namespace GreenWayBottles.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(RegistrationView));
         }
+
+        async void Login()
+        {
+            await Shell.Current.GoToAsync(nameof(LoginView));
+        }
     }
 }

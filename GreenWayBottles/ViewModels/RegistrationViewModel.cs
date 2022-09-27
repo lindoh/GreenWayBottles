@@ -5,6 +5,7 @@ using GreenWayBottles.Views;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
 
+
 namespace GreenWayBottles.ViewModels
 {
     public partial class RegistrationViewModel : ObservableObject
@@ -21,6 +22,12 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         private Users user;
+
+        [ObservableProperty]
+        Login userLogins;
+
+        [ObservableProperty]
+        string confirmPassword;
 
         AlertService alerts;
 
@@ -43,6 +50,9 @@ namespace GreenWayBottles.ViewModels
                 dataService.SaveAdminData(user);
                 await alerts.ShowAlertAsync("Success", "User Account Created Successfully");
                 Clear(User);    //Clear text fields
+
+                //Navigate to the Create Login Details Page
+                await Shell.Current.GoToAsync(nameof(CreateLoginsView));
             }
             else
             {
@@ -55,15 +65,42 @@ namespace GreenWayBottles.ViewModels
         {
             await Shell.Current.GoToAsync("..");
         }
+
+        [RelayCommand]
+        async void Continue()
+        {
+            CreateUserLogins();
+            await Shell.Current.GoToAsync(nameof(LoginView));
+        }
         #endregion
 
         #region Helper Methods
+
+        public async void CreateUserLogins()
+        {
+            int adminId = dataService.SearchAdmin(user.IdNumber);
+
+            if (!(UserLogins.Password == confirmPassword))
+                await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");
+            else if (!(UserLogins.Username == "" && UserLogins.Password == "" && confirmPassword == ""))
+            {
+                UserLogins.AdminId = adminId;
+                bool isSaved = dataService.SaveLogins(userLogins);
+
+                if (isSaved)
+                {
+                    await alerts.ShowAlertAsync("Operation Successful", "Login Details Saved Successfully");
+                }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "One or more empty fields found");
+            }
+        }
 
         /// <summary>
         /// Check if any text fields are empty
         /// </summary>
         /// <returns>Return false if empty else return True</returns>
-        public bool CheckTextFields(Users user)
+        private bool CheckTextFields(Users user)
         {
             bool emptyFields = false;
 

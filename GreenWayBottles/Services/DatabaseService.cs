@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using GreenWayBottles.Models;
 
+
 //    TO DO:
 // Formalize SqlExceptions to match what caused the error
 // Add Comments
@@ -293,6 +294,45 @@ namespace GreenWayBottles.Services
                 sqlConnection.Close();
             }
         }
+        #endregion
+
+        #region Search AdminId using IdNumber
+        public int SearchAdmin(string IdNumber)
+        {
+            int id = 0;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "SearchAdminWithIdNum";
+                sqlCommand.Parameters.AddWithValue("@IdNumber", IdNumber);
+
+                sqlConnection.Open();
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if (sqlDataReader.HasRows)
+                {
+                    while (sqlDataReader.Read())
+                    {
+                        id = sqlDataReader.GetInt32(0);
+                    }
+                    sqlDataReader.Close();
+
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return id;
+        }
+
         #endregion
 
         #region Update User's Data
@@ -640,7 +680,7 @@ namespace GreenWayBottles.Services
         #endregion
 
         #region Search BuyBackCentre Details
-        public BuyBackCentre SearchBBC(Users user)
+        public BuyBackCentre SearchBBC(int AdminId)
         {
             BuyBackCentre buyBackCentre = new BuyBackCentre();
 
@@ -648,7 +688,7 @@ namespace GreenWayBottles.Services
             {
                 sqlCommand.Parameters.Clear();
                 sqlCommand.CommandText = "SearchBBC";
-                sqlCommand.Parameters.AddWithValue("@AdminId", user.Id);
+                sqlCommand.Parameters.AddWithValue("@AdminId", AdminId);
 
                 sqlConnection.Open();
                 var sqlDataReader = sqlCommand.ExecuteReader();
