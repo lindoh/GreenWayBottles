@@ -9,7 +9,9 @@
        Shell.NavBarIsVisible="False"
        Shell.TabBarBackgroundColor="#6e9b19"
        Shell.TabBarForegroundColor="Black"
-       Shell.BackgroundColor="#155ca1">
+       Shell.BackgroundColor="#155ca1"
+       MaximumWidthRequest="450"
+       MinimumWidthRequest="250">
     
     <!--Need a Data binding to enable and disable the View using "isLoggedIn" from the Login Model-->
 
@@ -18,13 +20,13 @@
                       ContentTemplate="{x:DataTemplate views:HomeView}"/>
         <ShellContent Title="Capture New Bottles" IsEnabled="{Binding IsBBCUpdated}"
                       ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"/>
-        <ShellContent Title="Create User Account" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
+        <ShellContent Title="Create User Account" IsEnabled="{Binding UserLogin.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"/>
-        <ShellContent Title="Update User Account" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
+        <ShellContent Title="Update User Account" IsEnabled="{Binding UserLogin.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"/>
-        <ShellContent Title="Update Banking Details" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
+        <ShellContent Title="Update Banking Details" IsEnabled="{Binding UserLogin.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
-        <ShellContent Title="Delete User Account" IsEnabled="{Binding CurrentUser.IsLoggedIn}"
+        <ShellContent Title="Delete User Account" IsEnabled="{Binding UserLogin.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
     </FlyoutItem>
     

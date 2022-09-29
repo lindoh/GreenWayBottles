@@ -6,7 +6,8 @@
              x:DataType="viewmodel:CaptureBottlesViewModel"
              x:Class="GreenWayBottles.Views.CaptureNewBottlesView"
              Title="CaptureNewBottlesView"
-             WidthRequest="450">
+             MaximumWidthRequest="450"
+             MinimumWidthRequest="250">
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 

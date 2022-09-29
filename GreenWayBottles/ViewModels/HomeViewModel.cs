@@ -17,6 +17,7 @@ namespace GreenWayBottles.ViewModels
             await Shell.Current.GoToAsync(nameof(RegistrationView));
         }
 
+        [RelayCommand]
         async void Login()
         {
             await Shell.Current.GoToAsync(nameof(LoginView));

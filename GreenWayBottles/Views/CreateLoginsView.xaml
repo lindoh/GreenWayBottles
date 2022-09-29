@@ -4,7 +4,8 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              x:DataType="viewmodel:RegistrationViewModel"
              x:Class="GreenWayBottles.Views.CreateLoginsView"
-             Title="CreateLoginsView">
+             Title="CreateLoginsView"
+             MaximumWidthRequest="600">
     <VerticalStackLayout>
         <!--Username Tag-->
         <Label 

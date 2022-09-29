@@ -26,6 +26,8 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         Login userLogins;
 
+        private string idNumber;
+
         [ObservableProperty]
         string confirmPassword;
 
@@ -49,6 +51,10 @@ namespace GreenWayBottles.ViewModels
             {
                 dataService.SaveAdminData(user);
                 await alerts.ShowAlertAsync("Success", "User Account Created Successfully");
+
+                //Save the user's Id number before class properties are cleared 
+                idNumber = user.IdNumber;
+
                 Clear(User);    //Clear text fields
 
                 //Navigate to the Create Login Details Page
@@ -61,7 +67,13 @@ namespace GreenWayBottles.ViewModels
         }
 
         [RelayCommand]
-        async void GoBack()
+        async void GoToLogin()
+        {
+            await Shell.Current.GoToAsync(nameof(LoginView));
+        }
+
+        [RelayCommand]
+        async void PrevBtn()
         {
             await Shell.Current.GoToAsync("..");
         }
@@ -78,7 +90,7 @@ namespace GreenWayBottles.ViewModels
 
         public async void CreateUserLogins()
         {
-            int adminId = dataService.SearchAdmin(user.IdNumber);
+            int adminId = dataService.SearchAdmin(idNumber);
 
             if (!(UserLogins.Password == confirmPassword))
                 await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");

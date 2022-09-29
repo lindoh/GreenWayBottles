@@ -2,7 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
-using GreenWayBottles.ViewModels;
+using GreenWayBottles.Views;
+
 
 namespace GreenWayBottles.ViewModels
 {
@@ -13,13 +14,15 @@ namespace GreenWayBottles.ViewModels
             dataService = new DatabaseService();
             alerts = new AlertService();
             IsBBCUpdated = false;
+            userLogin = new Login();
+            UserLogin.IsLoggedIn = false;
         }
 
         DatabaseService dataService;
         AlertService alerts;
 
         [ObservableProperty]
-        Login currentUser;
+        Login userLogin;
 
         [ObservableProperty]
         BuyBackCentre buyBackCentre;
@@ -27,29 +30,70 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         bool isBBCUpdated;
 
+        #region Class Buttons
+
         [RelayCommand]
         public async void Login()
         {
-            CurrentUser = dataService.SearchLogins(currentUser);
+            Login currentUser = new Login();
 
-            if(currentUser.IsLoggedIn)
+            //Check if text field are empty first
+            if (!CheckFields())
             {
-                await alerts.ShowAlertAsync("Login Successfully", "The user has succesfully Logged In");
+                currentUser = dataService.SearchLogins(userLogin);
 
-                buyBackCentre = dataService.SearchBBC(currentUser.AdminId);
-
-                if (buyBackCentre.BBCId != 0)
+                if (currentUser.IsLoggedIn)
                 {
-                    currentUser.BBCId = buyBackCentre.BBCId;
-                    IsBBCUpdated = true;
+                    await alerts.ShowAlertAsync("Login Successfully", "The user has succesfully Logged In");
+
+                    buyBackCentre = dataService.SearchBBC(currentUser.AdminId);
+
+                    if (buyBackCentre.BBCId != 0)
+                    {
+                        currentUser.BBCId = buyBackCentre.BBCId;
+                        IsBBCUpdated = true;
+                    }
+                    else
+                        await alerts.ShowAlertAsync("Missing Information Detected", "The user is required to Update BuyBackCentre Details under Update User Account Tab and ReLogin");
                 }
                 else
-                    await alerts.ShowAlertAsync("Missing Information Detected", "The user is required to Update BuyBackCentre Details under Update User Account Tab and ReLogin");
+                {
+                    await alerts.ShowAlertAsync("Login Failed", "The user could not be found, Register a new account instead");
+                }
+
+                UserLogin = currentUser;
             }
             else
-            {
-                await alerts.ShowAlertAsync("Login Failed", "The user could not be found, Register a new account instead");
-            }
+                await alerts.ShowAlertAsync("Operation Failed", "Username and/or Password text fields are empty");
+
+            
+
+          
         }
+
+        [RelayCommand]
+        async void GoToRegistration()
+        {
+            await Shell.Current.GoToAsync(nameof(RegistrationView));
+        }
+
+        [RelayCommand]
+        async void PrevBtn()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+        #endregion
+
+        #region Helper Methods
+        private bool CheckFields()
+        {
+            if(userLogin.Username == "" && userLogin.Password == "")
+                return true;
+            else
+                return false;
+
+        }
+
+        #endregion
     }
 }

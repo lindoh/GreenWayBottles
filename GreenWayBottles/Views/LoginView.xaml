@@ -6,7 +6,15 @@
              x:Class="GreenWayBottles.Views.LoginView"
              Title="LoginView"
              WidthRequest="600">
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="100, 10, 100, 10">
+
+        <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
+               HorizontalOptions="Center" VerticalOptions="Start" 
+               MaximumWidthRequest="150" MaximumHeightRequest="150"/>
+
+        <Label Text="Hey There!," TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
+        <Label Text="Welcome Back" TextColor="#6e9b19" FontSize="Caption" HorizontalTextAlignment="Center"/>
+
         <!--Username Tag-->
         <Label 
             Text="Username/Email" VerticalOptions="End" HorizontalOptions="Start" 
@@ -15,7 +23,7 @@
         <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5" Text="{Binding CurrentUser.Username, Mode=TwoWay}"/>
+            Margin="10, 0, 5, 5" Text="{Binding UserLogin.Username, Mode=TwoWay}"/>
 
         <!--Password Tag-->
         <Label 
@@ -25,12 +33,28 @@
         <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5" Text="{Binding CurrentUser.Password, Mode=TwoWay}"/>
+            Margin="10, 0, 5, 5" Text="{Binding UserLogin.Password, Mode=TwoWay}"/>
         
         <!--Login Button Tag-->
         <Button 
-             Text="Save" FontSize="Small" BackgroundColor="#155ca1"
+             Text="Login" FontSize="Small" BackgroundColor="#155ca1"
              Margin="20" Padding="5" WidthRequest="200"
              Command="{Binding LoginCommand}"/>
+
+        <Label Text="Don't Have An Account Yet? Click Here To Register A New Account"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToRegistrationCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Text="Or Go To Previous Page" Margin="10"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding PrevBtnCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
     </VerticalStackLayout>
 </ContentPage>
