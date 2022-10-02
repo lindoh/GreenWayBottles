@@ -206,9 +206,9 @@ namespace GreenWayBottles.Services
 
                     while (sqlDataReader.Read())
                     {
-                        userLogin.Username = sqlDataReader.GetString(0);
-                        userLogin.Password = sqlDataReader.GetString(1);
-                        userLogin.AdminId = sqlDataReader.GetInt32(2);
+                        userLogin.Username = sqlDataReader.GetString(1);
+                        userLogin.Password = sqlDataReader.GetString(2);
+                        userLogin.AdminId = sqlDataReader.GetInt32(3);
                     }
                     sqlDataReader.Close();
                 }

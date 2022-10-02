@@ -2,11 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
-             x:DataType="viewmodel:RegistrationViewModel"
+             x:DataType="viewmodel:CreateLoginsViewModel"
              x:Class="GreenWayBottles.Views.CreateLoginsView"
              Title="CreateLoginsView"
              MaximumWidthRequest="600">
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="100, 10, 100, 10">
+        <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
+               HorizontalOptions="Center" VerticalOptions="Start" 
+               MaximumWidthRequest="150" MaximumHeightRequest="150"/>
+
+        <Label Text="Please Create Login Credentials" TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
+
         <!--Username Tag-->
         <Label 
             Text="Username/Email" VerticalOptions="End" HorizontalOptions="Start" 
@@ -24,7 +30,7 @@
             Margin="10, 5, 5, 0"/>
         <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
+            FontSize="Caption" TextColor="Black" IsPassword="True"
             Margin="10, 0, 5, 5" Text="{Binding UserLogins.Password, Mode=TwoWay}"/>
 
         <!--Confirm Password Tag-->
@@ -34,12 +40,12 @@
             Margin="10, 5, 5, 0"/>
         <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
-            Margin="10, 0, 5, 5" Text="{Binding UserLogins.Password, Mode=TwoWay}"/>
+            FontSize="Caption" TextColor="Black" IsPassword="True"
+            Margin="10, 0, 5, 5" Text="{Binding ConfirmPassword, Mode=TwoWay}"/>
 
         <!--Continue Button Tag-->
         <Button 
-             Text="Save" FontSize="Small" BackgroundColor="#155ca1"
+             Text="Continue" FontSize="Small" BackgroundColor="#155ca1"
              Margin="20" Padding="5" WidthRequest="200"
              Command="{Binding ContinueCommand}"/>
     </VerticalStackLayout>

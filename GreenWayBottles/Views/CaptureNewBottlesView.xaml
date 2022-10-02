@@ -36,9 +36,7 @@
             </ListView>
 
             <!-- Bottle Type Name Tag -->
-            <Label Text="Bottle Name and Size" VerticalOptions="End" HorizontalOptions="Start" 
-                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <ListView Margin="10" MaximumHeightRequest="90"
+            <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
                       x:Name="bottlesListView" BackgroundColor="LightGray"
                       ItemSelected="bottlesListView_ItemSelected"
                       ItemsSource="{Binding BottlesList}">
@@ -68,6 +66,16 @@
                 <Label Text="{Binding AmountString}" VerticalOptions="End" HorizontalOptions="Start" 
                        FontSize="Caption" TextColor="Black" Margin="0, 5, 5, 0"/>
             </HorizontalStackLayout>
+            
+            <!-- Captured Bottles List-->
+            <ListView Header="Captured Bottles"  Margin="10" MaximumHeightRequest="90"
+                      BackgroundColor="LightGray" ItemsSource="{Binding CapturedBottles}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Bottles">
+                        <TextCell Text="{Binding BottleName}" Detail="{Binding Quantity}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <!-- Submit Button Tag -->
             <Button x:Name="submitBtn" Text="Submit" FontSize="Small" BackgroundColor="#155ca1"

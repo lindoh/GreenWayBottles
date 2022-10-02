@@ -16,19 +16,24 @@
     <!--Need a Data binding to enable and disable the View using "isLoggedIn" from the Login Model-->
 
     <FlyoutItem>
-        <ShellContent Title="Home" 
+        <ShellContent x:Name="HomePage" Title="Home" IsVisible="True"
                       ContentTemplate="{x:DataTemplate views:HomeView}"/>
-        <ShellContent Title="Capture New Bottles" IsEnabled="{Binding IsBBCUpdated}"
+        <ShellContent Title="Capture New Bottles" IsVisible="{Binding MainPage.IsBBCUpdated}"
                       ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"/>
-        <ShellContent Title="Create User Account" IsEnabled="{Binding UserLogin.IsLoggedIn}"
+        <ShellContent Title="Create User Account" IsVisible="{Binding MainPage.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"/>
-        <ShellContent Title="Update User Account" IsEnabled="{Binding UserLogin.IsLoggedIn}"
+        <ShellContent Title="Update User Account" IsVisible="{Binding MainPage.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"/>
-        <ShellContent Title="Update Banking Details" IsEnabled="{Binding UserLogin.IsLoggedIn}"
+        <ShellContent Title="Update Banking Details" IsVisible="{Binding MainPage.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
-        <ShellContent Title="Delete User Account" IsEnabled="{Binding UserLogin.IsLoggedIn}"
+        <ShellContent Title="Delete User Account" IsVisible="{Binding MainPage.IsLoggedIn}"
                       ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
+        <ShellContent Title="{Binding MainPage.IsBBCUpdated}"/>
+        <ShellContent Title="{Binding MainPage.IsLoggedIn}"/>
+        
     </FlyoutItem>
+    
+   
     
  
 </Shell>

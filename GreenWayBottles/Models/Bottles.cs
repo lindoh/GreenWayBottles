@@ -5,6 +5,9 @@ namespace GreenWayBottles.Models
     public partial class Bottles : ObservableObject
     {
         [ObservableProperty]
+        string bottleName;
+
+        [ObservableProperty]
         int quantity;
 
         [ObservableProperty]

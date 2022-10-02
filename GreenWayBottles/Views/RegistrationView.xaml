@@ -255,7 +255,7 @@
                 HorizontalOptions="Center" VerticalOptions="Center"
                 TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PrevBtnCommand}"/>
+                    <TapGestureRecognizer Command="{Binding HomeBtnCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
 

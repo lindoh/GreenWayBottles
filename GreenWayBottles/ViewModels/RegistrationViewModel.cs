@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Views;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
+using GreenWayBottles.ViewModels;
 
 
 namespace GreenWayBottles.ViewModels
@@ -15,6 +16,7 @@ namespace GreenWayBottles.ViewModels
             dataService = new DatabaseService();
             user = new Users();
             alerts = new AlertService();
+            logins = new CreateLoginsViewModel();
         }
 
         #region Class Members
@@ -26,7 +28,9 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         Login userLogins;
 
-        private string idNumber;
+        [ObservableProperty]
+        CreateLoginsViewModel logins;
+
 
         [ObservableProperty]
         string confirmPassword;
@@ -53,7 +57,7 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Success", "User Account Created Successfully");
 
                 //Save the user's Id number before class properties are cleared 
-                idNumber = user.IdNumber;
+                Logins.IdNumber = user.IdNumber;
 
                 Clear(User);    //Clear text fields
 
@@ -73,40 +77,16 @@ namespace GreenWayBottles.ViewModels
         }
 
         [RelayCommand]
-        async void PrevBtn()
+        async void HomeBtn()
         {
             await Shell.Current.GoToAsync("..");
         }
 
-        [RelayCommand]
-        async void Continue()
-        {
-            CreateUserLogins();
-            await Shell.Current.GoToAsync(nameof(LoginView));
-        }
         #endregion
 
         #region Helper Methods
 
-        public async void CreateUserLogins()
-        {
-            int adminId = dataService.SearchAdmin(idNumber);
-
-            if (!(UserLogins.Password == confirmPassword))
-                await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");
-            else if (!(UserLogins.Username == "" && UserLogins.Password == "" && confirmPassword == ""))
-            {
-                UserLogins.AdminId = adminId;
-                bool isSaved = dataService.SaveLogins(userLogins);
-
-                if (isSaved)
-                {
-                    await alerts.ShowAlertAsync("Operation Successful", "Login Details Saved Successfully");
-                }
-                else
-                    await alerts.ShowAlertAsync("Operation Failed", "One or more empty fields found");
-            }
-        }
+       
 
         /// <summary>
         /// Check if any text fields are empty

@@ -16,10 +16,11 @@ namespace GreenWayBottles.ViewModels
             alerts = new AlertService();    
             user = new Users();
             bottleData = new BottleDataSource();
-            bottle = new Bottles();
+            capturedBottles = new ObservableCollection<Bottles>();
             selectedUser = "Collector";
             GetBottles();
             Amount = 0.0;
+            
         }
 
         #region Class Properties
@@ -57,6 +58,10 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         string amountString;
 
+        //Store the collected bottles in the list before submition to database
+        [ObservableProperty]
+        ObservableCollection<Bottles> capturedBottles;
+
         #endregion
 
         #region Button Methods
@@ -70,17 +75,34 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         public void Add_and_Calculate()
         {
+            //Confirm if a User is selected
+            if(user.Id == 0)
+            {
+                alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
+                return;
+            }
+
+            if(quantity == 0)
+            {
+                alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
+            }
+
             //Update the Bottle Object
             if(user.Id !=0 && bottleData.BottleDataSourceId != 0)
             {
+                bottle = new Bottles();
                 //Calculate amount due
                 CalculateAmount();
 
+                Bottle.BottleName = BottleData.BottleName;
                 Bottle.Quantity = quantity;
                 Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
                 Bottle.CollectorId = user.Id;
                 
                 Bottle.Amount = amount;
+
+                //Update and Display Captured Bottles
+                capturedBottles.Insert(0, Bottle);
             }
 
             //Reset Bottle size and Quantity
@@ -116,7 +138,7 @@ namespace GreenWayBottles.ViewModels
             {
                 bottleSize = bottleData.Size.Replace("ml", string.Empty);
                 bottleSize = bottleSize.Trim();
-           
+
                 int size = Int32.Parse(bottleSize);
 
                 if (size > 0 && size < 2000)
@@ -126,9 +148,12 @@ namespace GreenWayBottles.ViewModels
 
                 AmountString = $"R{amount}";
 
-                }
-                else
-                    alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
+            }
+            else
+            {
+                alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
+                return;
+            }
         }
 
         private void Clear()
@@ -136,6 +161,8 @@ namespace GreenWayBottles.ViewModels
             bottleData.Size = null;
             Quantity = 0;
         }
+
+     
 
         #endregion
     }
