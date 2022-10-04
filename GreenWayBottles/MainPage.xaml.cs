@@ -9,7 +9,7 @@ public partial class MainPage : Shell
 	public MainPage()
 	{
 		InitializeComponent();
-		BindingContext = new CreateUserAccViewModel();
+		/*BindingContext = new CreateUserAccViewModel();
 		BindingContext = new UpdateUserAccViewModel();	
 		BindingContext = new DeleteUserAccViewModel();	
 		BindingContext = new UpdateBankingViewModel();
@@ -17,6 +17,7 @@ public partial class MainPage : Shell
 		BindingContext = new RegistrationViewModel();
 		
 		BindingContext = new LoginViewModel();
+		*/
 	}
 
 	

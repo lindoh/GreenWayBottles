@@ -26,9 +26,6 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         BuyBackCentre buyBackCentre;
 
-        public AppShell MainPage { get; set; }
-
-
         #region Class Buttons
 
         [RelayCommand]
@@ -75,9 +72,9 @@ namespace GreenWayBottles.ViewModels
         }
 
         [RelayCommand]
-        async void HomeBtn()
+        void ToRegister()
         {
-            await Shell.Current.GoToAsync("../");
+            App.Current.MainPage = new RegistrationView();
         }
         #endregion
 

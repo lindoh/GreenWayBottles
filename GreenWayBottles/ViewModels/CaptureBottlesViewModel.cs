@@ -5,8 +5,16 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 
 
+
 namespace GreenWayBottles.ViewModels
 {
+
+    public enum ModesOfPay
+    {
+        Cash,
+        Bank,
+        MobileMoney
+    };
     public partial class CaptureBottlesViewModel : ObservableObject
     {
         public CaptureBottlesViewModel()
@@ -21,8 +29,12 @@ namespace GreenWayBottles.ViewModels
             selectedUser = "Collector";
             GetBottles();
             Amount = 0.0;
-
+            CaptureBottleDisplay = true;
+            PaymentsDisplay = !captureBottleDisplay;
+            display_0 = display_1 = display_2 = false;
         }
+
+        
 
         #region Class Properties
         DatabaseService dataService;
@@ -66,6 +78,27 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         ObservableCollection<Bottles> capturedBottles;
 
+        //Payment Method to be used for current transaction
+        [ObservableProperty]
+        int paymentMethod;
+
+        //Switch Display Between capturing bottle data to payment section
+        [ObservableProperty]
+        bool captureBottleDisplay;
+
+        [ObservableProperty]
+        bool paymentsDisplay;
+
+        //Switch display between Cash/Bank/MobileMoney Payment methods
+        [ObservableProperty]
+        bool display_0;
+
+        [ObservableProperty]
+        bool display_1;
+
+        [ObservableProperty]
+        bool display_2;
+
         #endregion
 
         #region Button Methods
@@ -79,45 +112,44 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         public async void Add_and_Calculate()
         {
-            if(currentAdmin.UserLogin.IsLoggedIn)
-            {
-                //Confirm if a User is selected
-                if (user.Id == 0)
-                {
-                    await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
-                    return;
-                }
+             //Confirm if a User is selected
+             if (user.Id == 0)
+             {
+                 await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
+                 return;
+             }
 
-                if (quantity == 0)
-                {
-                    await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
-                    return;
-                }
+             if (quantity == 0)
+             {
+                 await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
+                 return;
+             }
 
-                //Update the Bottle Object
-                if (bottleData.BottleDataSourceId != 0)
-                {
-                    bottle = new Bottles();
-                    //Calculate amount due
-                    CalculateAmount();
+             //Update the Bottle Object
+             if (bottleData.BottleDataSourceId != 0)
+             {
+                 bottle = new Bottles();
+                 //Calculate amount due
+                 CalculateAmount();
 
-                    Bottle.BottleName = BottleData.BottleName;
-                    Bottle.Quantity = quantity;
-                    Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
-                    Bottle.CollectorId = user.Id;
-                    Bottle.BBCId = currentAdmin.UserLogin.BBCId;
-                    Bottle.Amount = amount;
+                 Bottle.BottleName = BottleData.BottleName;
+                 Bottle.Quantity = quantity;
+                 Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
+                 Bottle.CollectorId = user.Id;
+                 Bottle.BBCId = currentAdmin.UserLogin.BBCId;
+                 Bottle.Amount = amount;
+                 Bottle.AdminId = currentAdmin.UserLogin.AdminId;   
 
-                    //Update and Display Captured Bottles
-                    capturedBottles.Insert(0, Bottle);
-                }
-                else
-                    await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+                 //Update and Display Captured Bottles
+                 capturedBottles.Insert(0, Bottle);
+             }
+             else
+                 await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
 
-                //Reset Bottle size and Quantity
-                Clear();
+             //Reset Bottle size and Quantity
+             Clear();
 
-            }
+            
 
         }
 
@@ -131,7 +163,13 @@ namespace GreenWayBottles.ViewModels
                 isSubmitted = dataService.CaptureBottles(capturedBottles);
 
                 if (isSubmitted)
+                {
                     await alerts.ShowAlertAsync("Operation Successful", "Collected bottle(s) data saved successfully!");
+
+                    //Hide 
+                    CaptureBottleDisplay = false;
+                    PaymentsDisplay = !captureBottleDisplay;
+                }
                 else
                     await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
             }
@@ -154,6 +192,7 @@ namespace GreenWayBottles.ViewModels
             {
                 BottleData = args.SelectedItem as BottleDataSource;
             }
+
             public void GetBottles()
             {
                 BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());

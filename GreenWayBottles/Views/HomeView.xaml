@@ -12,20 +12,6 @@
                Margin="10"/>
         <Label Text="Welcome Back" FontSize="Small" FontAttributes="Italic"
                TextColor="#155ca1" HorizontalOptions="Center"/>
-        <Label Text="If you are an already existing user Click the Login Button below to Login!!" 
-               FontSize="Caption" TextColor="Black" HorizontalOptions="Start"/>
-        <Button Text="Login" FontSize="Small" BackgroundColor="#155ca1"
-                Margin="20" Padding="5" WidthRequest="200" HorizontalOptions="Center"
-                Command="{Binding LoginCommand}"/>
-        <Label Text="New to GreenWayBottles system? "
-               FontSize="Caption" TextColor="#6e9b19" HorizontalOptions="Start"/>
-        <Label Text="Not to Worry, Register a new Account now.."
-               FontSize="Caption" TextColor="Black" HorizontalOptions="Start"/>
-        <Button Text="Register" FontSize="Small" BackgroundColor="#6e9b19"
-                Margin="20" Padding="5" WidthRequest="200" HorizontalOptions="Center"
-                 Command="{Binding RegisterCommand}"/>
 
-        <Label Text="Is User Logged In?"/>
-        <Label Text="{Binding LoginVM.UserLogin.IsLoggedIn}"/>
     </VerticalStackLayout>
 </ContentPage>

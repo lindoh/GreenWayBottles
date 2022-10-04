@@ -10,78 +10,136 @@
              MinimumWidthRequest="250">
     <ScrollView>
         <VerticalStackLayout>
-            <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 
+            <VerticalStackLayout IsVisible="{Binding CaptureBottleDisplay}">
+                <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>
 
-            <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
+                <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10"/>
-            <SearchBar x:Name="searchBar"  
+                <SearchBar x:Name="searchBar"  
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
 
-            <ListView Margin="10" Header="Results" MaximumHeightRequest="90"
+                <ListView Margin="10" Header="Results" MaximumHeightRequest="90"
                       x:Name="usersListView" BackgroundColor="LightGray" 
                       ItemSelected="usersListView_ItemSelected"
                       ItemsSource="{Binding UsersList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Users">
-                        <ViewCell>
-                            <HorizontalStackLayout Spacing="2">
-                                <Label Text="{Binding FirstName}"/>
-                                <Label Text="{Binding LastName}"/>
-                            </HorizontalStackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Users">
+                            <ViewCell>
+                                <HorizontalStackLayout Spacing="2">
+                                    <Label Text="{Binding FirstName}"/>
+                                    <Label Text="{Binding LastName}"/>
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <!-- Bottle Type Name Tag -->
-            <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
+                <!-- Bottle Type Name Tag -->
+                <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
                       x:Name="bottlesListView" BackgroundColor="LightGray"
                       ItemSelected="bottlesListView_ItemSelected"
                       ItemsSource="{Binding BottlesList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:BottleDataSource">
-                        <TextCell Text="{Binding BottleName}" Detail="{Binding Size}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:BottleDataSource">
+                            <TextCell Text="{Binding BottleName}" Detail="{Binding Size}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
-            </ListView>
+                </ListView>
 
 
-            <!-- Bottle Quantity Tags-->
-            <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
+                <!-- Bottle Quantity Tags-->
+                <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-            <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
+                <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
                     TextColor="Black" Text="{Binding Quantity}"/>
-            
-            <!-- Add New Data Button Tag -->
-            <Button x:Name="addNewDataBtn" Text="Calculate and Add New Entry" FontSize="Small" BackgroundColor="#155ca1"
+
+                <!-- Add New Data Button Tag -->
+                <Button x:Name="addNewDataBtn" Text="Calculate and Add New Entry" FontSize="Small" BackgroundColor="#155ca1"
                     Margin="20" Padding="5" Command="{Binding Add_and_CalculateCommand}"/>
 
-            <HorizontalStackLayout>
-                <Label Text="Current Amount" VerticalOptions="End" HorizontalOptions="Start" 
+                <!--Amount Due Tag-->
+                <HorizontalStackLayout>
+                    <Label Text="Current Amount" VerticalOptions="End" HorizontalOptions="Start" 
                        FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"
                        FontAttributes="Bold"/>
-                <Label Text="{Binding AmountString}" VerticalOptions="End" HorizontalOptions="Start" 
+                    <Label Text="{Binding AmountString}" VerticalOptions="End" HorizontalOptions="Start" 
                        FontSize="Caption" TextColor="Black" Margin="0, 5, 5, 0"/>
-            </HorizontalStackLayout>
-            
-            <!-- Captured Bottles List-->
-            <ListView Header="Captured Bottles"  Margin="10" MaximumHeightRequest="90"
-                      BackgroundColor="LightGray" ItemsSource="{Binding CapturedBottles}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Bottles">
-                        <TextCell Text="{Binding BottleName}" Detail="{Binding Quantity}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </HorizontalStackLayout>
 
-            <!-- Submit Button Tag -->
-            <Button x:Name="submitBtn" Text="Submit" FontSize="Small" BackgroundColor="#155ca1"
+                <!-- Captured Bottles List-->
+                <ListView Header="Captured Bottles"  Margin="10" MaximumHeightRequest="90"
+                      BackgroundColor="LightGray" ItemsSource="{Binding CapturedBottles}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Bottles">
+                            <TextCell Text="{Binding BottleName}" Detail="{Binding Quantity}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Submit Button Tag -->
+                <Button x:Name="submitBtn" Text="Submit" FontSize="Small" BackgroundColor="#155ca1"
                     Margin="20" Padding="5" WidthRequest="200"
                     Command="{Binding SubmitCommand}"/>
 
+            </VerticalStackLayout>
+            
+            <!--=====================================================================================================-->
+            <!--                                           Payment Section                                           -->
+            <!--=====================================================================================================-->
+            <VerticalStackLayout IsVisible="{Binding PaymentsDisplay}">
+                <!--Title Tag-->
+                <Label Text="Payment Due" VerticalOptions="Center" HorizontalOptions="Center" 
+                   FontSize="Title" TextColor="#155ca1" Margin="10"/>
+
+                <!--Amount Due Tag-->
+                <HorizontalStackLayout>
+                    <Label Text="Current Amount" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"
+                       FontAttributes="Bold"/>
+                    <Label Text="{Binding AmountString}" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black" Margin="0, 5, 5, 0"/>
+                </HorizontalStackLayout>
+
+                <Label Text="Preferred Payment Method?" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
+                <VerticalStackLayout>
+                    <RadioButton x:Name="CashPaymentRadioBtn" Content="Cash Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
+                    <RadioButton x:Name="BankPaymentRadioBtn" Content="Bank Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
+                    <RadioButton x:Name="MobilePaymentRadioBtn" Content="Mobile Money Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
+                </VerticalStackLayout>
+
+                <!--Confirm Cash Payment-->
+                <VerticalStackLayout IsVisible="{Binding Display_0}">
+                    <Label Text="Confirm Cash Payment" VerticalOptions="End"
+                       HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
+                       TextColor="Gray" Margin="10, 15, 5, 0"/>
+
+                </VerticalStackLayout>
+
+                <!--Confirm Bank Payment-->
+                <VerticalStackLayout IsVisible="{Binding Display_1}">
+                    <Label Text="Confirm Bank Payment" VerticalOptions="End"
+                       HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
+                       TextColor="Gray" Margin="10, 15, 5, 0"/>
+
+                </VerticalStackLayout>
+
+                <!--Confirm Mobile Money Payment-->
+                <VerticalStackLayout IsVisible="{Binding Display_2}">
+                    <Label Text="Confirm Mobile Money Payment" VerticalOptions="End"
+                       HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
+                       TextColor="Gray" Margin="10, 15, 5, 0"/>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            
+            
         </VerticalStackLayout>
+
+        
     </ScrollView>
 </ContentPage>

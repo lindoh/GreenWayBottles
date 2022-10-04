@@ -246,7 +246,7 @@
                 HorizontalOptions="Center" VerticalOptions="Center"
                 TextColor="Blue" FontAttributes="Italic" FontSize="Caption">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding HomeBtnCommand}"/>
+                    <TapGestureRecognizer Command="{Binding ToLoginCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
 

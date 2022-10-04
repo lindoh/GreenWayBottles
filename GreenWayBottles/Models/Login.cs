@@ -17,16 +17,16 @@ namespace GreenWayBottles.Models
         string password;
 
         [ObservableProperty]
-        bool isLoggedIn;
+        static bool isLoggedIn;
 
         [ObservableProperty]
-        bool isBBCUpdated;
+        static bool isBBCUpdated;
 
         [ObservableProperty]
-        int adminId;
+        static int adminId;
 
         [ObservableProperty]
-        int bBCId;
+        static int bBCId;
     }
 
 

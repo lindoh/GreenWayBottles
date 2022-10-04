@@ -4,26 +4,13 @@ using GreenWayBottles.Views;
 
 namespace GreenWayBottles.ViewModels
 {
-    public partial class HomeViewModel : ObservableObject
+    public class HomeViewModel
     {
         public HomeViewModel()
         {
-            loginVM = new LoginViewModel();
+          
         }
 
-        [ObservableProperty]
-        LoginViewModel loginVM;
-
-        [RelayCommand]
-        async void Register()
-        {
-            await Shell.Current.GoToAsync(nameof(RegistrationView));
-        }
-
-        [RelayCommand]
-        async void Login()
-        {
-            await Shell.Current.GoToAsync(nameof(LoginView));
-        }
+     
     }
 }

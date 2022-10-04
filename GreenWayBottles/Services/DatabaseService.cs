@@ -769,7 +769,10 @@ namespace GreenWayBottles.Services
 
             try
             {
-                foreach(Bottles bottle in capturedBottles)
+                //Open Sql connection
+                sqlConnection.Open();
+
+                foreach (Bottles bottle in capturedBottles)
                 {
                     sqlCommand.Parameters.Clear();
                     sqlCommand.CommandText = "CaptureBottles";
@@ -779,9 +782,7 @@ namespace GreenWayBottles.Services
                     sqlCommand.Parameters.AddWithValue("CollectorId", bottle.CollectorId);
                     sqlCommand.Parameters.AddWithValue("BBCId", bottle.BBCId);
                     sqlCommand.Parameters.AddWithValue("Amount", bottle.Amount);
-
-                    //Open Sql connection
-                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("AdminId", bottle.AdminId);
 
                     //If affected number of rows > 0, then the save operation is successful
                     int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();

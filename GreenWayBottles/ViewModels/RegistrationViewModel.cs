@@ -77,9 +77,9 @@ namespace GreenWayBottles.ViewModels
         /// Go back to the Home Page View
         /// </summary>
         [RelayCommand]
-        async void HomeBtn()
+        void ToLogin()
         {
-            await Shell.Current.GoToAsync("..");
+            App.Current.MainPage = new LoginView();
         }
 
         #endregion

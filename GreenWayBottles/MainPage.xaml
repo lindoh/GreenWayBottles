@@ -15,17 +15,23 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent x:Name="HomePage" Title="Home" 
-                      ContentTemplate="{x:DataTemplate views:HomeView}"/>
+                      ContentTemplate="{x:DataTemplate views:HomeView}"
+                      Route="HomeView"/>
         <ShellContent Title="Capture New Bottles"  
-                      ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"/>
+                      ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"
+                      Route="CaptureNewBottlesView"/>
         <ShellContent Title="Create User Account" 
-                      ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"/>
+                      ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"
+                      Route="CreateUserAccountView"/>
         <ShellContent Title="Update User Account" 
-                      ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"/>
+                      ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"
+                      Route="UpdateUserAccountView"/>
         <ShellContent Title="Update Banking Details" 
-                      ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
+                      ContentTemplate="{x:DataTemplate views:UpdateBankingView}"
+                      Route="UpdateBankingView"/>
         <ShellContent Title="Delete User Account" 
-                      ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
+                      ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"
+                      Route="DeleteUserAccView"/>
 
     </FlyoutItem>
 

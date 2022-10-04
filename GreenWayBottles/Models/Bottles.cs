@@ -21,5 +21,8 @@ namespace GreenWayBottles.Models
 
         [ObservableProperty]
         double amount;
+
+        [ObservableProperty]
+        static int adminId;
     }
 }
