@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
 using GreenWayBottles.Models;
+using System.Collections.ObjectModel;
 
 
 //    TO DO:
@@ -183,17 +184,16 @@ namespace GreenWayBottles.Services
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        public Login SearchLogins(Login login)
+        public void SearchLogins(Login UserLogin)
         {
-            Login userLogin = new Login();
 
             try
             {
                 sqlCommand.Parameters.Clear();
                 sqlCommand.CommandText = "SearchAdminLogins";
 
-                sqlCommand.Parameters.AddWithValue("@Username", login.Username);
-                sqlCommand.Parameters.AddWithValue("@Password", login.Password);
+                sqlCommand.Parameters.AddWithValue("@Username", UserLogin.Username);
+                sqlCommand.Parameters.AddWithValue("@Password", UserLogin.Password);
 
                 //Open Sql Connection
                 sqlConnection.Open();
@@ -202,13 +202,13 @@ namespace GreenWayBottles.Services
 
                 if (sqlDataReader.HasRows)
                 {
-                    userLogin.IsLoggedIn = true;
+                    UserLogin.IsLoggedIn = true;
 
                     while (sqlDataReader.Read())
                     {
-                        userLogin.Username = sqlDataReader.GetString(1);
-                        userLogin.Password = sqlDataReader.GetString(2);
-                        userLogin.AdminId = sqlDataReader.GetInt32(3);
+                        UserLogin.Username = sqlDataReader.GetString(1);
+                        UserLogin.Password = sqlDataReader.GetString(2);
+                        UserLogin.AdminId = sqlDataReader.GetInt32(3);
                     }
                     sqlDataReader.Close();
                 }
@@ -222,8 +222,6 @@ namespace GreenWayBottles.Services
             {
                 sqlConnection.Close();
             }
-
-            return userLogin;
         }
 
         #endregion
@@ -760,6 +758,49 @@ namespace GreenWayBottles.Services
             }
 
             return isUpdated;
+        }
+
+        #endregion
+
+        #region Save Captured Bottle Data
+        public bool CaptureBottles(ObservableCollection<Bottles> capturedBottles)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                foreach(Bottles bottle in capturedBottles)
+                {
+                    sqlCommand.Parameters.Clear();
+                    sqlCommand.CommandText = "CaptureBottles";
+
+                    sqlCommand.Parameters.AddWithValue("Quantity", bottle.Quantity);
+                    sqlCommand.Parameters.AddWithValue("BottleDataSourceId", bottle.BottleDataSourceId);
+                    sqlCommand.Parameters.AddWithValue("CollectorId", bottle.CollectorId);
+                    sqlCommand.Parameters.AddWithValue("BBCId", bottle.BBCId);
+                    sqlCommand.Parameters.AddWithValue("Amount", bottle.Amount);
+
+                    //Open Sql connection
+                    sqlConnection.Open();
+
+                    //If affected number of rows > 0, then the save operation is successful
+                    int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    isSaved = NoOfRowsAffected > 0;
+                }
+
+                
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isSaved;
         }
 
         #endregion

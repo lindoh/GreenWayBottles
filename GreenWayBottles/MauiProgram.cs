@@ -38,8 +38,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<CreateLoginsView>();
 		builder.Services.AddTransient<RegistrationViewModel>();
 
-		builder.Services.AddTransient<LoginView>();
-		builder.Services.AddTransient<LoginViewModel>();
+		builder.Services.AddSingleton<LoginView>();
+		builder.Services.AddSingleton<LoginViewModel>();
 
 		builder.Services.AddSingleton<IAlertService, AlertService>();
 

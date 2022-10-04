@@ -1,9 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
 using GreenWayBottles.Views;
-
+using Microsoft.IdentityModel.Tokens;
 
 namespace GreenWayBottles.ViewModels
 {
@@ -13,75 +14,64 @@ namespace GreenWayBottles.ViewModels
         {
             dataService = new DatabaseService();
             alerts = new AlertService();
-            mainPage = new MainPageViewModel();
             userLogin = new Login();
-            MainPage.IsBBCUpdated = true;
-            MainPage.IsLoggedIn = true;
         }
 
         DatabaseService dataService;
         AlertService alerts;
 
         [ObservableProperty]
-        Login userLogin;
+        static Login userLogin;
 
         [ObservableProperty]
         BuyBackCentre buyBackCentre;
 
-        [ObservableProperty]
-        MainPageViewModel mainPage;
+        public AppShell MainPage { get; set; }
+
 
         #region Class Buttons
 
         [RelayCommand]
         async void Login()
         {
-            Login currentUser;
 
             //Check if text field are empty first
             if (!CheckFields())
             {
-                currentUser = dataService.SearchLogins(userLogin);
+                dataService.SearchLogins(UserLogin);
 
-                if (currentUser.IsLoggedIn)
+                if (UserLogin.IsLoggedIn)
                 {
-                    MainPage.IsLoggedIn = true; 
-
                     await alerts.ShowAlertAsync("Access Granted", "The user has succesfully Logged In");
 
-                    buyBackCentre = dataService.SearchBBC(currentUser.AdminId);
+                    buyBackCentre = dataService.SearchBBC(UserLogin.AdminId);
 
+                    //An Old User should hopefully have an existing BBBCId
                     if (buyBackCentre.BBCId != 0)
                     {
-                        currentUser.BBCId = buyBackCentre.BBCId;
-                        MainPage.IsBBCUpdated = true;
-                        
+                        UserLogin.IsBBCUpdated = true;
+                        UserLogin.BBCId = buyBackCentre.BBCId;
                     }
                     else
+                    {
                         await alerts.ShowAlertAsync("Missing Information Detected", "The user is required to Update BuyBackCentre Details under Update User Account Tab and ReLogin");
+                       
+                        //await Shell.Current.GoToAsync("../../../");
+                    }
 
                     //Navigate to the Home Page
-                    await Shell.Current.GoToAsync($"{"///MainPage"}?IsBBCUpdated={MainPage.IsBBCUpdated}");
+                    App.Current.MainPage = new AppShell();
                 }
                 else
                 {
                     await alerts.ShowAlertAsync("Login Failed", "The user could not be found, Register a new account instead");
                 }
-
-                UserLogin = currentUser;
             }
             else
                 await alerts.ShowAlertAsync("Operation Failed", "Username and/or Password text fields are empty");
 
-            
-
-          
-        }
-
-        [RelayCommand]
-        async void GoToRegistration()
-        {
-            await Shell.Current.GoToAsync(nameof(RegistrationView));
+            //Clear Text fields
+            Clear();
         }
 
         [RelayCommand]
@@ -94,11 +84,20 @@ namespace GreenWayBottles.ViewModels
         #region Helper Methods
         private bool CheckFields()
         {
-            if(userLogin.Username == "" && userLogin.Password == "")
+            if(userLogin.Username.IsNullOrEmpty() && userLogin.Password.IsNullOrEmpty())
                 return true;
             else
                 return false;
 
+        }
+
+        /// <summary>
+        /// Clear Text Fields
+        /// </summary>
+        private void Clear()
+        {
+            UserLogin.Username = String.Empty;
+            UserLogin.Password = String.Empty;
         }
 
         #endregion

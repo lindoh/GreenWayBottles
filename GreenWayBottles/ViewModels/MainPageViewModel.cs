@@ -3,21 +3,14 @@ using GreenWayBottles.Models;
 
 namespace GreenWayBottles.ViewModels
 {
-    [QueryProperty("IsBBCUpdated", "IsBBCUpdated")]
     public partial class MainPageViewModel : ObservableObject
     {
         public MainPageViewModel()
         {
-           
+            loginVM = new LoginViewModel();
         }
 
         [ObservableProperty]
-        static bool isLoggedIn;
-
-        [ObservableProperty]
-        static bool isBBCUpdated;
-
-   
-
+        LoginViewModel loginVM;
     }
 }

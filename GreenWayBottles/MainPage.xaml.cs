@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using GreenWayBottles.Services;
 using GreenWayBottles.ViewModels;
 
 namespace GreenWayBottles;
@@ -14,10 +15,11 @@ public partial class MainPage : Shell
 		BindingContext = new UpdateBankingViewModel();
 		BindingContext = new CaptureBottlesViewModel();
 		BindingContext = new RegistrationViewModel();
-		//BindingContext = new MainPageViewModel();
+		
 		BindingContext = new LoginViewModel();
 	}
 
+	
 	
 }
 

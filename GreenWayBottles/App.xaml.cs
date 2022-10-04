@@ -1,17 +1,23 @@
-﻿using GreenWayBottles.Services;
+﻿using GreenWayBottles.ViewModels;
+using GreenWayBottles.Views;
+using GreenWayBottles.Models;
 
 namespace GreenWayBottles;
 
 public partial class App : Application
 {
-	public static IServiceProvider Services;
-	public static IAlertService AlertSvc;
 	public App()
 	{
 		InitializeComponent();
+		viewModel = new LoginViewModel();
 
-		
-
-		MainPage = new AppShell();
+		if (!viewModel.UserLogin.IsLoggedIn)
+			MainPage = new LoginView();
+		else
+			MainPage = new AppShell();
 	}
+
+	LoginViewModel viewModel;
+
+	
 }

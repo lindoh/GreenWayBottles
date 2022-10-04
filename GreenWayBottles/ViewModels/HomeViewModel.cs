@@ -4,12 +4,15 @@ using GreenWayBottles.Views;
 
 namespace GreenWayBottles.ViewModels
 {
-    public partial class HomeViewModel 
+    public partial class HomeViewModel : ObservableObject
     {
         public HomeViewModel()
         {
-
+            loginVM = new LoginViewModel();
         }
+
+        [ObservableProperty]
+        LoginViewModel loginVM;
 
         [RelayCommand]
         async void Register()

@@ -242,18 +242,9 @@
                 Command="{Binding RegisterCommand}"/>
 
             <Label  Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="Already Have An Account? Click To Here Login" Margin="10"
+                Text="Already Have An Account? Click To Here Go Back and Login" Margin="10"
                 HorizontalOptions="Center" VerticalOptions="Center"
-                TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
-
-            <Label  Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="Or Go To Previous Page" Margin="10"
-                HorizontalOptions="Center" VerticalOptions="Center"
-                TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
+                TextColor="Blue" FontAttributes="Italic" FontSize="Caption">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding HomeBtnCommand}"/>
                 </Label.GestureRecognizers>

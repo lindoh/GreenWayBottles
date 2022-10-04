@@ -24,5 +24,8 @@
         <Button Text="Register" FontSize="Small" BackgroundColor="#6e9b19"
                 Margin="20" Padding="5" WidthRequest="200" HorizontalOptions="Center"
                  Command="{Binding RegisterCommand}"/>
+
+        <Label Text="Is User Logged In?"/>
+        <Label Text="{Binding LoginVM.UserLogin.IsLoggedIn}"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -13,14 +13,15 @@ namespace GreenWayBottles.ViewModels
         {
             dataService = new DatabaseService();
             searchService = new SearchService();
-            alerts = new AlertService();    
+            alerts = new AlertService();
             user = new Users();
+            currentAdmin = new LoginViewModel();
             bottleData = new BottleDataSource();
             capturedBottles = new ObservableCollection<Bottles>();
             selectedUser = "Collector";
             GetBottles();
             Amount = 0.0;
-            
+
         }
 
         #region Class Properties
@@ -30,6 +31,9 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         Users user;
+
+        [ObservableProperty]
+        LoginViewModel currentAdmin;
 
         [ObservableProperty]
         ObservableCollection<Users> usersList;
@@ -73,97 +77,120 @@ namespace GreenWayBottles.ViewModels
         }
 
         [RelayCommand]
-        public void Add_and_Calculate()
+        public async void Add_and_Calculate()
         {
-            //Confirm if a User is selected
-            if(user.Id == 0)
+            if(currentAdmin.UserLogin.IsLoggedIn)
             {
-                alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
-                return;
+                //Confirm if a User is selected
+                if (user.Id == 0)
+                {
+                    await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
+                    return;
+                }
+
+                if (quantity == 0)
+                {
+                    await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
+                    return;
+                }
+
+                //Update the Bottle Object
+                if (bottleData.BottleDataSourceId != 0)
+                {
+                    bottle = new Bottles();
+                    //Calculate amount due
+                    CalculateAmount();
+
+                    Bottle.BottleName = BottleData.BottleName;
+                    Bottle.Quantity = quantity;
+                    Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
+                    Bottle.CollectorId = user.Id;
+                    Bottle.BBCId = currentAdmin.UserLogin.BBCId;
+                    Bottle.Amount = amount;
+
+                    //Update and Display Captured Bottles
+                    capturedBottles.Insert(0, Bottle);
+                }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+
+                //Reset Bottle size and Quantity
+                Clear();
+
             }
 
-            if(quantity == 0)
+        }
+
+        [RelayCommand]
+        public async void Submit()
+        {
+            bool isSubmitted = false;
+
+            if (capturedBottles.Count > 0)
             {
-                alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
-            }
+                isSubmitted = dataService.CaptureBottles(capturedBottles);
 
-            //Update the Bottle Object
-            if(user.Id !=0 && bottleData.BottleDataSourceId != 0)
-            {
-                bottle = new Bottles();
-                //Calculate amount due
-                CalculateAmount();
-
-                Bottle.BottleName = BottleData.BottleName;
-                Bottle.Quantity = quantity;
-                Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
-                Bottle.CollectorId = user.Id;
-                
-                Bottle.Amount = amount;
-
-                //Update and Display Captured Bottles
-                capturedBottles.Insert(0, Bottle);
-            }
-
-            //Reset Bottle size and Quantity
-            Clear();
-            
-        }
-        #endregion
-
-        #region Helper Methods
-        /// <summary>
-        /// The selectedItem method updates the User object
-        /// with the selected user from the ListView
-        /// </summary>
-        public void selectedItem(object sender, SelectedItemChangedEventArgs args)
-        {
-            User = args.SelectedItem as Users;
-        }
-
-        public void selectedBottle(object sender, SelectedItemChangedEventArgs args)
-        {
-            BottleData = args.SelectedItem as BottleDataSource;
-        }
-        public void GetBottles()
-        {
-            BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());
-        }
-
-        private void CalculateAmount()
-        {
-            string bottleSize;
-
-            if (bottleData.Size != null)
-            {
-                bottleSize = bottleData.Size.Replace("ml", string.Empty);
-                bottleSize = bottleSize.Trim();
-
-                int size = Int32.Parse(bottleSize);
-
-                if (size > 0 && size < 2000)
-                    Amount += Quantity;
-                else if (size >= 2000)
-                    Amount += Quantity * 1.5;
-
-                AmountString = $"R{amount}";
-
+                if (isSubmitted)
+                    await alerts.ShowAlertAsync("Operation Successful", "Collected bottle(s) data saved successfully!");
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
             }
             else
+                await alerts.ShowAlertAsync("Operation Failed", "Bottle data was not captured succesfully, please try again!!");
+        }
+            #endregion
+
+            #region Helper Methods
+            /// <summary>
+            /// The selectedItem method updates the User object
+            /// with the selected user from the ListView
+            /// </summary>
+            public void selectedItem(object sender, SelectedItemChangedEventArgs args)
             {
-                alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
-                return;
+                User = args.SelectedItem as Users;
             }
-        }
 
-        private void Clear()
-        {
-            bottleData.Size = null;
-            Quantity = 0;
-        }
+            public void selectedBottle(object sender, SelectedItemChangedEventArgs args)
+            {
+                BottleData = args.SelectedItem as BottleDataSource;
+            }
+            public void GetBottles()
+            {
+                BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());
+            }
 
-     
+            private void CalculateAmount()
+            {
+                string bottleSize;
 
-        #endregion
-    }
+                if (bottleData.Size != null)
+                {
+                    bottleSize = bottleData.Size.Replace("ml", string.Empty);
+                    bottleSize = bottleSize.Trim();
+
+                    int size = Int32.Parse(bottleSize);
+
+                    if (size > 0 && size < 2000)
+                        Amount += Quantity;
+                    else if (size >= 2000)
+                        Amount += Quantity * 1.5;
+
+                    AmountString = $"R{amount}";
+
+                }
+                else
+                {
+                    alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
+                    return;
+                }
+            }
+
+            private void Clear()
+            {
+                bottleData.Size = null;
+                Quantity = 0;
+            }
+
+            #endregion
+    } 
 }

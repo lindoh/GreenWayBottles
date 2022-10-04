@@ -6,6 +6,7 @@
              x:Class="GreenWayBottles.Views.LoginView"
              Title="LoginView"
              MaximumWidthRequest="600">
+
     <VerticalStackLayout Margin="100, 10, 100, 10">
 
         <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
@@ -41,17 +42,9 @@
              Margin="20" Padding="5" WidthRequest="200"
              Command="{Binding LoginCommand}"/>
 
-        <Label Text="Don't Have An Account Yet? Click Here To Register A New Account"
+        <Label Text="Don't Have An Account Yet? Go Back To Register A New Account"
                HorizontalOptions="Center" VerticalOptions="Center"
-               TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GoToRegistrationCommand}"/>
-            </Label.GestureRecognizers>
-        </Label>
-
-        <Label Text="Or Go To Previous Page" Margin="10"
-               HorizontalOptions="Center" VerticalOptions="Center"
-               TextColor="Blue" TextDecorations="Underline" FontAttributes="Italic" FontSize="Caption">
+               TextColor="Blue" FontAttributes="Italic" FontSize="Caption">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding HomeBtnCommand}"/>
             </Label.GestureRecognizers>

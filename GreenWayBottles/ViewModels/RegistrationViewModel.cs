@@ -11,6 +11,7 @@ namespace GreenWayBottles.ViewModels
 {
     public partial class RegistrationViewModel : ObservableObject
     {
+        #region Default Constructor
         public RegistrationViewModel()
         {
             dataService = new DatabaseService();
@@ -18,6 +19,8 @@ namespace GreenWayBottles.ViewModels
             alerts = new AlertService();
             logins = new CreateLoginsViewModel();
         }
+
+        #endregion
 
         #region Class Members
         DatabaseService dataService;
@@ -70,12 +73,9 @@ namespace GreenWayBottles.ViewModels
             }
         }
 
-        [RelayCommand]
-        async void GoToLogin()
-        {
-            await Shell.Current.GoToAsync(nameof(LoginView));
-        }
-
+        /// <summary>
+        /// Go back to the Home Page View
+        /// </summary>
         [RelayCommand]
         async void HomeBtn()
         {

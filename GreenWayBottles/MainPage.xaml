@@ -2,8 +2,6 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:GreenWayBottles.Views"
-       xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
-       x:DataType="viewmodel:LoginViewModel"
        x:Class="GreenWayBottles.MainPage"
        Shell.FlyoutBehavior="Disabled"
        Shell.NavBarIsVisible="False"
@@ -15,25 +13,20 @@
     
     <!--Need a Data binding to enable and disable the View using "isLoggedIn" from the Login Model-->
 
-    <FlyoutItem>
-        <ShellContent x:Name="HomePage" Title="Home" IsVisible="True"
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent x:Name="HomePage" Title="Home" 
                       ContentTemplate="{x:DataTemplate views:HomeView}"/>
-        <ShellContent Title="Capture New Bottles" IsVisible="{Binding MainPage.IsBBCUpdated}"
+        <ShellContent Title="Capture New Bottles"  
                       ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"/>
-        <ShellContent Title="Create User Account" IsVisible="{Binding MainPage.IsLoggedIn}"
+        <ShellContent Title="Create User Account" 
                       ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"/>
-        <ShellContent Title="Update User Account" IsVisible="{Binding MainPage.IsLoggedIn}"
+        <ShellContent Title="Update User Account" 
                       ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"/>
-        <ShellContent Title="Update Banking Details" IsVisible="{Binding MainPage.IsLoggedIn}"
+        <ShellContent Title="Update Banking Details" 
                       ContentTemplate="{x:DataTemplate views:UpdateBankingView}"/>
-        <ShellContent Title="Delete User Account" IsVisible="{Binding MainPage.IsLoggedIn}"
+        <ShellContent Title="Delete User Account" 
                       ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"/>
-        <ShellContent Title="{Binding MainPage.IsBBCUpdated}"/>
-        <ShellContent Title="{Binding MainPage.IsLoggedIn}"/>
-        
+
     </FlyoutItem>
-    
-   
-    
- 
+
 </Shell>

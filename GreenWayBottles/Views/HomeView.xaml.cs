@@ -8,5 +8,6 @@ public partial class HomeView : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = new HomeViewModel();
+		
 	}
 }
