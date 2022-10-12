@@ -2,12 +2,6 @@ using GreenWayBottles.ViewModels;
 
 namespace GreenWayBottles.Views;
 
-public enum ModesOfPay
-{
-    Cash,
-    Bank,
-    MobileMoney
-};
 public partial class CaptureNewBottlesView : ContentPage
 {
 	public CaptureNewBottlesView()
@@ -19,6 +13,11 @@ public partial class CaptureNewBottlesView : ContentPage
 
 	CaptureBottlesViewModel viewModel;
 
+	/// <summary>
+	/// Select a User from the ListView List and update the ViewModel selected user
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="args"></param>
 	private void usersListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)
 	{
 		viewModel.selectedItem(sender, args);
@@ -36,24 +35,19 @@ public partial class CaptureNewBottlesView : ContentPage
 	/// <param name="args"></param>
 	private void PayMethodRadioBtn_CheckedChanged(object sender, CheckedChangedEventArgs args)
 	{
-		if (CashPaymentRadioBtn.IsChecked)
+		if (BankPaymentRadioBtn.IsChecked)
 		{
-			viewModel.PaymentMethod = (int)ModesOfPay.Cash;
 			viewModel.Display_0 = true;
-			viewModel.Display_1 = viewModel.Display_2 = !viewModel.Display_0;
-		}
-		else if (BankPaymentRadioBtn.IsChecked)
-		{
-			viewModel.PaymentMethod = (int)ModesOfPay.Bank;
-			viewModel.Display_1 = true;
-			viewModel.Display_0 = viewModel.Display_2 = !viewModel.Display_1;
-		}
+			viewModel.Display_1 = !viewModel.Display_0;
 
-		else if (MobilePaymentRadioBtn.IsChecked)
+			//Show Updated Banking Details
+			viewModel.UpdateBanker();
+        }
+
+        else if (MobilePaymentRadioBtn.IsChecked)
 		{
-			viewModel.PaymentMethod = (int)ModesOfPay.MobileMoney;
-            viewModel.Display_2 = true;
-            viewModel.Display_0 = viewModel.Display_1 = !viewModel.Display_2;
+            viewModel.Display_1 = true;
+			viewModel.Display_0 = !viewModel.Display_1;
         }
 	}
 }

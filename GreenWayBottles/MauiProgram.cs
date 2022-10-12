@@ -2,6 +2,7 @@
 using GreenWayBottles.ViewModels;
 using GreenWayBottles.Services;
 using GreenWayBottles.Views;
+using CommunityToolkit.Maui;
 
 public static class MauiProgram
 {
@@ -10,6 +11,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

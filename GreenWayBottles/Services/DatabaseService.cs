@@ -804,6 +804,14 @@ namespace GreenWayBottles.Services
             return isSaved;
         }
 
+        public bool TransRecord()
+        {
+            bool isSaved = false;
+
+
+            return isSaved;
+        }
+
         #endregion
 
     }

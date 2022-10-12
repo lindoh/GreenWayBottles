@@ -106,34 +106,90 @@
                 <Label Text="Preferred Payment Method?" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
                 <VerticalStackLayout>
-                    <RadioButton x:Name="CashPaymentRadioBtn" Content="Cash Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
                     <RadioButton x:Name="BankPaymentRadioBtn" Content="Bank Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
                     <RadioButton x:Name="MobilePaymentRadioBtn" Content="Mobile Money Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
                 </VerticalStackLayout>
 
-                <!--Confirm Cash Payment-->
+                <!--========================================== Confirm Bank Payment ==========================================-->
                 <VerticalStackLayout IsVisible="{Binding Display_0}">
-                    <Label Text="Confirm Cash Payment" VerticalOptions="End"
-                       HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
-                       TextColor="Gray" Margin="10, 15, 5, 0"/>
-
-                </VerticalStackLayout>
-
-                <!--Confirm Bank Payment-->
-                <VerticalStackLayout IsVisible="{Binding Display_1}">
                     <Label Text="Confirm Bank Payment" VerticalOptions="End"
                        HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
                        TextColor="Gray" Margin="10, 15, 5, 0"/>
 
+                    <!--Bank Name Tag-->
+                    <HorizontalStackLayout>
+                        <Label Text="Bank Name" VerticalOptions="End" HorizontalOptions="Start" 
+                           FontSize="Caption" FontAttributes="Bold" TextColor="Black" Margin="10, 20, 5, 0"/>
+                        <Label  VerticalOptions="End" HorizontalOptions="Start" 
+                            FontSize="Caption" TextColor="Black"
+                            Text="{Binding Banker.BankName}"/>
+                    </HorizontalStackLayout>
+                    
+
+                    <!--Branch Name Tag-->
+                    <HorizontalStackLayout>
+                        <Label Text="Branch Name" VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" FontAttributes="Bold" TextColor="Black" Margin="10, 5, 5, 0"/>
+                        <Label VerticalOptions="End" HorizontalOptions="Start" 
+                       FontSize="Caption" TextColor="Black" 
+                       Text="{Binding Banker.BranchName}"/>
+                    </HorizontalStackLayout>
+
+                    <!--Branch Code Tag-->
+                    <HorizontalStackLayout>
+                        <Label Text="Branch Code" VerticalOptions="End" HorizontalOptions="Start" 
+                               FontSize="Caption" FontAttributes="Bold" TextColor="Black" Margin="10, 5, 5, 0"/>
+                        <Label VerticalOptions="End" HorizontalOptions="Start" 
+                               FontSize="Caption" TextColor="Black"
+                               Text="{Binding Banker.BranchCode}"/>
+                    </HorizontalStackLayout>
+                    
+
+                    <!--Account Type Tag-->
+                    <HorizontalStackLayout>
+                        <Label Text="Account Type" VerticalOptions="End" HorizontalOptions="Start" 
+                           FontSize="Caption" FontAttributes="Bold" TextColor="Black" Margin="10, 5, 5, 0"/>
+                        <Label  VerticalOptions="End" HorizontalOptions="Start" 
+                            FontSize="Caption" TextColor="Black"
+                            Text="{Binding Banker.AccountType}"/>
+                    </HorizontalStackLayout>
+                    
+
+                    <!--Account Number Tag-->
+                    <HorizontalStackLayout>
+                        <Label Text="Account Number" VerticalOptions="End" HorizontalOptions="Start" 
+                           FontSize="Caption" FontAttributes="Bold" TextColor="Black" Margin="10, 5, 5, 0"/>
+                        <Label VerticalOptions="End" HorizontalOptions="Start" 
+                           FontSize="Caption" TextColor="Black"
+                           Text="{Binding Banker.AccountNumber}"/>
+                    </HorizontalStackLayout>
+                    
+                    <Label Text="If Banking Details have changed please update from the UPDATE BANKING DETAILS Tab and Return to this page to continue." 
+                           VerticalOptions="End" HorizontalOptions="Start" FontAttributes="Italic"
+                           FontSize="Caption" TextColor="Blue" Margin="10, 20, 5, 0"/>
                 </VerticalStackLayout>
 
-                <!--Confirm Mobile Money Payment-->
-                <VerticalStackLayout IsVisible="{Binding Display_2}">
-                    <Label Text="Confirm Mobile Money Payment" VerticalOptions="End"
+                <!-- ========================================== Confirm Mobile Money Payment ==========================================-->
+                <VerticalStackLayout IsVisible="{Binding Display_1}">
+                    <Label Text="Confirm Mobile Money Payment (EWallet services)" VerticalOptions="End"
                        HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
                        TextColor="Gray" Margin="10, 15, 5, 0"/>
 
+                    <HorizontalStackLayout>
+                        <Label Text="Confirm Mobile Number: " VerticalOptions="End" HorizontalOptions="Start" 
+                           FontSize="Caption" FontAttributes="Bold" TextColor="Black" Margin="10, 20, 5, 0"/>
+                        <Label VerticalOptions="End" HorizontalOptions="Start" 
+                           FontSize="Caption" TextColor="Black"
+                           Text="{Binding User.CellNumber}"/>
+                    </HorizontalStackLayout>
+
+                    <Label Text="If Mobile number has changed please update from the UPDATE USER ACCOUNT Tab and Return to this page to continue." 
+                           VerticalOptions="End" HorizontalOptions="Start" FontAttributes="Italic"
+                           FontSize="Caption" TextColor="Blue" Margin="10, 20, 5, 0"/>
                 </VerticalStackLayout>
+
+                <Button Text="Submit Transaction Record" FontSize="Small" BackgroundColor="#155ca1"
+                    Margin="20" Padding="5" />
             </VerticalStackLayout>
 
             

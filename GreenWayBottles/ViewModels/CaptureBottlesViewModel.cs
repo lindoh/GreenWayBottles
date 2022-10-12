@@ -4,25 +4,22 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 
-
+/*TO DO
+    */
 
 namespace GreenWayBottles.ViewModels
 {
-
-    public enum ModesOfPay
-    {
-        Cash,
-        Bank,
-        MobileMoney
-    };
+    
     public partial class CaptureBottlesViewModel : ObservableObject
     {
+        #region Default Constructor
         public CaptureBottlesViewModel()
         {
             dataService = new DatabaseService();
             searchService = new SearchService();
             alerts = new AlertService();
             user = new Users();
+            banker = new Banking();
             currentAdmin = new LoginViewModel();
             bottleData = new BottleDataSource();
             capturedBottles = new ObservableCollection<Bottles>();
@@ -31,10 +28,10 @@ namespace GreenWayBottles.ViewModels
             Amount = 0.0;
             CaptureBottleDisplay = true;
             PaymentsDisplay = !captureBottleDisplay;
-            display_0 = display_1 = display_2 = false;
+            display_0 = display_1 = false;
         }
 
-        
+        #endregion
 
         #region Class Properties
         DatabaseService dataService;
@@ -43,6 +40,9 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         Users user;
+
+        [ObservableProperty]
+        Banking banker;
 
         [ObservableProperty]
         LoginViewModel currentAdmin;
@@ -78,14 +78,11 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         ObservableCollection<Bottles> capturedBottles;
 
-        //Payment Method to be used for current transaction
-        [ObservableProperty]
-        int paymentMethod;
-
         //Switch Display Between capturing bottle data to payment section
         [ObservableProperty]
         bool captureBottleDisplay;
 
+        //Used to select the Payment Method available to the user
         [ObservableProperty]
         bool paymentsDisplay;
 
@@ -96,13 +93,14 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         bool display_1;
 
-        [ObservableProperty]
-        bool display_2;
-
         #endregion
 
         #region Button Methods
 
+        /// <summary>
+        /// Update the List of User's by searching the database
+        /// </summary>
+        /// <param name="name"> User's Name from SearchBox</param>
         [RelayCommand]
         public void Search(string name)
         {
@@ -112,44 +110,44 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         public async void Add_and_Calculate()
         {
-             //Confirm if a User is selected
-             if (user.Id == 0)
-             {
-                 await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
-                 return;
-             }
+            //Confirm if a User is selected
+            if (user.Id == 0)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
+                return;
+            }
 
-             if (quantity == 0)
-             {
-                 await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
-                 return;
-             }
+            if (quantity == 0)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
+                return;
+            }
 
-             //Update the Bottle Object
-             if (bottleData.BottleDataSourceId != 0)
-             {
-                 bottle = new Bottles();
-                 //Calculate amount due
-                 CalculateAmount();
+            //Update the Bottle Object
+            if (bottleData.BottleDataSourceId != 0)
+            {
+                bottle = new Bottles();
+                //Calculate amount due
+                CalculateAmount();
 
-                 Bottle.BottleName = BottleData.BottleName;
-                 Bottle.Quantity = quantity;
-                 Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
-                 Bottle.CollectorId = user.Id;
-                 Bottle.BBCId = currentAdmin.UserLogin.BBCId;
-                 Bottle.Amount = amount;
-                 Bottle.AdminId = currentAdmin.UserLogin.AdminId;   
+                Bottle.BottleName = BottleData.BottleName;
+                Bottle.Quantity = quantity;
+                Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
+                Bottle.CollectorId = user.Id;
+                Bottle.BBCId = currentAdmin.UserLogin.BBCId;
+                Bottle.Amount = amount;
+                Bottle.AdminId = currentAdmin.UserLogin.AdminId;
 
-                 //Update and Display Captured Bottles
-                 capturedBottles.Insert(0, Bottle);
-             }
-             else
-                 await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+                //Update and Display Captured Bottles
+                capturedBottles.Insert(0, Bottle);
+            }
+            else
+                await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
 
-             //Reset Bottle size and Quantity
-             Clear();
+            //Reset Bottle size and Quantity
+            Clear();
 
-            
+
 
         }
 
@@ -175,61 +173,84 @@ namespace GreenWayBottles.ViewModels
             }
             else
                 await alerts.ShowAlertAsync("Operation Failed", "Bottle data was not captured succesfully, please try again!!");
+        } 
+
+        /// <summary>
+        /// Submit the Traction file showing the collected bottle information,
+        /// Collector Details, and BuyBackCentre Details
+        /// </summary>
+        public void SubmitTransaction()
+        {
+
         }
-            #endregion
+    
+        #endregion
 
-            #region Helper Methods
-            /// <summary>
-            /// The selectedItem method updates the User object
-            /// with the selected user from the ListView
-            /// </summary>
-            public void selectedItem(object sender, SelectedItemChangedEventArgs args)
+        #region Helper Methods
+        /// <summary>
+        /// The selectedItem method updates the User object
+        /// with the selected user from the ListView
+        /// </summary>
+        public void selectedItem(object sender, SelectedItemChangedEventArgs args)
+        {
+            User = args.SelectedItem as Users;
+        }
+
+        public void selectedBottle(object sender, SelectedItemChangedEventArgs args)
+        {
+            BottleData = args.SelectedItem as BottleDataSource;
+        }
+
+        public void GetBottles()
+        {
+            BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());
+        }
+
+        private void CalculateAmount()
+        {
+            string bottleSize;
+
+            if (bottleData.Size != null)
             {
-                User = args.SelectedItem as Users;
-            }
+                bottleSize = bottleData.Size.Replace("ml", string.Empty);
+                bottleSize = bottleSize.Trim();
 
-            public void selectedBottle(object sender, SelectedItemChangedEventArgs args)
+                int size = Int32.Parse(bottleSize);
+
+                if (size > 0 && size < 2000)
+                    Amount += Quantity;
+                else if (size >= 2000)
+                    Amount += Quantity * 1.5;
+
+                AmountString = $"R{amount}";
+
+            }
+            else
             {
-                BottleData = args.SelectedItem as BottleDataSource;
+                alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
+                return;
             }
+        }
 
-            public void GetBottles()
+        /// <summary>
+        /// Show Banking Details for the current User/Collector for confirmation
+        /// </summary>
+        public void UpdateBanker()
+        {
+            if (user.Id != 0)
             {
-                BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());
+                //Search the database for the user's banking details
+                Banker = dataService.SearchBanking(user.Id);
+
             }
+        }
 
-            private void CalculateAmount()
-            {
-                string bottleSize;
+        private void Clear()
+        {
+            bottleData.Size = null;
+            Quantity = 0;
+        }
 
-                if (bottleData.Size != null)
-                {
-                    bottleSize = bottleData.Size.Replace("ml", string.Empty);
-                    bottleSize = bottleSize.Trim();
-
-                    int size = Int32.Parse(bottleSize);
-
-                    if (size > 0 && size < 2000)
-                        Amount += Quantity;
-                    else if (size >= 2000)
-                        Amount += Quantity * 1.5;
-
-                    AmountString = $"R{amount}";
-
-                }
-                else
-                {
-                    alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
-                    return;
-                }
-            }
-
-            private void Clear()
-            {
-                bottleData.Size = null;
-                Quantity = 0;
-            }
-
-            #endregion
+        #endregion
     } 
 }
