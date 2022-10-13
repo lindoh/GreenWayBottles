@@ -1,7 +1,8 @@
-﻿using System.Data;
+﻿using GreenWayBottles.Models;
+using GreenWayBottles.ViewModels;
 using Microsoft.Data.SqlClient;
-using GreenWayBottles.Models;
 using System.Collections.ObjectModel;
+using System.Data;
 
 
 //    TO DO:
@@ -15,19 +16,35 @@ namespace GreenWayBottles.Services
         #region Class Properties
         SqlConnection sqlConnection;
         SqlCommand sqlCommand;
-
+        AlertService alerts;
+        CaptureBottlesViewModel viewModel;
         #endregion
 
         #region Default Constructor
         public DatabaseService()
         {
-            string DataConnection = "Server = LAPTOP-J3M5FNUA; Database = GreenWayData; " +
+            try
+            {
+                string DataConnection = "Server = LAPTOP-J3M5FNUA; Database = GreenWayData; " +
                                     "Integrated Security=True; Encrypt=True; TrustServerCertificate=True;" +
                                     "User Instance=False";
-            sqlConnection = new SqlConnection(DataConnection);
-            sqlCommand = new SqlCommand();
-            sqlCommand.Connection = sqlConnection;
-            sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection = new SqlConnection(DataConnection);
+                sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+            }
+            catch (StackOverflowException ex)
+            {
+
+                alerts.ShowAlertAsync("Exception Error", ex.ToString());
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+            alerts = new AlertService();
+            viewModel = new CaptureBottlesViewModel();
         }
 
         #endregion
@@ -77,7 +94,7 @@ namespace GreenWayBottles.Services
             {
                 sqlConnection.Close();
             }
-            
+
 
             return isSaved;
         }
@@ -182,7 +199,7 @@ namespace GreenWayBottles.Services
         /// Username and Password and Read the Data including 
         /// the AdminId
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="userLogin"></param>
         /// <returns></returns>
         public void SearchLogins(Login UserLogin)
         {
@@ -252,11 +269,11 @@ namespace GreenWayBottles.Services
                 sqlConnection.Open();
                 var sqlDataReader = sqlCommand.ExecuteReader();
 
-                if(sqlDataReader.HasRows)
+                if (sqlDataReader.HasRows)
                 {
                     Users user;
 
-                    while(sqlDataReader.Read())
+                    while (sqlDataReader.Read())
                     {
                         user = new Users();
                         user.Id = sqlDataReader.GetInt32(0);
@@ -468,7 +485,7 @@ namespace GreenWayBottles.Services
                 if (sqlDataReader.HasRows)
                 {
 
-                    while(sqlDataReader.Read())
+                    while (sqlDataReader.Read())
                     {
                         banker.BankDetailsId = sqlDataReader.GetInt32(0);
                         banker.BankName = sqlDataReader.GetString(1);
@@ -476,8 +493,8 @@ namespace GreenWayBottles.Services
                         banker.BranchCode = sqlDataReader.GetString(3);
                         banker.AccountType = sqlDataReader.GetString(4);
                         banker.AccountNumber = sqlDataReader.GetString(5);
-                    } 
-                    sqlDataReader.Close();  
+                    }
+                    sqlDataReader.Close();
                 }
             }
             catch (SqlException ex)
@@ -529,9 +546,9 @@ namespace GreenWayBottles.Services
 
                 throw ex;
             }
-            finally 
-            { 
-                sqlConnection.Close(); 
+            finally
+            {
+                sqlConnection.Close();
             }
 
             return isSaved;
@@ -570,9 +587,9 @@ namespace GreenWayBottles.Services
 
                 throw ex;
             }
-            finally 
-            { 
-                sqlConnection.Close(); 
+            finally
+            {
+                sqlConnection.Close();
             }
 
             return isUpdated;
@@ -592,9 +609,9 @@ namespace GreenWayBottles.Services
 
                 sqlConnection.Open();
 
-                var sqlDataReader = sqlCommand.ExecuteReader(); 
+                var sqlDataReader = sqlCommand.ExecuteReader();
 
-                if(sqlDataReader.HasRows)
+                if (sqlDataReader.HasRows)
                 {
                     BottleDataSource bottle;
 
@@ -617,10 +634,10 @@ namespace GreenWayBottles.Services
 
                 throw ex;
             }
-            finally 
-            { 
-                sqlConnection.Close(); 
-            }  
+            finally
+            {
+                sqlConnection.Close();
+            }
 
 
             return bottleList;
@@ -645,7 +662,7 @@ namespace GreenWayBottles.Services
                 sqlCommand.Parameters.Clear();
                 sqlCommand.CommandText = "NewBBCDetails";
 
-                sqlCommand.Parameters.AddWithValue("@BBCName", buyBackCentre.BuyBackCentreName);    
+                sqlCommand.Parameters.AddWithValue("@BBCName", buyBackCentre.BuyBackCentreName);
                 sqlCommand.Parameters.AddWithValue("@StreetAddress", buyBackCentre.StreetAddress);
                 sqlCommand.Parameters.AddWithValue("@Suburb", buyBackCentre.Suburb);
                 sqlCommand.Parameters.AddWithValue("@City", buyBackCentre.City);
@@ -691,9 +708,9 @@ namespace GreenWayBottles.Services
                 sqlConnection.Open();
                 var sqlDataReader = sqlCommand.ExecuteReader();
 
-                if(sqlDataReader.HasRows)
+                if (sqlDataReader.HasRows)
                 {
-                    while(sqlDataReader.Read())
+                    while (sqlDataReader.Read())
                     {
                         buyBackCentre.BBCId = sqlDataReader.GetInt32(0);
                         buyBackCentre.BuyBackCentreName = sqlDataReader.GetString(1);
@@ -787,9 +804,12 @@ namespace GreenWayBottles.Services
                     //If affected number of rows > 0, then the save operation is successful
                     int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
                     isSaved = NoOfRowsAffected > 0;
+
+                    if (isSaved)
+                        viewModel.BottleIdList.Insert(0, GetBottleId(bottle));
                 }
 
-                
+
             }
             catch (SqlException ex)
             {
@@ -803,11 +823,79 @@ namespace GreenWayBottles.Services
 
             return isSaved;
         }
+        #endregion
 
-        public bool TransRecord()
+        #region Get Bottle Id
+        private int GetBottleId(Bottles bottle)
+        {
+            int id = 0;
+
+            try
+            {
+
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "GetBottleId";
+
+                sqlCommand.Parameters.AddWithValue("Quantity", bottle.Quantity);
+                sqlCommand.Parameters.AddWithValue("BottleDataSourceId", bottle.BottleDataSourceId);
+                sqlCommand.Parameters.AddWithValue("CollectorId", bottle.CollectorId);
+                sqlCommand.Parameters.AddWithValue("BBCId", bottle.BBCId);
+                sqlCommand.Parameters.AddWithValue("Amount", bottle.Amount);
+                sqlCommand.Parameters.AddWithValue("AdminId", bottle.AdminId);
+
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if (sqlDataReader.HasRows)
+                {
+                    while (sqlDataReader.Read())
+                    {
+                        id = sqlDataReader.GetInt32(0);
+                    }
+                }
+                sqlDataReader.Close();
+
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+
+            return id;
+        }
+        #endregion
+
+        #region Save Transaction Record
+        public bool TransRecord(Transaction transaction)
         {
             bool isSaved = false;
 
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "TransRecord";
+
+                sqlCommand.Parameters.AddWithValue("TransactionType", transaction.TransactionType);
+                sqlCommand.Parameters.AddWithValue("TransactionDateTime", transaction.LocalDate);
+                sqlCommand.Parameters.AddWithValue("BottleId", transaction.BottleId);
+                sqlCommand.Parameters.AddWithValue("BankDetailsId", transaction.BankDetailsId);
+
+                sqlConnection.Open();
+
+                //If affected number of rows > 0, then the save operation is successful
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
 
             return isSaved;
         }

@@ -4,11 +4,11 @@ namespace GreenWayBottles.Views;
 
 public partial class CreateUserAccountView : ContentPage
 {
-	
-	public CreateUserAccountView()
-	{
-		InitializeComponent();
-		BindingContext = new CreateUserAccViewModel();	
-	}
+
+    public CreateUserAccountView()
+    {
+        InitializeComponent();
+        BindingContext = new CreateUserAccViewModel();
+    }
 
 }

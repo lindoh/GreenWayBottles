@@ -6,7 +6,7 @@ namespace GreenWayBottles.Models
     {
         public Login()
         {
-            
+
         }
 
         //Username can be an Email or any combination of text

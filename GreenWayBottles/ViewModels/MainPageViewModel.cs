@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using GreenWayBottles.Models;
 
 namespace GreenWayBottles.ViewModels
 {

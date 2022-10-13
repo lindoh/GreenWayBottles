@@ -23,8 +23,8 @@ namespace GreenWayBottles.ViewModels
         #endregion
 
         #region Class Properties
-       
-        
+
+
         DatabaseService dataService;
         AlertService alerts;
         SearchService searchService;
@@ -90,7 +90,7 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         async void UpdateSave()
         {
-            if(updateSaveBtnText == "Update")
+            if (updateSaveBtnText == "Update")
             {
                 bool isUpdated = dataService.UpdateBankingDetails(banker);
 
@@ -111,7 +111,7 @@ namespace GreenWayBottles.ViewModels
             }
         }
 
-        
+
         #endregion
     }
 }

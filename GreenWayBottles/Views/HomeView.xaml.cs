@@ -4,10 +4,10 @@ namespace GreenWayBottles.Views;
 
 public partial class HomeView : ContentPage
 {
-	public HomeView()
-	{
-		InitializeComponent();
-		BindingContext = new HomeViewModel();
-		
-	}
+    public HomeView()
+    {
+        InitializeComponent();
+        BindingContext = new HomeViewModel();
+
+    }
 }

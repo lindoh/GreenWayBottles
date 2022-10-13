@@ -58,7 +58,7 @@ namespace GreenWayBottles.ViewModels
         {
             bool isDeleted = dataService.Delete(user.Id, selectedUser);
 
-            if(isDeleted)
+            if (isDeleted)
             {
                 await alerts.ShowAlertAsync("Operation Successful", "User Account Deleted Successfully");
             }
@@ -84,4 +84,3 @@ namespace GreenWayBottles.ViewModels
         #endregion
     }
 }
- 

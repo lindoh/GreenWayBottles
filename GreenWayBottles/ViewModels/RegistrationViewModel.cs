@@ -1,10 +1,36 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
+Before:
 using GreenWayBottles.Views;
 using GreenWayBottles.Models;
+After:
+using GreenWayBottles.Models;
 using GreenWayBottles.Services;
-using GreenWayBottles.ViewModels;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
+Before:
+using GreenWayBottles.Views;
+using GreenWayBottles.Models;
+After:
+using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
+Before:
+using GreenWayBottles.Views;
+using GreenWayBottles.Models;
+After:
+using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+*/
+using GreenWayBottles.Models;
+using GreenWayBottles.Views;
+using GreenWayBottles.Services;
 
 
 namespace GreenWayBottles.ViewModels
@@ -86,7 +112,7 @@ namespace GreenWayBottles.ViewModels
 
         #region Helper Methods
 
-       
+
 
         /// <summary>
         /// Check if any text fields are empty

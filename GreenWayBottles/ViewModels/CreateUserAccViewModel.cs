@@ -7,7 +7,7 @@ using GreenWayBottles.Services;
 //ADD EMAIL VERIFICATION
 
 namespace GreenWayBottles.ViewModels
-{ 
+{
     public partial class CreateUserAccViewModel : ObservableObject
     {
         #region Default Constructor
@@ -74,7 +74,7 @@ namespace GreenWayBottles.ViewModels
                 user.Suburb == "" || user.City == "" || user.Province == "" || user.Country == ""))
             {
                 emptyFields = true;
-               
+
             }
 
             return emptyFields;
@@ -88,7 +88,7 @@ namespace GreenWayBottles.ViewModels
             user.FirstName = "";
             user.LastName = "";
             user.IdNumber = "";
-            user.Gender = ""; 
+            user.Gender = "";
             user.HighestQlfn = "";
             user.IncomeRange = "";
             user.Email = "";

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GreenWayBottles.Services
+﻿namespace GreenWayBottles.Services
 {
     internal class AlertService : IAlertService
     {
-  
+
         //Async calls (use with "await" - Must be on dispatcher thread---
         public Task ShowAlertAsync(string title, string message, string cancel = "OK")
         {

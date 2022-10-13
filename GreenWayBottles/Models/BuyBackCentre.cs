@@ -2,7 +2,7 @@
 
 namespace GreenWayBottles.Models
 {
-    public partial class BuyBackCentre :ObservableObject
+    public partial class BuyBackCentre : ObservableObject
     {
         public BuyBackCentre()
         {

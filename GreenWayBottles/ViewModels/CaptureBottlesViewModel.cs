@@ -1,15 +1,90 @@
-﻿using GreenWayBottles.Services;
-using GreenWayBottles.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GreenWayBottles.Models;
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
+Before:
+using CommunityToolkit.Mvvm.ComponentModel;
+After:
+using GreenWayBottles.Services;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
+Before:
+using CommunityToolkit.Mvvm.ComponentModel;
+After:
+using GreenWayBottles.Services;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
+Before:
+using CommunityToolkit.Mvvm.ComponentModel;
+After:
+using GreenWayBottles.Services;
+*/
+using GreenWayBottles.Services;
+using System.Collections.ObjectModel;
+/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
+Before:
+using CommunityToolkit.Mvvm.Input;
+After:
+using System.Collections.ObjectModel;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
+Before:
+using CommunityToolkit.Mvvm.Input;
+After:
+using System.Collections.ObjectModel;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
+Before:
+using CommunityToolkit.Mvvm.Input;
+After:
+using System.Collections.ObjectModel;
+*/
+
 
 /*TO DO
     */
 
 namespace GreenWayBottles.ViewModels
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
+Before:
 {
     
+    public partial class CaptureBottlesViewModel : ObservableObject
+After:
+{
+
+    public partial class CaptureBottlesViewModel : ObservableObject
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
+Before:
+{
+    
+    public partial class CaptureBottlesViewModel : ObservableObject
+After:
+{
+
+    public partial class CaptureBottlesViewModel : ObservableObject
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
+Before:
+{
+    
+    public partial class CaptureBottlesViewModel : ObservableObject
+After:
+{
+
+    public partial class CaptureBottlesViewModel : ObservableObject
+*/
+{
+
     public partial class CaptureBottlesViewModel : ObservableObject
     {
         #region Default Constructor
@@ -53,11 +128,17 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         string selectedUser;
 
+        //Bottles saved in the database are represented with this variable
         [ObservableProperty]
         BottleDataSource bottleData;
 
+        //Represents a given bottle
         [ObservableProperty]
         Bottles bottle;
+
+        //List of Bottle Id's
+        [ObservableProperty]
+        List<int> bottleIdList;
 
         //List of Bottles from the database
         [ObservableProperty]
@@ -86,12 +167,15 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         bool paymentsDisplay;
 
-        //Switch display between Cash/Bank/MobileMoney Payment methods
+        //Switch display between Bank/MobileMoney Payment methods
         [ObservableProperty]
         bool display_0;
 
         [ObservableProperty]
         bool display_1;
+
+        [ObservableProperty]
+        Transaction transactions;
 
         #endregion
 
@@ -151,6 +235,10 @@ namespace GreenWayBottles.ViewModels
 
         }
 
+        /// <summary>
+        /// Submit Captured Bottles to the database as a record and 
+        /// alert the user of the outcome.
+        /// </summary>
         [RelayCommand]
         public async void Submit()
         {
@@ -164,7 +252,7 @@ namespace GreenWayBottles.ViewModels
                 {
                     await alerts.ShowAlertAsync("Operation Successful", "Collected bottle(s) data saved successfully!");
 
-                    //Hide 
+                    //Switch between the CaptureBottle Display and Payment Display in the CaptureNewBottlesView
                     CaptureBottleDisplay = false;
                     PaymentsDisplay = !captureBottleDisplay;
                 }
@@ -173,17 +261,74 @@ namespace GreenWayBottles.ViewModels
             }
             else
                 await alerts.ShowAlertAsync("Operation Failed", "Bottle data was not captured succesfully, please try again!!");
-        } 
+        }
 
         /// <summary>
-        /// Submit the Traction file showing the collected bottle information,
+        /// Submit the Transaction file showing the collected bottle information,
         /// Collector Details, and BuyBackCentre Details
         /// </summary>
         public void SubmitTransaction()
         {
+            //Set the transaction type
+            if (display_0)   //If display is set to Banking Display
+                transactions.TransactionType = "Bank Payment";
+            else if (display_1)      //If display is set to MobileMoney Display
+                transactions.TransactionType = "Mobile Money Payment";
+
+            //Set the Date and Time to the current computer time
+            transactions.LocalDate = DateTime.Now;
+
+            if (transactions.LocalDate.Hour < 6 || transactions.LocalDate.Hour > 18)
+            {
+                alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
+                return;
+            }
+
+            //Find the Banking details
+            Banker = dataService.SearchBanking(user.Id);
+            if (banker != null)
+                transactions.BankDetailsId = banker.BankDetailsId;
+
+            bool isSaved = false;
+
+
+            /* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
+            Before:
+                        foreach( int id in bottleIdList)
+            After:
+                        foreach (int id in bottleIdList)
+            */
+
+            /* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
+            Before:
+                        foreach( int id in bottleIdList)
+            After:
+                        foreach (int id in bottleIdList)
+            */
+
+            /* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
+            Before:
+                        foreach( int id in bottleIdList)
+            After:
+                        foreach (int id in bottleIdList)
+            */
+            foreach (int id in bottleIdList)
+            {
+                transactions.BottleId = id;
+                isSaved = dataService.TransRecord(transactions);
+
+                if (!isSaved)
+                {
+                    alerts.ShowAlertAsync("Operation Failed", "One or more transaction records could not be saved");
+                    return;
+                }
+            }
+
+            if (isSaved)
+                alerts.ShowAlertAsync("Operation Successful", $"Captured Bottles Transaction Record Saved Successfully on {transactions.LocalDate}");
 
         }
-    
+
         #endregion
 
         #region Helper Methods
@@ -252,5 +397,5 @@ namespace GreenWayBottles.ViewModels
         }
 
         #endregion
-    } 
+    }
 }

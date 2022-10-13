@@ -52,7 +52,7 @@ namespace GreenWayBottles.ViewModels
                     else
                     {
                         await alerts.ShowAlertAsync("Missing Information Detected", "The user is required to Update BuyBackCentre Details under Update User Account Tab and ReLogin");
-                       
+
                         //await Shell.Current.GoToAsync("../../../");
                     }
 
@@ -81,7 +81,7 @@ namespace GreenWayBottles.ViewModels
         #region Helper Methods
         private bool CheckFields()
         {
-            if(userLogin.Username.IsNullOrEmpty() && userLogin.Password.IsNullOrEmpty())
+            if (userLogin.Username.IsNullOrEmpty() && userLogin.Password.IsNullOrEmpty())
                 return true;
             else
                 return false;

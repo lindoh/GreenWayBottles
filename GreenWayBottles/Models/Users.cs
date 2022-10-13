@@ -7,8 +7,8 @@ namespace GreenWayBottles.Models
     public partial class Users : ObservableObject
     {
         public Users()
-        {           
-            
+        {
+
         }
 
         #region Class Properties

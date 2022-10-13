@@ -1,8 +1,8 @@
-﻿using GreenWayBottles.Services;
-using GreenWayBottles.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+using System.Collections.ObjectModel;
 
 namespace GreenWayBottles.ViewModels
 {
@@ -16,7 +16,7 @@ namespace GreenWayBottles.ViewModels
             bBC = new BuyBackCentre();
             usersList = new ObservableCollection<Users>();
             alerts = new AlertService();
-            createUserAccViewModel = new CreateUserAccViewModel();  
+            createUserAccViewModel = new CreateUserAccViewModel();
             searchService = new SearchService();
             ShowBBCSection = false;
         }
@@ -68,7 +68,7 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         void Search(string name)
         {
-           UsersList = searchService.FindUser(name, selectedUser);
+            UsersList = searchService.FindUser(name, selectedUser);
 
         }
 
@@ -88,7 +88,7 @@ namespace GreenWayBottles.ViewModels
                 bool isUpdated = dataService.Update(user, selectedUser);
                 bool bbcIsUpdated = UpdateBBC();
 
-                if(isUpdated && bbcIsUpdated)
+                if (isUpdated && bbcIsUpdated)
                 {
                     await alerts.ShowAlertAsync("Success", "User Account Updated Successfully");
                     Clear();    //Clear text fields
@@ -121,7 +121,7 @@ namespace GreenWayBottles.ViewModels
 
         private void LoadBBCData()
         {
-            if(user.Id != 0)
+            if (user.Id != 0)
             {
                 BBC = dataService.SearchBBC(user.Id);
 
@@ -132,7 +132,7 @@ namespace GreenWayBottles.ViewModels
                 }
                 else
                     NewBBCUser = false;
-            }    
+            }
         }
 
         private bool UpdateBBC()

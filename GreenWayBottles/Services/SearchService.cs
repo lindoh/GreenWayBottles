@@ -1,7 +1,32 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using GreenWayBottles.Models;
 using System.Collections.ObjectModel;
+/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
+Before:
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;
+After:
+using GreenWayBottles.Services;
+using System.Collections.ObjectModel;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
+Before:
+using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+After:
+using GreenWayBottles.Services;
+using System.Collections.ObjectModel;
+*/
+
+/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
+Before:
+using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+After:
+using GreenWayBottles.Services;
+using System.Collections.ObjectModel;
+*/
+
 
 namespace GreenWayBottles.Services
 {

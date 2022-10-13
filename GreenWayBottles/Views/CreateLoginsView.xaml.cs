@@ -4,9 +4,9 @@ namespace GreenWayBottles.Views;
 
 public partial class CreateLoginsView : ContentPage
 {
-	public CreateLoginsView()
-	{
-		InitializeComponent();
-		BindingContext = new CreateLoginsViewModel();
-	}
+    public CreateLoginsView()
+    {
+        InitializeComponent();
+        BindingContext = new CreateLoginsViewModel();
+    }
 }
