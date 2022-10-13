@@ -189,7 +189,7 @@
                 </VerticalStackLayout>
 
                 <Button Text="Submit Transaction Record" FontSize="Small" BackgroundColor="#155ca1"
-                    Margin="20" Padding="5" />
+                    Margin="20" Padding="5" Command="{Binding SubmitTransactionCommand}"/>
             </VerticalStackLayout>
 
             

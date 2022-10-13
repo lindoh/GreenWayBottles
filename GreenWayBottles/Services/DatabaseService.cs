@@ -17,7 +17,6 @@ namespace GreenWayBottles.Services
         SqlConnection sqlConnection;
         SqlCommand sqlCommand;
         AlertService alerts;
-        CaptureBottlesViewModel viewModel;
         #endregion
 
         #region Default Constructor
@@ -44,7 +43,7 @@ namespace GreenWayBottles.Services
             }
 
             alerts = new AlertService();
-            viewModel = new CaptureBottlesViewModel();
+            
         }
 
         #endregion
@@ -780,7 +779,7 @@ namespace GreenWayBottles.Services
         #endregion
 
         #region Save Captured Bottle Data
-        public bool CaptureBottles(ObservableCollection<Bottles> capturedBottles)
+        public bool CaptureBottles(Bottles bottle)
         {
             bool isSaved = false;
 
@@ -789,26 +788,19 @@ namespace GreenWayBottles.Services
                 //Open Sql connection
                 sqlConnection.Open();
 
-                foreach (Bottles bottle in capturedBottles)
-                {
-                    sqlCommand.Parameters.Clear();
-                    sqlCommand.CommandText = "CaptureBottles";
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "CaptureBottles";
 
-                    sqlCommand.Parameters.AddWithValue("Quantity", bottle.Quantity);
-                    sqlCommand.Parameters.AddWithValue("BottleDataSourceId", bottle.BottleDataSourceId);
-                    sqlCommand.Parameters.AddWithValue("CollectorId", bottle.CollectorId);
-                    sqlCommand.Parameters.AddWithValue("BBCId", bottle.BBCId);
-                    sqlCommand.Parameters.AddWithValue("Amount", bottle.Amount);
-                    sqlCommand.Parameters.AddWithValue("AdminId", bottle.AdminId);
+                sqlCommand.Parameters.AddWithValue("Quantity", bottle.Quantity);
+                sqlCommand.Parameters.AddWithValue("BottleDataSourceId", bottle.BottleDataSourceId);
+                sqlCommand.Parameters.AddWithValue("CollectorId", bottle.CollectorId);
+                sqlCommand.Parameters.AddWithValue("BBCId", bottle.BBCId);
+                sqlCommand.Parameters.AddWithValue("Amount", bottle.Amount);
+                sqlCommand.Parameters.AddWithValue("AdminId", bottle.AdminId);
 
-                    //If affected number of rows > 0, then the save operation is successful
-                    int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
-                    isSaved = NoOfRowsAffected > 0;
-
-                    if (isSaved)
-                        viewModel.BottleIdList.Insert(0, GetBottleId(bottle));
-                }
-
+                //If affected number of rows > 0, then the save operation is successful
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
 
             }
             catch (SqlException ex)
@@ -826,7 +818,7 @@ namespace GreenWayBottles.Services
         #endregion
 
         #region Get Bottle Id
-        private int GetBottleId(Bottles bottle)
+        public int GetBottleId(Bottles bottle)
         {
             int id = 0;
 
@@ -842,6 +834,8 @@ namespace GreenWayBottles.Services
                 sqlCommand.Parameters.AddWithValue("BBCId", bottle.BBCId);
                 sqlCommand.Parameters.AddWithValue("Amount", bottle.Amount);
                 sqlCommand.Parameters.AddWithValue("AdminId", bottle.AdminId);
+
+                sqlConnection.Open();
 
                 var sqlDataReader = sqlCommand.ExecuteReader();
 
@@ -860,6 +854,10 @@ namespace GreenWayBottles.Services
             {
 
                 throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
             }
 
             return id;

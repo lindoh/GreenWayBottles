@@ -50,41 +50,7 @@ using System.Collections.ObjectModel;
     */
 
 namespace GreenWayBottles.ViewModels
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
-Before:
-{
-    
-    public partial class CaptureBottlesViewModel : ObservableObject
-After:
-{
-
-    public partial class CaptureBottlesViewModel : ObservableObject
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
-Before:
-{
-    
-    public partial class CaptureBottlesViewModel : ObservableObject
-After:
-{
-
-    public partial class CaptureBottlesViewModel : ObservableObject
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
-Before:
-{
-    
-    public partial class CaptureBottlesViewModel : ObservableObject
-After:
-{
-
-    public partial class CaptureBottlesViewModel : ObservableObject
-*/
-{
-
+{ 
     public partial class CaptureBottlesViewModel : ObservableObject
     {
         #region Default Constructor
@@ -104,6 +70,8 @@ After:
             CaptureBottleDisplay = true;
             PaymentsDisplay = !captureBottleDisplay;
             display_0 = display_1 = false;
+            transactions = new Transaction();
+           
         }
 
         #endregion
@@ -230,9 +198,6 @@ After:
 
             //Reset Bottle size and Quantity
             Clear();
-
-
-
         }
 
         /// <summary>
@@ -246,7 +211,19 @@ After:
 
             if (capturedBottles.Count > 0)
             {
-                isSubmitted = dataService.CaptureBottles(capturedBottles);
+                bottleIdList = new List<int>();
+
+                foreach (Bottles bottle in capturedBottles)
+                {
+                    isSubmitted = dataService.CaptureBottles(bottle);
+
+                    if (!isSubmitted)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");  
+                    }
+                    else
+                        BottleIdList.Insert(0, dataService.GetBottleId(bottle));
+                }           
 
                 if (isSubmitted)
                 {
@@ -267,7 +244,8 @@ After:
         /// Submit the Transaction file showing the collected bottle information,
         /// Collector Details, and BuyBackCentre Details
         /// </summary>
-        public void SubmitTransaction()
+        [RelayCommand]
+        async public void SubmitTransaction()
         {
             //Set the transaction type
             if (display_0)   //If display is set to Banking Display
@@ -280,7 +258,7 @@ After:
 
             if (transactions.LocalDate.Hour < 6 || transactions.LocalDate.Hour > 18)
             {
-                alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
+                await alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
                 return;
             }
 
@@ -291,41 +269,29 @@ After:
 
             bool isSaved = false;
 
-
-            /* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
-            Before:
-                        foreach( int id in bottleIdList)
-            After:
-                        foreach (int id in bottleIdList)
-            */
-
-            /* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
-            Before:
-                        foreach( int id in bottleIdList)
-            After:
-                        foreach (int id in bottleIdList)
-            */
-
-            /* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
-            Before:
-                        foreach( int id in bottleIdList)
-            After:
-                        foreach (int id in bottleIdList)
-            */
-            foreach (int id in bottleIdList)
+            if(bottleIdList == null)
             {
-                transactions.BottleId = id;
-                isSaved = dataService.TransRecord(transactions);
-
-                if (!isSaved)
-                {
-                    alerts.ShowAlertAsync("Operation Failed", "One or more transaction records could not be saved");
-                    return;
-                }
+                await alerts.ShowAlertAsync("Operation Failed", "No bottles were captured, please capture bottles first");
+                return;
             }
+            else
+            {
+                foreach (int id in bottleIdList)
+                {
+                    transactions.BottleId = id;
+                    isSaved = dataService.TransRecord(transactions);
 
-            if (isSaved)
-                alerts.ShowAlertAsync("Operation Successful", $"Captured Bottles Transaction Record Saved Successfully on {transactions.LocalDate}");
+                    if (!isSaved)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "One or more transaction records could not be saved");
+                        return;
+                    }
+                }
+
+                if (isSaved)
+                    await alerts.ShowAlertAsync("Operation Successful", $"Captured Bottles Transaction Record Saved Successfully on {transactions.LocalDate}");
+            }
+            
 
         }
 
