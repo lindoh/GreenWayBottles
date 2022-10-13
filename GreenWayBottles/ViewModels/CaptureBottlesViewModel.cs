@@ -1,49 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
+using GreenWayBottles.Views;
 
-/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
-Before:
-using CommunityToolkit.Mvvm.ComponentModel;
-After:
-using GreenWayBottles.Services;
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
-Before:
-using CommunityToolkit.Mvvm.ComponentModel;
-After:
-using GreenWayBottles.Services;
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
-Before:
-using CommunityToolkit.Mvvm.ComponentModel;
-After:
-using GreenWayBottles.Services;
-*/
 using GreenWayBottles.Services;
 using System.Collections.ObjectModel;
-/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
-Before:
-using CommunityToolkit.Mvvm.Input;
-After:
-using System.Collections.ObjectModel;
-*/
+//using Android.Views;
 
-/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
-Before:
-using CommunityToolkit.Mvvm.Input;
-After:
-using System.Collections.ObjectModel;
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
-Before:
-using CommunityToolkit.Mvvm.Input;
-After:
-using System.Collections.ObjectModel;
-*/
 
 
 /*TO DO
@@ -71,7 +34,7 @@ namespace GreenWayBottles.ViewModels
             PaymentsDisplay = !captureBottleDisplay;
             display_0 = display_1 = false;
             transactions = new Transaction();
-           
+            //vm = new();
         }
 
         #endregion
@@ -145,6 +108,19 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         Transaction transactions;
 
+        //CaptureNewBottlesView vm;
+
+        ProgressBar progressBar = new ProgressBar
+        {
+            Progress = 0.5,
+            ProgressColor = Colors.Orange
+        };
+       
+        
+
+        [ObservableProperty]
+        bool progress;
+
         #endregion
 
         #region Button Methods
@@ -192,12 +168,17 @@ namespace GreenWayBottles.ViewModels
 
                 //Update and Display Captured Bottles
                 capturedBottles.Insert(0, Bottle);
+
+                
+                //Progress = true;
+                progressBar.IsVisible = true;
+                await progressBar.ProgressTo(0.90,50, Easing.Linear);
             }
             else
                 await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
 
             //Reset Bottle size and Quantity
-            Clear();
+            Clear(false);
         }
 
         /// <summary>
@@ -229,9 +210,9 @@ namespace GreenWayBottles.ViewModels
                 {
                     await alerts.ShowAlertAsync("Operation Successful", "Collected bottle(s) data saved successfully!");
 
-                    //Switch between the CaptureBottle Display and Payment Display in the CaptureNewBottlesView
-                    CaptureBottleDisplay = false;
-                    PaymentsDisplay = !captureBottleDisplay;
+                    //Switch to the Payment Display 
+                    SwitchDisplay(false);
+                    
                 }
                 else
                     await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
@@ -256,7 +237,7 @@ namespace GreenWayBottles.ViewModels
             //Set the Date and Time to the current computer time
             transactions.LocalDate = DateTime.Now;
 
-            if (transactions.LocalDate.Hour < 6 || transactions.LocalDate.Hour > 18)
+            if (transactions.LocalDate.Hour < 6 || transactions.LocalDate.Hour > 23)
             {
                 await alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
                 return;
@@ -289,10 +270,16 @@ namespace GreenWayBottles.ViewModels
                 }
 
                 if (isSaved)
+                {
                     await alerts.ShowAlertAsync("Operation Successful", $"Captured Bottles Transaction Record Saved Successfully on {transactions.LocalDate}");
-            }
-            
 
+                    //Switch to the CaptureBottle Display 
+                    SwitchDisplay(true);
+
+                    Clear(true);
+                }
+
+            }
         }
 
         #endregion
@@ -356,10 +343,24 @@ namespace GreenWayBottles.ViewModels
             }
         }
 
-        private void Clear()
+        private void Clear(bool clearAll)
         {
-            bottleData.Size = null;
+            if (clearAll)
+            {
+                Amount = 0.0;
+                AmountString = $"R{amount}";
+                CapturedBottles.Clear();
+            }
+
+            BottleData.Size = null;
             Quantity = 0;
+        }
+
+        private void SwitchDisplay(bool captureBottles)
+        {
+            //Switch between the CaptureBottle Display and Payment Display in the CaptureNewBottlesView
+            CaptureBottleDisplay = captureBottles;
+            PaymentsDisplay = !captureBottleDisplay;
         }
 
         #endregion

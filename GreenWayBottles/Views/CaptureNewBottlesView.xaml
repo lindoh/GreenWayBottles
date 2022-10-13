@@ -79,6 +79,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
+                
+
                 <!-- Submit Button Tag -->
                 <Button x:Name="submitBtn" Text="Submit" FontSize="Small" BackgroundColor="#155ca1"
                     Margin="20" Padding="5" WidthRequest="200"
