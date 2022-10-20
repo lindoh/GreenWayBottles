@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              xmlns:model="clr-namespace:GreenWayBottles.Models"
+             xmlns:cct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
              x:DataType="viewmodel:CaptureBottlesViewModel"
              x:Class="GreenWayBottles.Views.CaptureNewBottlesView"
              Title="CaptureNewBottlesView"
-             MaximumWidthRequest="450"
-             MinimumWidthRequest="250">
-    <ScrollView>
+             BackgroundImageSource="background_desktop.jpeg">
+    <ScrollView WidthRequest="450">
         <VerticalStackLayout>
             <VerticalStackLayout IsVisible="{Binding CaptureBottleDisplay}">
                 <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 
@@ -79,7 +79,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                
+
 
                 <!-- Submit Button Tag -->
                 <Button x:Name="submitBtn" Text="Submit" FontSize="Small" BackgroundColor="#155ca1"
@@ -87,7 +87,7 @@
                     Command="{Binding SubmitCommand}"/>
 
             </VerticalStackLayout>
-            
+
             <!--=====================================================================================================-->
             <!--                                           Payment Section                                           -->
             <!--=====================================================================================================-->
@@ -110,6 +110,7 @@
                 <VerticalStackLayout>
                     <RadioButton x:Name="BankPaymentRadioBtn" Content="Bank Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
                     <RadioButton x:Name="MobilePaymentRadioBtn" Content="Mobile Money Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
+                    <RadioButton x:Name="CashPaymentRadioBtn" Content="Cash Payment" CheckedChanged="PayMethodRadioBtn_CheckedChanged"/>
                 </VerticalStackLayout>
 
                 <!--========================================== Confirm Bank Payment ==========================================-->
@@ -126,7 +127,7 @@
                             FontSize="Caption" TextColor="Black"
                             Text="{Binding Banker.BankName}"/>
                     </HorizontalStackLayout>
-                    
+
 
                     <!--Branch Name Tag-->
                     <HorizontalStackLayout>
@@ -145,7 +146,7 @@
                                FontSize="Caption" TextColor="Black"
                                Text="{Binding Banker.BranchCode}"/>
                     </HorizontalStackLayout>
-                    
+
 
                     <!--Account Type Tag-->
                     <HorizontalStackLayout>
@@ -155,7 +156,7 @@
                             FontSize="Caption" TextColor="Black"
                             Text="{Binding Banker.AccountType}"/>
                     </HorizontalStackLayout>
-                    
+
 
                     <!--Account Number Tag-->
                     <HorizontalStackLayout>
@@ -165,7 +166,7 @@
                            FontSize="Caption" TextColor="Black"
                            Text="{Binding Banker.AccountNumber}"/>
                     </HorizontalStackLayout>
-                    
+
                     <Label Text="If Banking Details have changed please update from the UPDATE BANKING DETAILS Tab and Return to this page to continue." 
                            VerticalOptions="End" HorizontalOptions="Start" FontAttributes="Italic"
                            FontSize="Caption" TextColor="Blue" Margin="10, 20, 5, 0"/>
@@ -190,14 +191,31 @@
                            FontSize="Caption" TextColor="Blue" Margin="10, 20, 5, 0"/>
                 </VerticalStackLayout>
 
+                <!-- ========================================== Confirm Cash Payment ==========================================-->
+                <VerticalStackLayout IsVisible="{Binding Display_2}">
+                    <Label Text="Confirm Cash Payment" VerticalOptions="End"
+                       HorizontalOptions="Start" FontSize="Small" FontAttributes="Bold" 
+                       TextColor="Gray" Margin="10, 15, 5, 0"/>
+
+                    <cct:DrawingView x:Name="SignatureDrawing"
+                                     HorizontalOptions="Center"
+                                     WidthRequest="300" HeightRequest="200"
+                                     BackgroundColor="LightGray" IsMultiLineModeEnabled="True"
+                                     DrawingLineCompleted="SignatureDrawing_DrawingLineCompleted"/>
+
+                    <HorizontalStackLayout Margin="10">
+                        <Label Text="Clear" FontSize="Small" Margin="5"/>
+                        <CheckBox x:Name="ClearCheckBox" CheckedChanged="CheckBox_CheckedChanged" Margin="5"/>
+                    </HorizontalStackLayout>
+
+                    <Image x:Name="ImageView" IsVisible="True" Margin="20"/>
+                </VerticalStackLayout>
+
                 <Button Text="Submit Transaction Record" FontSize="Small" BackgroundColor="#155ca1"
                     Margin="20" Padding="5" Command="{Binding SubmitTransactionCommand}"/>
             </VerticalStackLayout>
 
-            
-            
         </VerticalStackLayout>
 
-        
     </ScrollView>
 </ContentPage>

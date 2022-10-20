@@ -16,5 +16,8 @@ namespace GreenWayBottles.Models
 
         [ObservableProperty]
         int bankDetailsId;
+
+        [ObservableProperty]
+        Image signature;
     }
 }

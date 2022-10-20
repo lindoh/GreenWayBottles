@@ -72,6 +72,15 @@ namespace GreenWayBottles.ViewModels
         }
 
         [RelayCommand]
+        async void Logout()
+        {
+            bool confirmation = await alerts.ShowConfirmationAsync("Confirm Logout", "Are you sure you want to Logout?", "Yes", "No");
+
+            if (confirmation)
+                App.Current.MainPage = new LoginView();
+        }
+
+        [RelayCommand]
         void ToRegister()
         {
             App.Current.MainPage = new RegistrationView();
@@ -96,6 +105,8 @@ namespace GreenWayBottles.ViewModels
             UserLogin.Username = String.Empty;
             UserLogin.Password = String.Empty;
         }
+
+
 
         #endregion
     }

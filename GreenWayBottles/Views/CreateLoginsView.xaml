@@ -5,8 +5,9 @@
              x:DataType="viewmodel:CreateLoginsViewModel"
              x:Class="GreenWayBottles.Views.CreateLoginsView"
              Title="CreateLoginsView"
-             MaximumWidthRequest="600">
-    <VerticalStackLayout Margin="100, 10, 100, 10">
+             >
+
+    <VerticalStackLayout Margin="100, 10, 100, 10" MaximumWidthRequest="600">
         <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>
@@ -42,6 +43,14 @@
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black" IsPassword="True"
             Margin="10, 0, 5, 5" Text="{Binding ConfirmPassword, Mode=TwoWay}"/>
+        
+        <!-- Strong Password Tag-->
+        <Label Text="It is mandatory and encouranged that you create a strong password which has:" 
+               VerticalOptions="Start" HorizontalOptions="Fill" 
+               FontSize="Caption" TextColor="Red" Margin="10, 5, 5, 0"/>
+        <Label Text="~ At least 8 characters and &#x0A;~ A combination of uppercase letters, lowercase letters, numbers, and symbols." 
+               VerticalOptions="Start" HorizontalOptions="Fill" 
+               FontSize="Caption" TextColor="Red" Margin="10, 5, 5, 0"/>
 
         <!--Continue Button Tag-->
         <Button 

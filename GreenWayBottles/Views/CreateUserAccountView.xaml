@@ -5,11 +5,11 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              x:DataType="viewmodel:CreateUserAccViewModel"
              Title="CreateUserAccountView"
-             WidthRequest="450">
+             BackgroundImageSource="background_desktop.jpeg">
     
     <!-- To Do: Find better way to populate street address, suburb, and city data -->
 
-    <ScrollView>
+    <ScrollView WidthRequest="450">
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

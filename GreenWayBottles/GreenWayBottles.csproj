@@ -52,10 +52,16 @@
 	  <Compile Remove="ViewModels\UpdateAdminAccViewModel.cs" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiImage Include="Resources\AppIcon\about_icon.png" />
+	  <MauiImage Include="Resources\AppIcon\homepage_icon.jpg" />
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
+    <PackageReference Include="CommunityToolkit.Maui.Markup" Version="1.1.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -75,6 +81,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LogoutView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PaymentView.xaml">

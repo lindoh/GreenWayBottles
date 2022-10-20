@@ -34,6 +34,7 @@ namespace GreenWayBottles.ViewModels
             PaymentsDisplay = !captureBottleDisplay;
             display_0 = display_1 = false;
             transactions = new Transaction();
+           
             //vm = new();
         }
 
@@ -79,6 +80,10 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         int quantity;
 
+        //Current Amount
+        [ObservableProperty]
+        double currentAmount;
+
         //The amount due to the collector
         [ObservableProperty]
         static double amount;
@@ -106,9 +111,10 @@ namespace GreenWayBottles.ViewModels
         bool display_1;
 
         [ObservableProperty]
-        Transaction transactions;
+        bool display_2;
 
-        //CaptureNewBottlesView vm;
+        [ObservableProperty]
+        Transaction transactions;
 
         ProgressBar progressBar = new ProgressBar
         {
@@ -144,15 +150,13 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
                 return;
             }
-
-            if (quantity == 0)
+            else if (quantity == 0)
             {
                 await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
                 return;
             }
-
             //Update the Bottle Object
-            if (bottleData.BottleDataSourceId != 0)
+            else if (bottleData.BottleDataSourceId != 0)
             {
                 bottle = new Bottles();
                 //Calculate amount due
@@ -163,7 +167,7 @@ namespace GreenWayBottles.ViewModels
                 Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
                 Bottle.CollectorId = user.Id;
                 Bottle.BBCId = currentAdmin.UserLogin.BBCId;
-                Bottle.Amount = amount;
+                Bottle.Amount = currentAmount;
                 Bottle.AdminId = currentAdmin.UserLogin.AdminId;
 
                 //Update and Display Captured Bottles
@@ -230,9 +234,17 @@ namespace GreenWayBottles.ViewModels
         {
             //Set the transaction type
             if (display_0)   //If display is set to Banking Display
+            {
                 transactions.TransactionType = "Bank Payment";
+
+                //Find the Banking details
+                Banker = dataService.SearchBanking(user.Id);
+                transactions.BankDetailsId = banker.BankDetailsId;
+            }
             else if (display_1)      //If display is set to MobileMoney Display
                 transactions.TransactionType = "Mobile Money Payment";
+            else if (display_2)
+                transactions.TransactionType = "Cash Payment";
 
             //Set the Date and Time to the current computer time
             transactions.LocalDate = DateTime.Now;
@@ -242,11 +254,7 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
                 return;
             }
-
-            //Find the Banking details
-            Banker = dataService.SearchBanking(user.Id);
-            if (banker != null)
-                transactions.BankDetailsId = banker.BankDetailsId;
+                
 
             bool isSaved = false;
 
@@ -316,10 +324,11 @@ namespace GreenWayBottles.ViewModels
                 int size = Int32.Parse(bottleSize);
 
                 if (size > 0 && size < 2000)
-                    Amount += Quantity;
+                    CurrentAmount = Quantity;
                 else if (size >= 2000)
-                    Amount += Quantity * 1.5;
+                    CurrentAmount = Quantity * 1.5;
 
+                Amount += CurrentAmount;
                 AmountString = $"R{amount}";
 
             }

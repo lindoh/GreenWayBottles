@@ -1,33 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-ios)'
-Before:
-using GreenWayBottles.Views;
-using GreenWayBottles.Models;
-After:
-using GreenWayBottles.Models;
-using GreenWayBottles.Services;
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-maccatalyst)'
-Before:
-using GreenWayBottles.Views;
-using GreenWayBottles.Models;
-After:
-using GreenWayBottles.Models;
-using GreenWayBottles.Services;
-*/
-
-/* Unmerged change from project 'GreenWayBottles (net6.0-windows10.0.19041.0)'
-Before:
-using GreenWayBottles.Views;
-using GreenWayBottles.Models;
-After:
-using GreenWayBottles.Models;
-using GreenWayBottles.Services;
-*/
 using GreenWayBottles.Models;
 using GreenWayBottles.Views;
 using GreenWayBottles.Services;
@@ -91,7 +64,8 @@ namespace GreenWayBottles.ViewModels
                 Clear(User);    //Clear text fields
 
                 //Navigate to the Create Login Details Page
-                await Shell.Current.GoToAsync(nameof(CreateLoginsView));
+                App.Current.MainPage = new CreateLoginsView();
+                //await Shell.Current.GoToAsync(nameof(CreateLoginsView));
             }
             else
             {

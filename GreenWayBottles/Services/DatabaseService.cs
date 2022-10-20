@@ -24,9 +24,11 @@ namespace GreenWayBottles.Services
         {
             try
             {
-                string DataConnection = "Server = LAPTOP-J3M5FNUA; Database = GreenWayData; " +
-                                    "Integrated Security=True; Encrypt=True; TrustServerCertificate=True;" +
-                                    "User Instance=False";
+                //SQL Authentication Connection String
+                string DataConnection = "Server=tcp:farecost-server.database.windows.net,1433;Initial Catalog=GreenWayAfrica_DB;" +
+                    "Persist Security Info=False;User ID=CloudSAb2b69ffa;Password=P@55Code;MultipleActiveResultSets=False;" +
+                    "Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
                 sqlConnection = new SqlConnection(DataConnection);
                 sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
@@ -878,6 +880,7 @@ namespace GreenWayBottles.Services
                 sqlCommand.Parameters.AddWithValue("TransactionDateTime", transaction.LocalDate);
                 sqlCommand.Parameters.AddWithValue("BottleId", transaction.BottleId);
                 sqlCommand.Parameters.AddWithValue("BankDetailsId", transaction.BankDetailsId);
+                sqlCommand.Parameters.AddWithValue("Signature", transaction.Signature);
 
                 sqlConnection.Open();
 

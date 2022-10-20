@@ -6,14 +6,15 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels" 
              x:DataType="viewmodel:UpdateUserAccViewModel"
              Title="UpdateUserAccountView"
-             WidthRequest="450">
+             BackgroundImageSource="background_desktop.jpeg"
+             >
 
     <!--TO DO
         Seperate the Search Bar/List view from 
         the User Details section with a ContentPage
         To fix the Data Binding Issue-->
-    
-    <ScrollView>
+
+    <ScrollView WidthRequest="450">
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

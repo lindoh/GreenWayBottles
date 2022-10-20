@@ -5,7 +5,8 @@
              x:DataType="viewmodel:HomeViewModel"
              x:Class="GreenWayBottles.Views.HomeView"
              Title="HomeView"
-             WidthRequest="600">
+             BackgroundImageSource="background_desktop.jpeg">
+    
     <VerticalStackLayout>
         <Label Text="Hi, There!" FontSize="Large" FontAttributes="Italic"
                TextColor="#155ca1" HorizontalOptions="Center"

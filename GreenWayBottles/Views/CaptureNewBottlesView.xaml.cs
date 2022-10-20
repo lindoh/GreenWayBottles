@@ -38,16 +38,35 @@ public partial class CaptureNewBottlesView : ContentPage
         if (BankPaymentRadioBtn.IsChecked)
         {
             viewModel.Display_0 = true;
-            viewModel.Display_1 = !viewModel.Display_0;
+            viewModel.Display_1 = viewModel.Display_2 = !viewModel.Display_0;
 
             //Show Updated Banking Details
             viewModel.UpdateBanker();
         }
-
         else if (MobilePaymentRadioBtn.IsChecked)
         {
             viewModel.Display_1 = true;
-            viewModel.Display_0 = !viewModel.Display_1;
+            viewModel.Display_0 = viewModel.Display_2 = !viewModel.Display_1;
         }
+        else if(CashPaymentRadioBtn.IsChecked)
+        {
+            viewModel.Display_2 = true;
+            viewModel.Display_0 = viewModel.Display_1 = !viewModel.Display_2;
+        }
+    }
+
+    private async void SignatureDrawing_DrawingLineCompleted(object sender, CommunityToolkit.Maui.Core.DrawingLineCompletedEventArgs e)
+    {
+
+        viewModel.Transactions.Signature = new Image();
+        var stream = await SignatureDrawing.GetImageStream(300, 200);
+        viewModel.Transactions.Signature.Source = ImageSource.FromStream(() => stream);
+        ImageView = viewModel.Transactions.Signature;
+    }
+
+    private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (ClearCheckBox.IsChecked)
+            SignatureDrawing.Clear();
     }
 }

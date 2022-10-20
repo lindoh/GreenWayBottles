@@ -4,9 +4,9 @@
              x:Class="GreenWayBottles.Views.DeleteUserAccView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              Title="DeleteUserAccView"
-             WidthRequest="450">
+             BackgroundImageSource="background_desktop.jpeg">
 
-    <VerticalStackLayout>
+    <VerticalStackLayout WidthRequest="450">
         <Label Text="Delete Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
                FontSize="Title" TextColor="#155ca1" Margin="10"/>
 

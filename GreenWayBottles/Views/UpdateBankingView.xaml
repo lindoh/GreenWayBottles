@@ -5,9 +5,10 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              xmlns:views="clr-namespace:GreenWayBottles.Views"
              Title="UpdateBankingView"
-             WidthRequest="450">
+             BackgroundImageSource="background_desktop.jpeg"
+             >
 
-    <ScrollView>
+    <ScrollView WidthRequest="450">
         <VerticalStackLayout>
             <Label Text="Update Banking Account Details" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>
