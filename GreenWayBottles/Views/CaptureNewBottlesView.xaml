@@ -9,7 +9,7 @@
              Title="CaptureNewBottlesView"
              BackgroundImageSource="background_desktop.jpeg">
     <ScrollView WidthRequest="450">
-        <VerticalStackLayout>
+        <VerticalStackLayout Margin="20">
             <VerticalStackLayout IsVisible="{Binding CaptureBottleDisplay}">
                 <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>

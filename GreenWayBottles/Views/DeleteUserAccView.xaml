@@ -6,7 +6,7 @@
              Title="DeleteUserAccView"
              BackgroundImageSource="background_desktop.jpeg">
 
-    <VerticalStackLayout WidthRequest="450">
+    <VerticalStackLayout WidthRequest="450" Margin="20">
         <Label Text="Delete Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
                FontSize="Title" TextColor="#155ca1" Margin="10"/>
 

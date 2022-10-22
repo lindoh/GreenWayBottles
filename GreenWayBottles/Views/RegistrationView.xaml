@@ -5,9 +5,9 @@
              x:DataType="viewmodel:RegistrationViewModel"
              x:Class="GreenWayBottles.Views.RegistrationView"
              Title="RegistrationView"
-             WidthRequest="600">
-    <ScrollView>
-        <Grid Margin="10">
+             >
+    <ScrollView Margin="20" WidthRequest="600">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -36,56 +36,57 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title Tag                                 -->
-            <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10, 10, 10, 30">
-                <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
-               HorizontalOptions="Center" VerticalOptions="Start" 
-               MaximumWidthRequest="150" MaximumHeightRequest="150"/>
+            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   Source="logo.png"
+                   HorizontalOptions="Center" VerticalOptions="Start" Margin="20, 20, 20, 0"
+                   MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 
-                <Label Text="Hi, Welcome to GreenWayBottles" TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
-                <Label Text="Please Register Your New Admin Account" TextColor="#6e9b19" FontSize="Caption" HorizontalTextAlignment="Center"/>
-            </StackLayout>
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                    Text="Hi, Welcome to GreenWayBottles" TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10, 5, 10, 40"
+                    Text="Please Register Your New Admin Account" TextColor="#6e9b19" FontSize="Caption" HorizontalTextAlignment="Center"/>
 
             <!-- First Name Tag                                 -->
             <Label 
-            Grid.Row="2" Grid.Column="0"
+            Grid.Row="3" Grid.Column="0"
             Text="First Name" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="3" Grid.Column="0" x:Name="firstNameTxt"
+            <Entry Grid.Row="4" Grid.Column="0" x:Name="firstNameTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.FirstName, Mode=TwoWay}"/>
 
             <!-- Last Name Tag                                 -->
             <Label 
-            Grid.Row="2" Grid.Column="1"
+            Grid.Row="3" Grid.Column="1"
             Text="Last Name" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="3" Grid.Column="1" x:Name="lastNameTxt"
+            <Entry Grid.Row="4" Grid.Column="1" x:Name="lastNameTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.LastName, Mode=TwoWay}"/>
 
             <!-- Id Number Tag                                 -->
             <Label 
-            Grid.Row="4" Grid.Column="0"
+            Grid.Row="5" Grid.Column="0"
             Text="ID Number" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="5" Grid.Column="0" x:Name="idNumberTxt"
+            <Entry Grid.Row="6" Grid.Column="0" x:Name="idNumberTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.IdNumber, Mode=TwoWay}"/>
 
             <!-- Gender Tag                                 -->
             <Label 
-            Grid.Row="4" Grid.Column="1"
+            Grid.Row="5" Grid.Column="1"
             Text="Gender" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="5" Grid.Column="1" x:Name="genderPicker" SelectedItem="{Binding User.Gender, Mode=TwoWay}"
+                Grid.Row="6" Grid.Column="1" x:Name="genderPicker" SelectedItem="{Binding User.Gender, Mode=TwoWay}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String>Male</x:String>
@@ -95,12 +96,12 @@
 
             <!-- Highest Qualification Tag                                 -->
             <Label 
-            Grid.Row="6" Grid.Column="0"
+            Grid.Row="7" Grid.Column="0"
             Text="Highest Qualification" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker
-                Grid.Row="7" Grid.Column="0" x:Name="highestQlfnPicker"
+                Grid.Row="8" Grid.Column="0" x:Name="highestQlfnPicker"
                 FontSize="Caption" TextColor="Black" SelectedItem="{Binding User.HighestQlfn, Mode=TwoWay}">
                 <Picker.Items>
                     <x:String>Grade 9</x:String>
@@ -118,12 +119,12 @@
 
             <!-- Income Range Tag                                 -->
             <Label 
-            Grid.Row="6" Grid.Column="1"
+            Grid.Row="7" Grid.Column="1"
             Text="Income Range" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="7" Grid.Column="1" x:Name="incomeRangePicker" SelectedItem="{Binding User.IncomeRange, Mode=TwoWay}"
+                Grid.Row="8" Grid.Column="1" x:Name="incomeRangePicker" SelectedItem="{Binding User.IncomeRange, Mode=TwoWay}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String>Less than R1000</x:String>
@@ -137,74 +138,74 @@
             </Picker>
             <!-- Email Address Tag                                 -->
             <Label 
-            Grid.Row="8" Grid.Column="0"
+            Grid.Row="9" Grid.Column="0"
             Text="Email Address" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="9" Grid.Column="0" x:Name="emailTxt"
+            <Entry Grid.Row="10" Grid.Column="0" x:Name="emailTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.Email, Mode=TwoWay}"/>
 
             <!-- Cell Number Tag                                 -->
             <Label 
-            Grid.Row="8" Grid.Column="1"
+            Grid.Row="9" Grid.Column="1"
             Text="Cell Number" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="9" Grid.Column="1" x:Name="cellNumberTxt"
+            <Entry Grid.Row="10" Grid.Column="1" x:Name="cellNumberTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.CellNumber, Mode=TwoWay}"/>
 
             <!-- Physical Address Tag                                 -->
             <Label 
-            Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+            Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2"
             Text="Physical Address" VerticalOptions="End" HorizontalOptions="Center" 
             FontSize="Subtitle" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
 
             <!-- Street Address Tag                                 -->
             <Label 
-            Grid.Row="11" Grid.Column="0"
+            Grid.Row="12" Grid.Column="0"
             Text="Street Address" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="12" Grid.Column="0" x:Name="streetAddTxt"
+            <Entry Grid.Row="13" Grid.Column="0" x:Name="streetAddTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.StreetAddress, Mode=TwoWay}"/>
 
             <!-- Suburb Tag                                 -->
             <Label 
-            Grid.Row="11" Grid.Column="1"
+            Grid.Row="12" Grid.Column="1"
             Text="Suburb" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="12" Grid.Column="1" x:Name="suburbTxt"
+            <Entry Grid.Row="13" Grid.Column="1" x:Name="suburbTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.Suburb, Mode=TwoWay}"/>
 
             <!-- City Tag                                 -->
             <Label 
-            Grid.Row="13" Grid.Column="0"
+            Grid.Row="14" Grid.Column="0"
             Text="City" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Entry Grid.Row="14" Grid.Column="0" x:Name="cityTxt"
+            <Entry Grid.Row="15" Grid.Column="0" x:Name="cityTxt"
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.City, Mode=TwoWay}"/>
 
             <!-- Province Tag                                 -->
             <Label 
-            Grid.Row="13" Grid.Column="1"
+            Grid.Row="14" Grid.Column="1"
             Text="Province" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="14" Grid.Column="1" x:Name="provincePicker" SelectedItem="{Binding User.Province, Mode=TwoWay}"
+                Grid.Row="15" Grid.Column="1" x:Name="provincePicker" SelectedItem="{Binding User.Province, Mode=TwoWay}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String>Eastern Cape</x:String>
@@ -221,12 +222,12 @@
 
             <!-- Country Tag                                 -->
             <Label 
-            Grid.Row="15" Grid.Column="0"
+            Grid.Row="16" Grid.Column="0"
             Text="Country" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker 
-                Grid.Row="16" Grid.Column="0" x:Name="countryPicker" SelectedItem="{Binding User.Country, Mode=TwoWay}"
+                Grid.Row="17" Grid.Column="0" x:Name="countryPicker" SelectedItem="{Binding User.Country, Mode=TwoWay}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
                     <x:String></x:String>
@@ -236,12 +237,12 @@
 
             <!-- Save Button Tag                                 -->
             <Button 
-                Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"
+                Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2"
                 Text="Save" FontSize="Small" BackgroundColor="#155ca1"
                 Margin="20" Padding="5" WidthRequest="200"
                 Command="{Binding RegisterCommand}"/>
 
-            <Label  Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2"
+            <Label  Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2"
                 Text="Already Have An Account? Click To Here Go Back and Login" Margin="10"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 TextColor="Blue" FontAttributes="Italic" FontSize="Caption">

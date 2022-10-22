@@ -6,8 +6,8 @@
              x:Class="GreenWayBottles.Views.HomeView"
              Title="HomeView"
              BackgroundImageSource="background_desktop.jpeg">
-    
-    <VerticalStackLayout>
+
+    <VerticalStackLayout Margin="20" WidthRequest="450">
         <Label Text="Hi, There!" FontSize="Large" FontAttributes="Italic"
                TextColor="#155ca1" HorizontalOptions="Center"
                Margin="10"/>

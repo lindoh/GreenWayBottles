@@ -8,7 +8,7 @@
              BackgroundImageSource="background_desktop.jpeg"
              >
 
-    <ScrollView WidthRequest="450">
+    <ScrollView WidthRequest="450" Margin="20">
         <VerticalStackLayout>
             <Label Text="Update Banking Account Details" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>

@@ -7,7 +7,7 @@
              Title="CreateLoginsView"
              >
 
-    <VerticalStackLayout Margin="100, 10, 100, 10" MaximumWidthRequest="600">
+    <VerticalStackLayout Margin="20" MaximumWidthRequest="600">
         <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>

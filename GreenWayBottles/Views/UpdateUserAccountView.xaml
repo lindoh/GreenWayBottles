@@ -14,7 +14,7 @@
         the User Details section with a ContentPage
         To fix the Data Binding Issue-->
 
-    <ScrollView WidthRequest="450">
+    <ScrollView WidthRequest="450" Margin="20">
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

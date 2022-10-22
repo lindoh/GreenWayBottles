@@ -9,7 +9,7 @@
 
     <VerticalStackLayout Margin="100, 10, 100, 10">
 
-        <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
+        <Image Source="logo.png"
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 

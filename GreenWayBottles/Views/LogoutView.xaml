@@ -4,7 +4,9 @@
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
              x:DataType="viewmodel:LoginViewModel"
              x:Class="GreenWayBottles.Views.LogoutView"
-             Title="LogoutView">
+             Title="LogoutView" 
+             BackgroundImageSource="background_desktop.jpeg">
+    
     <VerticalStackLayout Margin="20">
         <Label 
             Text="We hope to see you again soon! &#x0a;Please click below to Logout"

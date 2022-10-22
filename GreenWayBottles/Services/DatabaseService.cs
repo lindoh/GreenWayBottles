@@ -200,7 +200,7 @@ namespace GreenWayBottles.Services
         /// Username and Password and Read the Data including 
         /// the AdminId
         /// </summary>
-        /// <param name="userLogin"></param>
+        /// <param name="UserLogin"></param>
         /// <returns></returns>
         public void SearchLogins(Login UserLogin)
         {
