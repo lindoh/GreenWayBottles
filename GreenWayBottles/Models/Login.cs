@@ -11,10 +11,10 @@ namespace GreenWayBottles.Models
 
         //Username can be an Email or any combination of text
         [ObservableProperty]
-        string username;
+        static string username;
 
         [ObservableProperty]
-        string password;
+        static string password;
 
         [ObservableProperty]
         static bool isLoggedIn;

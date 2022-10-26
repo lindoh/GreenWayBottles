@@ -52,12 +52,14 @@ namespace GreenWayBottles.ViewModels
                     //await Shell.Current.GoToAsync(nameof(LoginView));
                 }
                 else
-                    await alerts.ShowAlertAsync("Operation Failed", "One or more empty fields found");
+                    await alerts.ShowAlertAsync("Operation Failed", "The password could not be updated!");
             }
+
+            Clear();
 
         }
 
-        static bool ValidatePassword(string password)
+        public bool ValidatePassword(string password)
         {
             int validConditions = 0;
 
@@ -106,6 +108,16 @@ namespace GreenWayBottles.ViewModels
             //If all is well, return true
             return true;
         }
+
+        /// <summary>
+        /// Clear Text Fields
+        /// </summary>
+        private void Clear()
+        {
+            UserLogins.Username = String.Empty;
+            UserLogins.Password = String.Empty;
+        }
+
 
     }
 }

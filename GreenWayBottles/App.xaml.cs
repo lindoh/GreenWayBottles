@@ -12,7 +12,7 @@ public partial class App : Application
         InitializeComponent();
         viewModel = new LoginViewModel();
 
-        if (viewModel.UserLogin.IsLoggedIn)
+        if (!viewModel.UserLogin.IsLoggedIn)
             MainPage = new LoginView();
         else
             MainPage = new AppShell();

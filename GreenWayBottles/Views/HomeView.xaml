@@ -7,12 +7,16 @@
              Title="HomeView"
              BackgroundImageSource="background_desktop.jpeg">
 
-    <VerticalStackLayout Margin="20" WidthRequest="450">
+    <VerticalStackLayout Margin="30" WidthRequest="450">
         <Label Text="Hi, There!" FontSize="Large" FontAttributes="Italic"
                TextColor="#155ca1" HorizontalOptions="Center"
                Margin="10"/>
         <Label Text="Welcome Back" FontSize="Small" FontAttributes="Italic"
                TextColor="#155ca1" HorizontalOptions="Center"/>
+        <Label Text="Navigate through the left pane to capture collected bottles, 
+               Update user information and banking details, delete user account, and more."
+               TextColor="Black" HorizontalOptions="StartAndExpand" Margin="10, 50, 10, 10"
+               Padding="20"/>
 
     </VerticalStackLayout>
 </ContentPage>

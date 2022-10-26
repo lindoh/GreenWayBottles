@@ -6,14 +6,13 @@
              x:Class="GreenWayBottles.Views.LogoutView"
              Title="LogoutView" 
              BackgroundImageSource="background_desktop.jpeg">
-    
+
     <VerticalStackLayout Margin="20">
-        <Label 
-            Text="We hope to see you again soon! &#x0a;Please click below to Logout"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            FontSize="Large" FontAttributes="Italic"
-            TextColor="#155ca1" Margin="10"/>
+        <Label Text="We hope to see you again soon!" FontSize="Large" FontAttributes="Italic"
+               TextColor="#155ca1" HorizontalOptions="Center"
+               Margin="10"/>
+        <Label Text="Please click below to Logout" FontSize="Small" FontAttributes="Italic"
+               TextColor="#155ca1" HorizontalOptions="Center"/>
 
         <Button Text="Logout" FontSize="Small" BackgroundColor="#155ca1"
              Margin="20" Padding="5" WidthRequest="200"

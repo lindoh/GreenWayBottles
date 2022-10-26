@@ -39,7 +39,7 @@
               Route="CreateUserAccountView"/>
     </FlyoutItem>
     
-    <FlyoutItem Title="Update User Account" Icon="pen.png">
+    <FlyoutItem Title="Update User Account" Icon="update.png">
         <ShellContent 
               ContentTemplate="{x:DataTemplate views:UpdateUserAccountView}"
               Route="UpdateUserAccountView"/>
@@ -65,6 +65,12 @@
 
     <FlyoutItem Title="Settings" Icon="settings.png">
         <ShellContent/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Manage Password" Icon="password.png">
+        <ShellContent
+            ContentTemplate="{x:DataTemplate views:ManagePasswordView}"
+            Route="ManagePasswordView"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Logout" Icon="logout.png">

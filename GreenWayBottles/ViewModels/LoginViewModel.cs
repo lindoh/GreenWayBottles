@@ -15,16 +15,19 @@ namespace GreenWayBottles.ViewModels
             dataService = new DatabaseService();
             alerts = new AlertService();
             userLogin = new Login();
+            emailService = new();
         }
 
         DatabaseService dataService;
         AlertService alerts;
 
         [ObservableProperty]
-        static Login userLogin;
+        public static Login userLogin;
 
         [ObservableProperty]
         BuyBackCentre buyBackCentre;
+
+        EmailService emailService;
 
         #region Class Buttons
 
@@ -42,6 +45,8 @@ namespace GreenWayBottles.ViewModels
                     await alerts.ShowAlertAsync("Access Granted", "The user has succesfully Logged In");
 
                     buyBackCentre = dataService.SearchBBC(UserLogin.AdminId);
+
+                    await emailService.SendEmail();
 
                     //An Old User should hopefully have an existing BBBCId
                     if (buyBackCentre.BBCId != 0)
@@ -68,7 +73,7 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Username and/or Password text fields are empty");
 
             //Clear Text fields
-            Clear();
+            //Clear();
         }
 
         [RelayCommand]
@@ -78,6 +83,8 @@ namespace GreenWayBottles.ViewModels
 
             if (confirmation)
                 App.Current.MainPage = new LoginView();
+
+            Clear();
         }
 
         [RelayCommand]

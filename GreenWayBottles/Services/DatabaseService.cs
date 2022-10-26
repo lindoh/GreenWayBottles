@@ -1,6 +1,7 @@
 ﻿using GreenWayBottles.Models;
 using GreenWayBottles.ViewModels;
 using Microsoft.Data.SqlClient;
+//using Microsoft.Maui.Animations;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -89,7 +90,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -141,7 +142,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -183,7 +184,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -234,7 +235,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -297,18 +298,18 @@ namespace GreenWayBottles.Services
                     sqlDataReader.Close();
 
                 }
-
-                return usersList;
             }
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
                 sqlConnection.Close();
             }
+
+            return usersList;
         }
         #endregion
 
@@ -337,9 +338,9 @@ namespace GreenWayBottles.Services
                 }
             }
             catch (SqlException ex)
-            {
+{
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -401,7 +402,41 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isUpdated;
+        }
+
+        #endregion
+
+        #region Update Admin Password
+        public bool UpdatePassword(int AdminId, string Password)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "UpdatePassword";
+
+                sqlCommand.Parameters.AddWithValue("@AdminId", AdminId);
+                sqlCommand.Parameters.AddWithValue("@Password", Password);
+
+                //Open Sql database connection
+                sqlConnection.Open();
+
+                //If affected number of rows is > 0, then data is updated successfully
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isUpdated = NoOfRowsAffected > 0;
+            }
+            catch (SqlException ex)
+            {
+                alerts.ShowAlert("Error", ex.Message);
             }
             finally
             {
@@ -450,7 +485,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -501,7 +536,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -633,7 +668,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -682,7 +717,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -728,7 +763,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -768,7 +803,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -808,7 +843,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -855,7 +890,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -891,7 +926,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {

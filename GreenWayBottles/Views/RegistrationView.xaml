@@ -6,7 +6,7 @@
              x:Class="GreenWayBottles.Views.RegistrationView"
              Title="RegistrationView"
              >
-    <ScrollView Margin="20" WidthRequest="600">
+    <ScrollView Margin="30" WidthRequest="600">
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
