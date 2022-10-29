@@ -33,7 +33,9 @@ namespace GreenWayBottles.ViewModels
         [RelayCommand]
         async void Continue()
         {
-            int adminId = dataService.SearchAdmin(idNumber);
+            Users user = new Users();
+
+            user = dataService.SearchAdmin(idNumber);
 
             if (!ValidatePassword(UserLogins.Password))
                 await alerts.ShowAlertAsync("Invalid Password", "Please check Password Guidlines Highlighted in red below!");
@@ -41,7 +43,7 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");
             else if (!(UserLogins.Username == "" && UserLogins.Password == "" && confirmPassword == ""))
             {
-                UserLogins.AdminId = adminId;
+                UserLogins.AdminId = user.Id;
                 bool isSaved = dataService.SaveLogins(userLogins);
 
                 if (isSaved)

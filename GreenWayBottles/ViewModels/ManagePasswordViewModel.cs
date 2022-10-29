@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using GreenWayBottles.Services;
-using GreenWayBottles.Models;
-using GreenWayBottles.ViewModels;
 using CommunityToolkit.Mvvm.Input;
+using System.Text;
 using GreenWayBottles.Views;
+using GreenWayBottles.Models;
 
 namespace GreenWayBottles.ViewModels
 {
@@ -15,6 +15,7 @@ namespace GreenWayBottles.ViewModels
             alerts = new AlertService();
             createLoginsVM = new CreateLoginsViewModel();
             login = new LoginViewModel();
+            email = new EmailService();
         }
 
         [ObservableProperty]
@@ -26,6 +27,12 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         string confirmPassword;
 
+        [ObservableProperty]
+        string oneTimePin;
+
+        [ObservableProperty]
+        string userOTP;
+
         DatabaseService dataService;
 
         AlertService alerts;
@@ -35,32 +42,51 @@ namespace GreenWayBottles.ViewModels
 
         CreateLoginsViewModel createLoginsVM;
 
+        EmailService email;
+
+        [ObservableProperty]
+        string idNumber;
+
+        //If false it means we are reseting password, else, it's an update operation
+        [ObservableProperty]
+        bool reset_Update_Password;
+
+        #region Class Buttons
+
         [RelayCommand]
         async void Update()
         {
-            //Confirm Old Password
-            if (Login.UserLogin.IsLoggedIn)
-            {
-                if (oldPassword == null || NewPassword == null || confirmPassword == null)
+            if (reset_Update_Password)
+            { 
+                if (Login.UserLogin.IsLoggedIn)
                 {
-                    await alerts.ShowAlertAsync("Operation Failed", "One or more empty fields found");
-                    return;
-                }
+                    //Confirm Old Password
+                    if (oldPassword == null || NewPassword == null || confirmPassword == null)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "One or more empty fields found");
+                        return;
+                    }
 
-                if (login.UserLogin.Password != oldPassword)
-                {
-                    await alerts.ShowAlertAsync("Operation Failed", "The provided Old Password is invalid!");
-                    return;
-                }
+                    if (login.UserLogin.Password != oldPassword)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "The provided Old Password is invalid!");
+                        return;
+                    }
 
-                if (newPassword == oldPassword)
-                {
-                    await alerts.ShowAlertAsync("Operation Failed", "Your new password cannot be similar to your old password");
-                    return;
-                }
 
-                //Validate password
-                if (!createLoginsVM.ValidatePassword(NewPassword))
+                    if (newPassword == oldPassword)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "Your new password cannot be similar to your old password");
+                        return;
+                    }
+                }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "The user is not Logged in");
+            }
+           
+
+            //Validate password
+            if (!createLoginsVM.ValidatePassword(NewPassword))
                     await alerts.ShowAlertAsync("Invalid Password", "Please check Password Guidlines Highlighted in red below!");
                 else if (!(NewPassword == confirmPassword))
                     await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");
@@ -78,11 +104,46 @@ namespace GreenWayBottles.ViewModels
                     else
                         await alerts.ShowAlertAsync("Operation Failed", "The password could not be updated!");
                 }
-            }
 
             Clear();
         }
 
+        [RelayCommand]
+        async void Continue()
+        {
+            if (userOTP != null)
+            {
+                if (userOTP == oneTimePin)
+                {
+                    await alerts.ShowAlertAsync("Success", "Head to the next page to create a new Password");
+                    App.Current.MainPage = new ManagePasswordView();
+                }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "Type in a correct OTP and click Generate New OTP");
+            }
+            else
+                await alerts.ShowAlertAsync("Operation Failed", "Type in a correct OTP and click Generate New OTP");
+        }
+
+        [RelayCommand]
+        async void GenerateNewOTP()
+        {
+            //If The Generate OTP Button is pressed it means we are resetting Password
+            Reset_Update_Password = false;
+
+            Users user = new Users();
+
+            user = dataService.SearchAdmin(idNumber);
+
+            if (user.Id == 0 || user.Email == null)
+                await alerts.ShowAlertAsync("Operation Failed", "User is not recognized, please enter a valid Id number");
+            else
+            {
+                GenerateOTP();
+                await alerts.ShowAlertAsync("Success", "User found, please check your email address for the OTP");
+            }
+        }
+        #endregion
         /// <summary>
         /// Clear Text Fields
         /// </summary>
@@ -91,6 +152,30 @@ namespace GreenWayBottles.ViewModels
             Login.UserLogin.Username = "";
             Login.UserLogin.Password = "";
         }
+
+        private async void GenerateOTP()
+        {
+            Random rand = new Random();
+            StringBuilder randomString = new StringBuilder();
+
+            //The length of the generated OTP
+            int OTP_Length = 6;
+
+            //Clear previous OTP
+            OneTimePin = string.Empty;
+
+            for (int i = 0; i < OTP_Length; i++)
+            {
+                int number = rand.Next(10);
+                randomString.Append(number);
+            }
+
+            OneTimePin = randomString.ToString();
+
+            await email.SendEmail("farecostbusiness@gmail.com", "Farecost", oneTimePin);
+        }
+
+        
 
     }
 }

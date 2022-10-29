@@ -46,6 +46,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<ManagePasswordView>();
         builder.Services.AddSingleton<ManagePasswordViewModel>();
 
+        builder.Services.AddSingleton<ResetPasswordView>();
+        
+
         builder.Services.AddSingleton<IAlertService, AlertService>();
 
         return builder.Build();

@@ -314,9 +314,9 @@ namespace GreenWayBottles.Services
         #endregion
 
         #region Search AdminId using IdNumber
-        public int SearchAdmin(string IdNumber)
+        public Users SearchAdmin(string IdNumber)
         {
-            int id = 0;
+            Users user = new Users();
 
             try
             {
@@ -331,7 +331,8 @@ namespace GreenWayBottles.Services
                 {
                     while (sqlDataReader.Read())
                     {
-                        id = sqlDataReader.GetInt32(0);
+                        user.Id = sqlDataReader.GetInt32(0);
+                        user.Email = sqlDataReader.GetString(1);
                     }
                     sqlDataReader.Close();
 
@@ -347,7 +348,7 @@ namespace GreenWayBottles.Services
                 sqlConnection.Close();
             }
 
-            return id;
+            return user;
         }
 
         #endregion

@@ -42,6 +42,13 @@
              Margin="20" Padding="5" WidthRequest="200"
              Command="{Binding LoginCommand}"/>
 
+        <Label Text="Forgot Password? Reset Password"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               TextColor="BlueViolet" FontAttributes="Italic" FontSize="Caption">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ResetPasswordCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
         <Label Text="Don't Have An Account Yet? Register A New Account"
                HorizontalOptions="Center" VerticalOptions="Center"
                TextColor="Blue" FontAttributes="Italic" FontSize="Caption">
@@ -49,5 +56,6 @@
                 <TapGestureRecognizer Command="{Binding ToRegisterCommand}"/>
             </Label.GestureRecognizers>
         </Label>
+        
     </VerticalStackLayout>
 </ContentPage>
