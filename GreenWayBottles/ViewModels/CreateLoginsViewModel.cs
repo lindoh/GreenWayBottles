@@ -114,8 +114,8 @@ namespace GreenWayBottles.ViewModels
         /// </summary>
         private void Clear()
         {
-            UserLogins.Username = String.Empty;
-            UserLogins.Password = String.Empty;
+            UserLogins.Username = "";
+            UserLogins.Password = "";
         }
 
 

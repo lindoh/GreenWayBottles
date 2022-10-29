@@ -1,7 +1,11 @@
 ﻿using GreenWayBottles.ViewModels;
 using GreenWayBottles.Views;
 
-
+/*======================================TO DO========================================
+ => Email Verification using OTP
+ => Send email reports using Azure server service
+ => Unit Testing
+ */
 
 namespace GreenWayBottles;
 
@@ -12,7 +16,7 @@ public partial class App : Application
         InitializeComponent();
         viewModel = new LoginViewModel();
 
-        if (!viewModel.UserLogin.IsLoggedIn)
+        if (viewModel.UserLogin.IsLoggedIn)
             MainPage = new LoginView();
         else
             MainPage = new AppShell();

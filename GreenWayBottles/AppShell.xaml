@@ -33,7 +33,7 @@
               Route="CaptureNewBottlesView"/>
     </FlyoutItem>
     
-    <FlyoutItem Title="Create User Account" Icon="file.png">
+    <FlyoutItem Title="Create User Account" Icon="user.png">
         <ShellContent 
               ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"
               Route="CreateUserAccountView"/>
@@ -45,13 +45,13 @@
               Route="UpdateUserAccountView"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Update Banking Details" Icon="currency.png">
+    <FlyoutItem Title="Update Banking Details" Icon="usd_circle.png">
         <ShellContent 
               ContentTemplate="{x:DataTemplate views:UpdateBankingView}"
               Route="UpdateBankingView"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Delete User Account" Icon="delete.png">
+    <FlyoutItem Title="Delete User Account" Icon="delete_user.png">
         <ShellContent  
               ContentTemplate="{x:DataTemplate views:DeleteUserAccView}"
               Route="DeleteUserAccView"/>

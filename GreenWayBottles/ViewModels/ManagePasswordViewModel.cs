@@ -30,14 +30,16 @@ namespace GreenWayBottles.ViewModels
 
         AlertService alerts;
 
+        [ObservableProperty]
         LoginViewModel login;
+
         CreateLoginsViewModel createLoginsVM;
 
         [RelayCommand]
         async void Update()
         {
             //Confirm Old Password
-            if (login.UserLogin.IsLoggedIn)
+            if (Login.UserLogin.IsLoggedIn)
             {
                 if (oldPassword == null || NewPassword == null || confirmPassword == null)
                 {
@@ -70,7 +72,7 @@ namespace GreenWayBottles.ViewModels
                     {
                         await alerts.ShowAlertAsync("Operation Successful", "Login Details Saved Successfully");
                         //Navigate to the Home Page
-                        App.Current.MainPage = new AppShell();
+                        //App.Current.MainPage = new AppShell();
                         //await Shell.Current.GoToAsync(nameof(LoginView));
                     }
                     else
@@ -86,8 +88,8 @@ namespace GreenWayBottles.ViewModels
         /// </summary>
         private void Clear()
         {
-            login.UserLogin.Username = String.Empty;
-            login.UserLogin.Password = String.Empty;
+            Login.UserLogin.Username = "";
+            Login.UserLogin.Password = "";
         }
 
     }
