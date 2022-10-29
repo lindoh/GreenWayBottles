@@ -8,7 +8,7 @@ namespace GreenWayBottles.Services
 {
     public class EmailService
     {
-        public async Task SendEmail(string To, string ToName, string OTP)
+        public async Task SendEmail(string ToEmail, string ToFirstName, string ToLastName, string OTP)
         {
             var sender = new SmtpSender(() => new SmtpClient("smtp-mail.outlook.com")
             {
@@ -23,9 +23,9 @@ namespace GreenWayBottles.Services
 
             var email = await Email
                 .From("lindohgamede@outlook.com", "Farecost")
-                .To(To, ToName)
-                .Subject("Thanks")
-                .Body($"One-Time_Pin: {OTP}")
+                .To(ToEmail, $"{ToFirstName} {ToLastName}")
+                .Subject("Reset Password OTP")
+                .Body($"Hi {ToFirstName} {ToLastName},\n\nPlease see your GreenWayBottles Reset Password OTP: {OTP}")
                 .SendAsync();
         }
     }

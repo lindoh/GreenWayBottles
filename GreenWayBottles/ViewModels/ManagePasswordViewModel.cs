@@ -139,7 +139,7 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "User is not recognized, please enter a valid Id number");
             else
             {
-                GenerateOTP();
+                GenerateOTP(user);
                 await alerts.ShowAlertAsync("Success", "User found, please check your email address for the OTP");
             }
         }
@@ -153,7 +153,7 @@ namespace GreenWayBottles.ViewModels
             Login.UserLogin.Password = "";
         }
 
-        private async void GenerateOTP()
+        private async void GenerateOTP(Users user)
         {
             Random rand = new Random();
             StringBuilder randomString = new StringBuilder();
@@ -172,7 +172,7 @@ namespace GreenWayBottles.ViewModels
 
             OneTimePin = randomString.ToString();
 
-            await email.SendEmail("farecostbusiness@gmail.com", "Farecost", oneTimePin);
+            await email.SendEmail(user.Email, user.FirstName, user.LastName, oneTimePin);
         }
 
         

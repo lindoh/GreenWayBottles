@@ -332,7 +332,9 @@ namespace GreenWayBottles.Services
                     while (sqlDataReader.Read())
                     {
                         user.Id = sqlDataReader.GetInt32(0);
-                        user.Email = sqlDataReader.GetString(1);
+                        user.FirstName = sqlDataReader.GetString(1);
+                        user.LastName = sqlDataReader.GetString(2);
+                        user.Email = sqlDataReader.GetString(3);
                     }
                     sqlDataReader.Close();
 
