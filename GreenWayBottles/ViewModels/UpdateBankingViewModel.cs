@@ -109,9 +109,24 @@ namespace GreenWayBottles.ViewModels
                 else
                     await alerts.ShowAlertAsync("Save Operation Failed", "User banking Details Could Not Be Saved");
             }
+
+            Clear();
         }
 
+        #endregion
 
+        #region Helper Methods
+        /// <summary>
+        /// Clear all text fields
+        /// </summary>
+        private void Clear()
+        {
+            Banker.BankName = "";
+            Banker.BranchName = "";
+            Banker.BranchCode = "";
+            Banker.AccountType = "";
+            Banker.AccountNumber = "";
+        }
         #endregion
     }
 }

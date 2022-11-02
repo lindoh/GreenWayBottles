@@ -1,4 +1,4 @@
-﻿
+﻿using Microsoft.Maui.Graphics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
@@ -15,6 +15,7 @@ namespace GreenWayBottles.ViewModels
             dataService = new DatabaseService();
             alerts = new AlertService();
             userLogin = new Login();
+            ControlLabel = new LabelControl();
         }
 
         DatabaseService dataService;
@@ -25,6 +26,10 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         BuyBackCentre buyBackCentre;
+
+        [ObservableProperty]
+        LabelControl controlLabel;
+
 
         #region Class Buttons
 
@@ -39,7 +44,9 @@ namespace GreenWayBottles.ViewModels
 
                 if (UserLogin.IsLoggedIn)
                 {
-                    await alerts.ShowAlertAsync("Access Granted", "The user has succesfully Logged In");
+                    ControlLabel.Color = Colors.Green;
+                    ControlLabel.Message = ControlLabel.messages["Access Granted"];
+                    ControlLabel.ShowLabel = true;
 
                     buyBackCentre = dataService.SearchBBC(UserLogin.AdminId);
 
@@ -65,7 +72,13 @@ namespace GreenWayBottles.ViewModels
                 }
             }
             else
-                await alerts.ShowAlertAsync("Operation Failed", "Username and/or Password text fields are empty");
+            {
+                // await alerts.ShowAlertAsync("Operation Failed", "Username and/or Password text fields are empty");
+                ControlLabel.Color = Colors.Red;
+                ControlLabel.Message = ControlLabel.messages["Operation Failed"];
+                ControlLabel.ShowLabel = true;
+            }
+
 
             //Clear Text fields
             //Clear();
@@ -76,10 +89,14 @@ namespace GreenWayBottles.ViewModels
         {
             bool confirmation = await alerts.ShowConfirmationAsync("Confirm Logout", "Are you sure you want to Logout?", "Yes", "No");
 
+            
+
             if (confirmation)
+            {
+                Clear();
                 App.Current.MainPage = new LoginView();
 
-            Clear();
+            }
         }
 
         [RelayCommand]

@@ -64,7 +64,7 @@
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
 
             <ListView Grid.Row="3" Grid.Column="0" Margin="10" Header="Results"
-                      x:Name="usersListView" BackgroundColor="LightGray" MaximumHeightRequest="60"
+                      x:Name="usersListView" BackgroundColor="LightGray" MaximumHeightRequest="90"
                       ItemSelected="usersListView_ItemSelected"
                       ItemsSource="{Binding UsersList}">
                 <ListView.ItemTemplate>

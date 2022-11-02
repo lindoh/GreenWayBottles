@@ -60,8 +60,11 @@ public partial class CaptureNewBottlesView : ContentPage
 
         viewModel.Transactions.Signature = new Image();
         var stream = await SignatureDrawing.GetImageStream(300, 200);
+
+        
         viewModel.Transactions.Signature.Source = ImageSource.FromStream(() => stream);
-        ImageView = viewModel.Transactions.Signature;
+        
+        //ImageView = viewModel.Transactions.Signature;
     }
 
     private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)

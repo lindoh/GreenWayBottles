@@ -63,9 +63,11 @@
               Route="PaymentView"/>
     </FlyoutItem>
 
+    <!--
     <FlyoutItem Title="Settings" Icon="settings.png">
         <ShellContent/>
     </FlyoutItem>
+    -->
 
     <FlyoutItem Title="Manage Password" Icon="password.png">
         <ShellContent

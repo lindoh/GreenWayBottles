@@ -16,11 +16,15 @@
         <Label Text="Hey There!," TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
         <Label Text="Welcome Back" TextColor="#6e9b19" FontSize="Caption" HorizontalTextAlignment="Center"/>
 
+        <Label Text="{Binding ControlLabel.Message}" TextColor="{Binding ControlLabel.Color}" 
+               IsVisible="{Binding ControlLabel.ShowLabel}"
+               FontSize="Caption" HorizontalOptions="Start" Margin="10, 50, 5, 5"/>
+
         <!--Username Tag-->
         <Label 
             Text="Username/Email" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
-            Margin="10, 50, 5, 0"/>
+            Margin="10, 5, 5, 0"/>
         <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"

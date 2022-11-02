@@ -931,6 +931,10 @@ namespace GreenWayBottles.Services
 
                 alerts.ShowAlert("Error!", ex.Message);
             }
+            catch (System.ArgumentException ex)
+            {
+                alerts.ShowAlert("Error!", ex.Message);
+            }
             finally
             {
                 sqlConnection.Close();

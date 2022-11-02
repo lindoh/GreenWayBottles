@@ -83,18 +83,20 @@ namespace GreenWayBottles.ViewModels
             {
                 await alerts.ShowAlertAsync("Operation Failed", "Id Number must be 13 digits long");
             }
-            else if (CheckTextFields())
+            else if (!CheckTextFields())
             {
                 bool isUpdated = dataService.Update(user, selectedUser);
-                bool bbcIsUpdated = UpdateBBC();
 
-                if (isUpdated && bbcIsUpdated)
+                if(selectedUser == "Admin")
+                    UpdateBBC();
+
+                if (isUpdated)
                 {
                     await alerts.ShowAlertAsync("Success", "User Account Updated Successfully");
                     Clear();    //Clear text fields
                 }
             }
-            else
+            else if(CheckTextFields())
             {
                 await alerts.ShowAlertAsync("Operation Failed", "One or more empty text fields found");
             }
@@ -157,7 +159,7 @@ namespace GreenWayBottles.ViewModels
         {
             bool emptyFields = false;
 
-            if (!(user.FirstName == "" || user.LastName == "" || user.IdNumber == "" ||
+            if ((user.FirstName == "" || user.LastName == "" || user.IdNumber == "" ||
                 user.Gender == "" || user.HighestQlfn == "" || user.IncomeRange == "" ||
                 user.Email == "" || user.CellNumber == "" || user.StreetAddress == "" ||
                 user.Suburb == "" || user.City == "" || user.Province == "" || user.Country == "" ||

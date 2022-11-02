@@ -2,7 +2,6 @@
 using GreenWayBottles.Views;
 
 /*======================================TO DO========================================
- => Email Verification using OTP
  => Send email reports using Azure server service
  => Keyboard enter button
  => Add SAB Bottles

@@ -24,8 +24,8 @@ namespace GreenWayBottles.Services
             var email = await Email
                 .From("lindohgamede@outlook.com", "Farecost")
                 .To(ToEmail, $"{ToFirstName} {ToLastName}")
-                .Subject("Reset Password OTP")
-                .Body($"Hi {ToFirstName} {ToLastName},\n\nPlease see your GreenWayBottles Reset Password OTP: {OTP}")
+                .Subject("Account Verification OTP")
+                .Body($"Hi {ToFirstName} {ToLastName},\n\nPlease see your GreenWayBottles OTP: {OTP}")
                 .SendAsync();
         }
     }
