@@ -4,9 +4,5 @@
              x:Class="GreenWayBottles.Views.AboutView"
              Title="AboutView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to GreenWayAfrica"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

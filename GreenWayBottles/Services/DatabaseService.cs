@@ -918,7 +918,6 @@ namespace GreenWayBottles.Services
                 sqlCommand.Parameters.AddWithValue("TransactionDateTime", transaction.LocalDate);
                 sqlCommand.Parameters.AddWithValue("BottleId", transaction.BottleId);
                 sqlCommand.Parameters.AddWithValue("BankDetailsId", transaction.BankDetailsId);
-                sqlCommand.Parameters.AddWithValue("Signature", transaction.Signature);
 
                 sqlConnection.Open();
 

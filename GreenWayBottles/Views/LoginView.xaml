@@ -7,59 +7,57 @@
              Title="LoginView"
              MaximumWidthRequest="600">
 
-    <VerticalStackLayout Margin="100, 10, 100, 10">
+    <ScrollView>
+        <VerticalStackLayout Margin="80">
 
-        <Image Source="logo.png"
+            <Image Source="logo.png"
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 
-        <Label Text="Hey There!," TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
-        <Label Text="Welcome Back" TextColor="#6e9b19" FontSize="Caption" HorizontalTextAlignment="Center"/>
+            <Label Text="Hey There!," TextColor="#6e9b19" FontSize="Title" HorizontalTextAlignment="Center"/>
+            <Label Text="Welcome Back" TextColor="#6e9b19" FontSize="Caption" HorizontalTextAlignment="Center"/>
 
-        <Label Text="{Binding ControlLabel.Message}" TextColor="{Binding ControlLabel.Color}" 
+            <Label Text="{Binding ControlLabel.Message}" TextColor="{Binding ControlLabel.Color}" 
                IsVisible="{Binding ControlLabel.ShowLabel}"
                FontSize="Caption" HorizontalOptions="Start" Margin="10, 50, 5, 5"/>
 
-        <!--Username Tag-->
-        <Label 
+            <!--Username Tag-->
+            <Label 
             Text="Username/Email" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-        <Entry 
+            <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding UserLogin.Username, Mode=TwoWay}"/>
 
-        <!--Password Tag-->
-        <Label 
+            <!--Password Tag-->
+            <Label 
             Text="Password" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-        <Entry 
+            <Entry 
             VerticalOptions="Start" HorizontalOptions="Fill" 
             FontSize="Caption" TextColor="Black" IsPassword="True"
             Margin="10, 0, 5, 5" Text="{Binding UserLogin.Password, Mode=TwoWay}"/>
-        
-        <!--Login Button Tag-->
-        <Button 
+
+            <!--Login Button Tag-->
+            <Button 
              Text="Login" FontSize="Small" BackgroundColor="#155ca1"
              Margin="20" Padding="5" WidthRequest="200"
              Command="{Binding LoginCommand}"/>
 
-        <Label Text="Forgot Password? Reset Password"
-               HorizontalOptions="Center" VerticalOptions="Center"
-               TextColor="BlueViolet" FontAttributes="Italic" FontSize="Caption">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ResetPasswordCommand}"/>
-            </Label.GestureRecognizers>
-        </Label>
-        <Label Text="Don't Have An Account Yet? Register A New Account"
-               HorizontalOptions="Center" VerticalOptions="Center"
-               TextColor="Blue" FontAttributes="Italic" FontSize="Caption">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ToRegisterCommand}"/>
-            </Label.GestureRecognizers>
-        </Label>
-        
-    </VerticalStackLayout>
+            <Button Text="Forgot Password? Click To Reset Password"
+               HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White"
+               TextColor="BlueViolet" FontAttributes="Italic" FontSize="Caption" Padding="2"
+               Command="{Binding ResetPasswordCommand}"/>
+
+            <Button Text="Don't Have An Account Yet? Register A New Account Now" Margin="10"
+               HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White"
+               TextColor="Blue" FontAttributes="Italic" FontSize="Caption" Padding="2"
+                Command="{Binding ToRegisterCommand}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
 </ContentPage>

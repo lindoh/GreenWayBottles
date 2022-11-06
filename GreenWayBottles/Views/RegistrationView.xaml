@@ -6,7 +6,7 @@
              x:Class="GreenWayBottles.Views.RegistrationView"
              Title="RegistrationView"
              >
-    <ScrollView Margin="30" WidthRequest="600">
+    <ScrollView Margin="30, 80, 30, 30" WidthRequest="600">
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -36,9 +36,8 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title Tag                                 -->
-            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                   Source="logo.png"
-                   HorizontalOptions="Center" VerticalOptions="Start" Margin="20, 20, 20, 0"
+            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="logo.png" 
+                   HorizontalOptions="Center" VerticalOptions="Start" Margin="20"
                    MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
@@ -101,7 +100,7 @@
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Picker
-                Grid.Row="8" Grid.Column="0" x:Name="highestQlfnPicker"
+                Grid.Row="8" Grid.Column="0" x:Name="highestQlfnPicker" 
                 FontSize="Caption" TextColor="Black" SelectedItem="{Binding User.HighestQlfn, Mode=TwoWay}">
                 <Picker.Items>
                     <x:String>Grade 9</x:String>
@@ -242,14 +241,13 @@
                 Margin="20" Padding="5" WidthRequest="200"
                 Command="{Binding RegisterCommand}"/>
 
-            <Label  Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="Already Have An Account? Click To Here Go Back and Login" Margin="10"
-                HorizontalOptions="Center" VerticalOptions="Center"
-                TextColor="Blue" FontAttributes="Italic" FontSize="Caption">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToLoginCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
+            <Button  Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="Already Have An Account? Click Here To Go Back and Login" Margin="10"
+                HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White"
+                TextColor="Blue" FontAttributes="Italic" FontSize="Caption" Padding="2"
+                Command="{Binding ToLoginCommand}"/>
+          
+
 
         </Grid>
     </ScrollView>

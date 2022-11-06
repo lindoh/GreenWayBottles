@@ -143,6 +143,13 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Success", "User found, please check your email address for the OTP");
             }
         }
+
+        [RelayCommand]
+        void GoBack()
+        {
+            App.Current.MainPage = new LoginView();
+        }
+
         #endregion
         /// <summary>
         /// Clear Text Fields

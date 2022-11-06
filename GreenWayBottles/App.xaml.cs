@@ -3,9 +3,8 @@ using GreenWayBottles.Views;
 
 /*======================================TO DO========================================
  => Send email reports using Azure server service
- => Keyboard enter button
- => Add SAB Bottles
  => Unit Testing
+ => Publish App
  */
 
 namespace GreenWayBottles;

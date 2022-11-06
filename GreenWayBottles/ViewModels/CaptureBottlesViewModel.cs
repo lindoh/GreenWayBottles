@@ -116,17 +116,6 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         Transaction transactions;
 
-        ProgressBar progressBar = new ProgressBar
-        {
-            Progress = 0.5,
-            ProgressColor = Colors.Orange
-        };
-       
-        
-
-        [ObservableProperty]
-        bool progress;
-
         #endregion
 
         #region Button Methods
@@ -173,10 +162,6 @@ namespace GreenWayBottles.ViewModels
                 //Update and Display Captured Bottles
                 capturedBottles.Insert(0, Bottle);
 
-                
-                //Progress = true;
-                progressBar.IsVisible = true;
-                await progressBar.ProgressTo(0.90,50, Easing.Linear);
             }
             else
                 await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
@@ -236,6 +221,7 @@ namespace GreenWayBottles.ViewModels
             if (display_0)   //If display is set to Banking Display
             {
                 transactions.TransactionType = "Bank Payment";
+                transactions.Signature = null;
 
                 //Find the Banking details
                 Banker = dataService.SearchBanking(user.Id);
@@ -365,7 +351,7 @@ namespace GreenWayBottles.ViewModels
             Quantity = 0;
         }
 
-        private void SwitchDisplay(bool captureBottles)
+        public void SwitchDisplay(bool captureBottles)
         {
             //Switch between the CaptureBottle Display and Payment Display in the CaptureNewBottlesView
             CaptureBottleDisplay = captureBottles;
