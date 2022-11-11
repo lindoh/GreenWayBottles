@@ -10,11 +10,13 @@
         <Label Text="Delete Collector Account" VerticalOptions="Center" HorizontalOptions="Center" 
                FontSize="Title" TextColor="#155ca1" Margin="10"/>
 
+        <!--
         <Label Text="Select User"/>
         <HorizontalStackLayout>
             <RadioButton x:Name="AdminRadioBtn" Content="Admin" CheckedChanged="RadioButton_CheckedChanged"/>
             <RadioButton x:Name="CollectorRadioBtn" Content="Collector" CheckedChanged="RadioButton_CheckedChanged"/>
         </HorizontalStackLayout>
+        -->
 
         <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
                FontSize="Caption" TextColor="Gray" Margin="10"/>

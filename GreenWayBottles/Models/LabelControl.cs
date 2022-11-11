@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Maui.Graphics;
 
 namespace GreenWayBottles.Models
 {
@@ -7,7 +6,7 @@ namespace GreenWayBottles.Models
     {
         public LabelControl()
         {
-            ShowLabel = false;
+            this.ShowLabel = false;
 
             AddMessages();
         }

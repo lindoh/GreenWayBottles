@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Graphics;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
 using GreenWayBottles.Services;

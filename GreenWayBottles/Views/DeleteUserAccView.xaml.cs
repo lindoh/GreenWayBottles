@@ -10,6 +10,7 @@ public partial class DeleteUserAccView : ContentPage
         InitializeComponent();
         viewModel = new DeleteUserAccViewModel();
         BindingContext = viewModel;
+        viewModel.SelectedUser = "Admin";
     }
 
     DeleteUserAccViewModel viewModel;
@@ -19,6 +20,7 @@ public partial class DeleteUserAccView : ContentPage
         viewModel.selectedItem(sender, args);
     }
 
+    /*
     private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (AdminRadioBtn.IsChecked)
@@ -26,4 +28,5 @@ public partial class DeleteUserAccView : ContentPage
         else if (CollectorRadioBtn.IsChecked)
             viewModel.SelectedUser = "Collector";
     }
+    */
 }
