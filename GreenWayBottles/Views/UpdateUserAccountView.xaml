@@ -14,29 +14,30 @@
         the User Details section with a ContentPage
         To fix the Data Binding Issue-->
 
-    <ScrollView WidthRequest="450" Margin="10">
-        <Grid Margin="10">
+    <ScrollView WidthRequest="450" Margin="10" >
+        <Grid Margin="10" Padding="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -47,13 +48,13 @@
                    Text="Update User Account" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>
 
-            <StackLayout Grid.Row="1" Grid.Column="0" >
+            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
                 <Label Text="Select User"/>
                 <HorizontalStackLayout>
                     <RadioButton x:Name="AdminRadioBtn" Content="Admin" CheckedChanged="RadioButton_CheckedChanged"/>
                     <RadioButton  x:Name="CollectorRadioBtn" Content="Collector" CheckedChanged="RadioButton_CheckedChanged"/>
                 </HorizontalStackLayout>
-            </StackLayout>
+            </VerticalStackLayout>
          
 
             <SearchBar Grid.Row="2" Grid.Column="0" 
@@ -269,16 +270,16 @@
             <!--                              Buy Back Centre Details Section                                          -->
             <!--=======================================================================================================-->
 
-            <StackLayout Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2" Padding="10"
+            <StackLayout Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2" 
                          IsVisible="{Binding ShowBBCSection}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
