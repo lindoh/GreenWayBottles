@@ -88,7 +88,7 @@ namespace GreenWayBottles.ViewModels
         {
             bool confirmation = await alerts.ShowConfirmationAsync("Confirm Logout", "Are you sure you want to Logout?", "Yes", "No");
 
-            
+
 
             if (confirmation)
             {

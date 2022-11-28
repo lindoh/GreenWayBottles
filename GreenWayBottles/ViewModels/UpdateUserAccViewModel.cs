@@ -87,7 +87,7 @@ namespace GreenWayBottles.ViewModels
             {
                 bool isUpdated = dataService.Update(user, selectedUser);
 
-                if(selectedUser == "Admin")
+                if (selectedUser == "Admin")
                     UpdateBBC();
 
                 if (isUpdated)
@@ -96,7 +96,7 @@ namespace GreenWayBottles.ViewModels
                     Clear();    //Clear text fields
                 }
             }
-            else if(CheckTextFields())
+            else if (CheckTextFields())
             {
                 await alerts.ShowAlertAsync("Operation Failed", "One or more empty text fields found");
             }

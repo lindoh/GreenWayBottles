@@ -20,7 +20,7 @@ public partial class App : Application
             MainPage = new LoginView();
         else
             MainPage = new AppShell();
-        
+
     }
 
     LoginViewModel viewModel;

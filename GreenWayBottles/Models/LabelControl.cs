@@ -30,7 +30,8 @@ namespace GreenWayBottles.Models
             messages.Add("Access Granted", "The user has succesfully Logged In");
             messages.Add("Login Failed", "The user could not be found, Register a new account instead");
             messages.Add("Operation Failed", "One or more empty text fields found!");
-
+            messages.Add("Delete Operation Successful", "User Account Deleted Successfully");
+            messages.Add("Delete Operation Failed", "User Account Could Not Be Deleted");
         }
     }
 }

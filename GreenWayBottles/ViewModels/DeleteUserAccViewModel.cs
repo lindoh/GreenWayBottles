@@ -18,6 +18,7 @@ namespace GreenWayBottles.ViewModels
             User = new Users();
             UsersList = new ObservableCollection<Users>();
             searchService = new SearchService();
+            ControlLabel = new LabelControl();
         }
 
         #region Class Properties
@@ -40,6 +41,9 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         string selectedUser;
 
+        [ObservableProperty]
+        LabelControl controlLabel;
+
         #endregion
 
         #region ViewModel Buttons
@@ -54,17 +58,21 @@ namespace GreenWayBottles.ViewModels
         }
 
         [RelayCommand]
-        async void Delete()
+        void Delete()
         {
             bool isDeleted = dataService.Delete(user.Id, selectedUser);
 
             if (isDeleted)
             {
-                await alerts.ShowAlertAsync("Operation Successful", "User Account Deleted Successfully");
+                ControlLabel.Color = Colors.Green;
+                ControlLabel.Message = ControlLabel.messages["Delete Operation Successful"];
+                ControlLabel.ShowLabel = true;
             }
             else
             {
-                await alerts.ShowAlertAsync("Operation Failed", "User Account Could Not Be Deleted");
+                ControlLabel.Color = Colors.Red;
+                ControlLabel.Message = ControlLabel.messages["Delete Operation Failed"];
+                ControlLabel.ShowLabel = true;
             }
         }
         #endregion

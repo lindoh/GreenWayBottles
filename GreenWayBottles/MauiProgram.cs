@@ -1,17 +1,17 @@
-﻿namespace GreenWayBottles;
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Markup;
 using GreenWayBottles.Services;
 using GreenWayBottles.ViewModels;
 using GreenWayBottles.Views;
-using CommunityToolkit.Maui.Markup;
+
+namespace GreenWayBottles;
 
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
+        builder.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseMauiCommunityToolkitMarkup()
             .ConfigureFonts(fonts =>
@@ -47,7 +47,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ManagePasswordViewModel>();
 
         builder.Services.AddSingleton<ResetPasswordView>();
-        
+
 
         builder.Services.AddSingleton<IAlertService, AlertService>();
 

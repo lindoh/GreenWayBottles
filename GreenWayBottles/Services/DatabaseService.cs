@@ -1,8 +1,6 @@
 ﻿using GreenWayBottles.Models;
-using GreenWayBottles.ViewModels;
 using Microsoft.Data.SqlClient;
 //using Microsoft.Maui.Animations;
-using System.Collections.ObjectModel;
 using System.Data;
 
 
@@ -46,7 +44,7 @@ namespace GreenWayBottles.Services
             }
 
             alerts = new AlertService();
-            
+
         }
 
         #endregion
@@ -341,7 +339,7 @@ namespace GreenWayBottles.Services
                 }
             }
             catch (SqlException ex)
-{
+            {
 
                 alerts.ShowAlert("Error!", ex.Message);
             }
@@ -583,7 +581,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {
@@ -624,7 +622,7 @@ namespace GreenWayBottles.Services
             catch (SqlException ex)
             {
 
-                throw ex;
+                alerts.ShowAlert("Error!", ex.Message);
             }
             finally
             {

@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using GreenWayBottles.Services;
 using CommunityToolkit.Mvvm.Input;
-using System.Text;
-using GreenWayBottles.Views;
 using GreenWayBottles.Models;
+using GreenWayBottles.Services;
+using GreenWayBottles.Views;
+using System.Text;
 
 namespace GreenWayBottles.ViewModels
 {
@@ -57,7 +57,7 @@ namespace GreenWayBottles.ViewModels
         async void Update()
         {
             if (reset_Update_Password)
-            { 
+            {
                 if (Login.UserLogin.IsLoggedIn)
                 {
                     //Confirm Old Password
@@ -83,27 +83,27 @@ namespace GreenWayBottles.ViewModels
                 else
                     await alerts.ShowAlertAsync("Operation Failed", "The user is not Logged in");
             }
-           
+
 
             //Validate password
             if (!createLoginsVM.ValidatePassword(NewPassword))
-                    await alerts.ShowAlertAsync("Invalid Password", "Please check Password Guidlines Highlighted in red below!");
-                else if (!(NewPassword == confirmPassword))
-                    await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");
-                else
-                {
-                    bool isUpdated = dataService.UpdatePassword(login.UserLogin.AdminId, newPassword);
+                await alerts.ShowAlertAsync("Invalid Password", "Please check Password Guidlines Highlighted in red below!");
+            else if (!(NewPassword == confirmPassword))
+                await alerts.ShowAlertAsync("Operation Failed", "Passwords do not match");
+            else
+            {
+                bool isUpdated = dataService.UpdatePassword(login.UserLogin.AdminId, newPassword);
 
-                    if (isUpdated)
-                    {
-                        await alerts.ShowAlertAsync("Operation Successful", "Login Details Saved Successfully");
-                        //Navigate to the Home Page
-                        //App.Current.MainPage = new AppShell();
-                        //await Shell.Current.GoToAsync(nameof(LoginView));
-                    }
-                    else
-                        await alerts.ShowAlertAsync("Operation Failed", "The password could not be updated!");
+                if (isUpdated)
+                {
+                    await alerts.ShowAlertAsync("Operation Successful", "Login Details Saved Successfully");
+                    //Navigate to the Home Page
+                    //App.Current.MainPage = new AppShell();
+                    //await Shell.Current.GoToAsync(nameof(LoginView));
                 }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "The password could not be updated!");
+            }
 
             Clear();
         }
@@ -160,7 +160,7 @@ namespace GreenWayBottles.ViewModels
             Login.UserLogin.Password = "";
         }
 
-        private async void GenerateOTP(Users user)
+        private void GenerateOTP(Users user)
         {
             Random rand = new Random();
             StringBuilder randomString = new StringBuilder();
@@ -179,10 +179,10 @@ namespace GreenWayBottles.ViewModels
 
             OneTimePin = randomString.ToString();
 
-            await email.SendEmail(user.Email, user.FirstName, user.LastName, oneTimePin);
+            email.SendEmail(user.Email, user.FirstName, user.LastName, oneTimePin);
         }
 
-        
+
 
     }
 }

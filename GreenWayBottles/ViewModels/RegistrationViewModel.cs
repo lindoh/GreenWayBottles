@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GreenWayBottles.Models;
-using GreenWayBottles.Views;
 using GreenWayBottles.Services;
+using GreenWayBottles.Views;
 
 
 namespace GreenWayBottles.ViewModels

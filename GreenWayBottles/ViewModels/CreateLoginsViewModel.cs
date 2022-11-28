@@ -14,6 +14,7 @@ namespace GreenWayBottles.ViewModels
             dataService = new DatabaseService();
             alerts = new AlertService();
             confirmPassword = "";
+            userLogins = new Login();
         }
 
         [ObservableProperty]

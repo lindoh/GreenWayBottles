@@ -48,7 +48,7 @@ public partial class CaptureNewBottlesView : ContentPage
             viewModel.Display_1 = true;
             viewModel.Display_0 = viewModel.Display_2 = !viewModel.Display_1;
         }
-        else if(CashPaymentRadioBtn.IsChecked)
+        else if (CashPaymentRadioBtn.IsChecked)
         {
             viewModel.Display_2 = true;
             viewModel.Display_0 = viewModel.Display_1 = !viewModel.Display_2;
@@ -61,9 +61,9 @@ public partial class CaptureNewBottlesView : ContentPage
         viewModel.Transactions.Signature = new Image();
         var stream = await SignatureDrawing.GetImageStream(300, 200);
 
-        
+
         viewModel.Transactions.Signature.Source = ImageSource.FromStream(() => stream);
-        
+
         //ImageView = viewModel.Transactions.Signature;
     }
 

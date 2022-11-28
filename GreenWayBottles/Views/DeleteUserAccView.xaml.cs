@@ -10,7 +10,7 @@ public partial class DeleteUserAccView : ContentPage
         InitializeComponent();
         viewModel = new DeleteUserAccViewModel();
         BindingContext = viewModel;
-        viewModel.SelectedUser = "Admin";
+        viewModel.SelectedUser = "Collector";
     }
 
     DeleteUserAccViewModel viewModel;

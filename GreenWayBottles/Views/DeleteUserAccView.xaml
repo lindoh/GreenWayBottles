@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenWayBottles.Views.DeleteUserAccView"
              xmlns:viewmodel="clr-namespace:GreenWayBottles.ViewModels"
+             x:DataType="viewmodel:DeleteUserAccViewModel"
+             xmlns:model="clr-namespace:GreenWayBottles.Models"
              Title="DeleteUserAccView"
              BackgroundImageSource="background_desktop.jpeg">
 
@@ -29,7 +31,7 @@
                   ItemSelected="usersListView_ItemSelected"
                   ItemsSource="{Binding UsersList}">
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:Users">
                     <ViewCell>
                         <HorizontalStackLayout Spacing="2">
                             <Label Text="{Binding FirstName}"/>
@@ -39,6 +41,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Label Text="{Binding ControlLabel.Message}" TextColor="{Binding ControlLabel.Color}" 
+               IsVisible="{Binding ControlLabel.ShowLabel}"
+               FontSize="Caption" HorizontalOptions="Start" Margin="10, 20, 5, 5"/>
 
         <!-- Delete Button Tag                                 -->
         <Button x:Name="deleteBtn" Text="Delete" FontSize="Small" BackgroundColor="#155ca1"

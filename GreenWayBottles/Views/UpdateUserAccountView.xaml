@@ -14,11 +14,9 @@
         the User Details section with a ContentPage
         To fix the Data Binding Issue-->
 
-    <ScrollView WidthRequest="450" Margin="20">
+    <ScrollView WidthRequest="450" Margin="10">
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -271,7 +269,7 @@
             <!--                              Buy Back Centre Details Section                                          -->
             <!--=======================================================================================================-->
 
-            <StackLayout Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2"
+            <StackLayout Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2" Padding="10"
                          IsVisible="{Binding ShowBBCSection}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -363,7 +361,7 @@
                  FontSize="Caption" TextColor="Gray"
                  Margin="10, 5, 5, 0"/>
                 <Picker 
-                Grid.Row="5" Grid.Column="1" SelectedItem="{Binding BBC.Country, Mode=TwoWay}"
+                Grid.Row="6" Grid.Column="1" SelectedItem="{Binding BBC.Country, Mode=TwoWay}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String></x:String>

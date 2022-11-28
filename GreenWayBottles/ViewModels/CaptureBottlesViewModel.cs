@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
     */
 
 namespace GreenWayBottles.ViewModels
-{ 
+{
     public partial class CaptureBottlesViewModel : ObservableObject
     {
         #region Default Constructor
@@ -32,7 +32,7 @@ namespace GreenWayBottles.ViewModels
             PaymentsDisplay = !captureBottleDisplay;
             display_0 = display_1 = false;
             transactions = new Transaction();
-           
+
             //vm = new();
         }
 
@@ -187,11 +187,11 @@ namespace GreenWayBottles.ViewModels
 
                     if (!isSubmitted)
                     {
-                        await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");  
+                        await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
                     }
                     else
                         BottleIdList.Insert(0, dataService.GetBottleId(bottle));
-                }           
+                }
 
                 if (isSubmitted)
                 {
@@ -199,7 +199,7 @@ namespace GreenWayBottles.ViewModels
 
                     //Switch to the Payment Display 
                     SwitchDisplay(false);
-                    
+
                 }
                 else
                     await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
@@ -238,11 +238,11 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
                 return;
             }
-                
+
 
             bool isSaved = false;
 
-            if(bottleIdList == null)
+            if (bottleIdList == null)
             {
                 await alerts.ShowAlertAsync("Operation Failed", "No bottles were captured, please capture bottles first");
                 return;
