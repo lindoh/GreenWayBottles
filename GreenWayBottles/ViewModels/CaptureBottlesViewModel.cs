@@ -26,12 +26,19 @@ namespace GreenWayBottles.ViewModels
             bottleData = new BottleDataSource();
             capturedBottles = new ObservableCollection<Bottles>();
             selectedUser = "Collector";
+
             GetBottles();
+            GetOtherWaste();
+
             Amount = 0.0;
             CaptureBottleDisplay = true;
             PaymentsDisplay = !captureBottleDisplay;
             display_0 = display_1 = false;
             transactions = new Transaction();
+
+            //Show Bottles list or Other Waste Material list
+            ShowBottles = true;
+            ShowOtherWaste = false;
 
             //vm = new();
         }
@@ -74,6 +81,10 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         ObservableCollection<BottleDataSource> bottlesList;
 
+        //List of Other Waste Material
+        [ObservableProperty]
+        ObservableCollection<WasteMaterial> wasteMaterialList;
+
         //The quantity of bottles submitted by the Collector
         [ObservableProperty]
         int quantity;
@@ -110,6 +121,13 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         bool display_2;
+
+        //Switch Display between Bottles and Other Waste material items
+        [ObservableProperty]
+        bool showOtherWaste;
+
+        [ObservableProperty]
+        bool showBottles;
 
         [ObservableProperty]
         Transaction transactions;
@@ -294,6 +312,11 @@ namespace GreenWayBottles.ViewModels
         public void GetBottles()
         {
             BottlesList = new ObservableCollection<BottleDataSource>(dataService.GetBottleList());
+        }
+
+        private void GetOtherWaste()
+        {
+            WasteMaterialList = new ObservableCollection<WasteMaterial>(dataService.GetOtherWasteList());
         }
 
         private void CalculateAmount()

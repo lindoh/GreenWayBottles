@@ -13,13 +13,24 @@
             <VerticalStackLayout IsVisible="{Binding CaptureBottleDisplay}">
                 <Label Text="Capture New Bottles" VerticalOptions="Center" HorizontalOptions="Center" 
                    FontSize="Title" TextColor="#155ca1" Margin="10"/>
+                
+                <!--Choose between Bottles and Other Waste Material-->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                    <Label Text="Type of Waste Material"/>
+                    <HorizontalStackLayout>
+                        <RadioButton x:Name="BottleRadioBtn" Content="Bottles" CheckedChanged="RadioButton_CheckedChanged"/>
+                        <RadioButton  x:Name="OtherWasteRadioBtn" Content="Other Waste Material" CheckedChanged="RadioButton_CheckedChanged"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
+                <!--Search User from Database-->
                 <Label Text="Search User from Database" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10"/>
                 <SearchBar x:Name="searchBar"  
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
 
+                <!--List with matching user names-->
                 <ListView Margin="10" Header="Results" MaximumHeightRequest="90"
                       x:Name="usersListView" BackgroundColor="LightGray" 
                       ItemSelected="usersListView_ItemSelected"
@@ -38,9 +49,10 @@
 
                 <!-- Bottle Type Name Tag -->
                 <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
-                      x:Name="bottlesListView" BackgroundColor="LightGray"
+                      BackgroundColor="LightGray" 
                       ItemSelected="bottlesListView_ItemSelected"
-                      ItemsSource="{Binding BottlesList}">
+                      ItemsSource="{Binding BottlesList}"
+                      IsVisible="{Binding ShowBottles}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:BottleDataSource">
                             <TextCell Text="{Binding BottleName}" Detail="{Binding Size}"/>
@@ -49,12 +61,51 @@
 
                 </ListView>
 
+                <!-- Other Waste Material Name Tag -->
+                <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
+                      BackgroundColor="LightGray" 
+                      ItemSelected="bottlesListView_ItemSelected"
+                      ItemsSource="{Binding WasteMaterialList}"
+                      IsVisible="{Binding ShowOtherWaste}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:WasteMaterial">
+                            <TextCell Text="{Binding MaterialName}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
 
                 <!-- Bottle Quantity Tags-->
-                <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
+                <VerticalStackLayout IsVisible="{Binding ShowBottles}">
+                    <Label Text="Quantity" VerticalOptions="End" HorizontalOptions="Start" 
                    FontSize="Caption" TextColor="Gray" Margin="10, 5, 5, 0"/>
-                <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
+                    <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
                     TextColor="Black" Text="{Binding Quantity}"/>
+                </VerticalStackLayout>
+                
+
+                <!--========================= Other Waste Material ===========================================================-->
+                <!--Size and Price To Be Completed by the admin-->
+                <HorizontalStackLayout IsVisible="{Binding ShowOtherWaste}">
+
+                    <!--Size in Kg-->
+                    <VerticalStackLayout>
+                        <Label Text="Size (Kg)" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10"/>
+                        <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
+                    TextColor="Black" Text="" Margin="10,0"/>
+                    </VerticalStackLayout>
+
+                    <!--Price (Rands)-->
+                    <VerticalStackLayout>
+                        <Label Text="Price (Rands)" VerticalOptions="End" HorizontalOptions="Start" 
+                   FontSize="Caption" TextColor="Gray" Margin="10"/>
+                        <Entry  VerticalOptions="Start" HorizontalOptions="Start" FontSize="Caption" 
+                    TextColor="Black" Text="" Margin="10,0"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+                <!--=============================================================================================================-->
 
                 <!-- Add New Data Button Tag -->
                 <Button x:Name="addNewDataBtn" Text="Calculate and Add New Entry" FontSize="Small" BackgroundColor="#155ca1"

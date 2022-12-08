@@ -26,13 +26,13 @@
               ContentTemplate="{x:DataTemplate views:HomeView}"
               Route="HomeView"/>
     </FlyoutItem>
-    
+
     <FlyoutItem Title="Capture New Bottles" Icon="recycle.png">
         <ShellContent 
               ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"
               Route="CaptureNewBottlesView"/>
     </FlyoutItem>
-    
+
     <FlyoutItem Title="Create User Account" Icon="user.png">
         <ShellContent 
               ContentTemplate="{x:DataTemplate views:CreateUserAccountView}"

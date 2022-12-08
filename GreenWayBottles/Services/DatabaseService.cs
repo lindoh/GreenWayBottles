@@ -682,6 +682,50 @@ namespace GreenWayBottles.Services
 
         #endregion
 
+        #region Get The List of Other Waste Material
+        public List<WasteMaterial> GetOtherWasteList()
+        {
+            List<WasteMaterial> otherWasteList = new List<WasteMaterial>();
+
+            try
+            {
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "GetOtherWasteList";
+
+                sqlConnection.Open();
+
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if (sqlDataReader.HasRows)
+                {
+                    WasteMaterial wasteMaterial;
+
+                    while (sqlDataReader.Read())
+                    {
+                        wasteMaterial = new WasteMaterial();
+
+                        wasteMaterial.MaterialName = sqlDataReader.GetString(1);
+                        otherWasteList.Add(wasteMaterial);
+                    }
+                    sqlDataReader.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                alerts.ShowAlert("Error!", ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return otherWasteList;
+        }
+
+        #endregion
+
         #region Save BuyBackCentre Details
         /// <summary>
         /// Save the Data for the BuyBackCentre with the Associated Admin details

@@ -72,4 +72,18 @@ public partial class CaptureNewBottlesView : ContentPage
         if (ClearCheckBox.IsChecked)
             SignatureDrawing.Clear();
     }
+
+    private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if(BottleRadioBtn.IsChecked) 
+        { 
+            viewModel.ShowBottles = true;
+            viewModel.ShowOtherWaste = false;
+        }
+        else if (OtherWasteRadioBtn.IsChecked)
+        {
+            viewModel.ShowOtherWaste = true;
+            viewModel.ShowBottles = false;
+        }
+    }
 }

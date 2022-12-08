@@ -8,7 +8,7 @@
              >
 
     <VerticalStackLayout Margin="30" MaximumWidthRequest="600">
-        <Image Source="D:\EngineeringWork\C#Repository\GreenWayBottles\GreenWayBottles\Resources\Images\logo.png"
+        <Image Source="appicon.png"
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 
