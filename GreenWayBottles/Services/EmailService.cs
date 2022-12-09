@@ -1,5 +1,4 @@
 ﻿//using FluentEmail;
-using System.Net;
 //using System.Net.Mail;
 using Aspose.Email;
 using Aspose.Email.Clients.Smtp;

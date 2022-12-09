@@ -75,8 +75,8 @@ public partial class CaptureNewBottlesView : ContentPage
 
     private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if(BottleRadioBtn.IsChecked) 
-        { 
+        if (BottleRadioBtn.IsChecked)
+        {
             viewModel.ShowBottles = true;
             viewModel.ShowOtherWaste = false;
         }

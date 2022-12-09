@@ -3,7 +3,7 @@
 
 namespace GreenWayBottles.Models
 {
-    public partial class WasteMaterial : ObservableObject 
+    public partial class WasteMaterial : ObservableObject
     {
         public WasteMaterial()
         {

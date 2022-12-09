@@ -1,6 +1,5 @@
-﻿using CommunityToolkit.Maui.Markup;
-using CommunityToolkit.Maui;
-
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Markup;
 using GreenWayBottles.Services;
 using GreenWayBottles.ViewModels;
 using GreenWayBottles.Views;
