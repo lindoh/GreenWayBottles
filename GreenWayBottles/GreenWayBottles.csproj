@@ -39,7 +39,6 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.png" />
 
 		<!-- Splash Screen -->
     <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -62,14 +61,6 @@
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\logo.png" />
 	  <MauiImage Remove="Resources\Images\logo.scale-400.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Resources\AppIcon\appicon.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiImage Include="Resources\AppIcon\appicon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
