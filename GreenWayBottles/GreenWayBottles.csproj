@@ -65,6 +65,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Aspose.Email" Version="22.10.0" />
+	  <PackageReference Include="CommunityToolkit.Maui.Markup" Version="2.0.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
 	  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
