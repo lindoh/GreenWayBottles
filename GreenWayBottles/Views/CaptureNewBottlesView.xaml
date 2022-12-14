@@ -49,6 +49,7 @@
 
                 <!-- Bottle Type Name Tag -->
                 <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
+                      x:Name=" bottlesListView"
                       BackgroundColor="LightGray" 
                       ItemSelected="bottlesListView_ItemSelected"
                       ItemsSource="{Binding BottlesList}"
@@ -62,9 +63,10 @@
                 </ListView>
 
                 <!-- Other Waste Material Name Tag -->
-                <ListView Margin="10" MaximumHeightRequest="90" Header="Bottle Name and Size"
+                <ListView Margin="10" MaximumHeightRequest="90" Header="Other Waste Material"
+                      x:Name="wasteListView"
                       BackgroundColor="LightGray" 
-                      ItemSelected="bottlesListView_ItemSelected"
+                          ItemSelected="wasteListView_ItemSelected"
                       ItemsSource="{Binding WasteMaterialList}"
                       IsVisible="{Binding ShowOtherWaste}">
                     <ListView.ItemTemplate>
@@ -122,10 +124,22 @@
 
                 <!-- Captured Bottles List-->
                 <ListView Header="Captured Bottles"  Margin="10" MaximumHeightRequest="90"
-                      BackgroundColor="LightGray" ItemsSource="{Binding CapturedBottles}">
+                          BackgroundColor="LightGray" ItemsSource="{Binding CapturedBottles}"
+                          IsVisible="{Binding ShowBottles}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Bottles">
                             <TextCell Text="{Binding BottleName}" Detail="{Binding Quantity}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Captured Other Waste List-->
+                <ListView Header="Captured Other Waste"  Margin="10" MaximumHeightRequest="90"
+                          BackgroundColor="LightGray" ItemsSource="{Binding CapturedWaste}"
+                          IsVisible="{Binding ShowOtherWaste}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:OtherWaste">
+                            <TextCell Text="{Binding MaterialName}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

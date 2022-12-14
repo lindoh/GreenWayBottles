@@ -11,6 +11,9 @@ namespace GreenWayBottles.Models
         }
 
         [ObservableProperty]
+        int wasteMaterialId;
+
+        [ObservableProperty]
         string materialName;
 
         [ObservableProperty]

@@ -25,6 +25,10 @@ namespace GreenWayBottles.ViewModels
             currentAdmin = new LoginViewModel();
             bottleData = new BottleDataSource();
             capturedBottles = new ObservableCollection<Bottles>();
+            capturedWaste = new();
+
+            wasteMaterialList = new();
+
             selectedUser = "Collector";
 
             GetBottles();
@@ -69,6 +73,9 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         BottleDataSource bottleData;
 
+        [ObservableProperty]
+        WasteMaterial wasteMaterialData;
+
         //Represents a given bottle
         [ObservableProperty]
         Bottles bottle;
@@ -84,6 +91,9 @@ namespace GreenWayBottles.ViewModels
         //List of Other Waste Material
         [ObservableProperty]
         ObservableCollection<WasteMaterial> wasteMaterialList;
+
+        [ObservableProperty]
+        OtherWaste wasteMaterial;
 
         //The quantity of bottles submitted by the Collector
         [ObservableProperty]
@@ -103,6 +113,9 @@ namespace GreenWayBottles.ViewModels
         //Store the collected bottles in the list before submition to database
         [ObservableProperty]
         ObservableCollection<Bottles> capturedBottles;
+
+        [ObservableProperty]
+        ObservableCollection<OtherWaste> capturedWaste;
 
         //Switch Display Between capturing bottle data to payment section
         [ObservableProperty]
@@ -155,32 +168,16 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Please Search and Select User");
                 return;
             }
-            else if (quantity == 0)
+            
+            if (showBottles)
             {
-                await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
-                return;
-            }
-            //Update the Bottle Object
-            else if (bottleData.BottleDataSourceId != 0)
-            {
-                bottle = new Bottles();
-                //Calculate amount due
-                CalculateAmount();
-
-                Bottle.BottleName = BottleData.BottleName;
-                Bottle.Quantity = quantity;
-                Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
-                Bottle.CollectorId = user.Id;
-                Bottle.BBCId = currentAdmin.UserLogin.BBCId;
-                Bottle.Amount = currentAmount;
-                Bottle.AdminId = currentAdmin.UserLogin.AdminId;
-
-                //Update and Display Captured Bottles
-                capturedBottles.Insert(0, Bottle);
+                SaveCapturedBottles();
 
             }
-            else
-                await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+            else if (showOtherWaste)
+            {
+                SaveCapturedOtherWaste();
+            }
 
             //Reset Bottle size and Quantity
             Clear(false);
@@ -251,7 +248,7 @@ namespace GreenWayBottles.ViewModels
             //Set the Date and Time to the current computer time
             transactions.LocalDate = DateTime.Now;
 
-            if (transactions.LocalDate.Hour < 6 || transactions.LocalDate.Hour > 23)
+            if (transactions.LocalDate.Hour < 6 || transactions.LocalDate.Hour > 18)
             {
                 await alerts.ShowAlertAsync("Operation Failed", "Time out of business hours");
                 return;
@@ -304,10 +301,22 @@ namespace GreenWayBottles.ViewModels
             User = args.SelectedItem as Users;
         }
 
+        /// <summary>
+        /// The selectedBottle method updates the BottleData object with
+        /// the chosen bottle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         public void selectedBottle(object sender, SelectedItemChangedEventArgs args)
         {
             BottleData = args.SelectedItem as BottleDataSource;
         }
+
+        public void selectedWaste(object sender, SelectedItemChangedEventArgs args)
+        {
+            WasteMaterialData = args.SelectedItem as WasteMaterial;
+        }
+
 
         public void GetBottles()
         {
@@ -319,7 +328,7 @@ namespace GreenWayBottles.ViewModels
             WasteMaterialList = new ObservableCollection<WasteMaterial>(dataService.GetOtherWasteList());
         }
 
-        private void CalculateAmount()
+        private void BottleAmount()
         {
             string bottleSize;
 
@@ -342,7 +351,22 @@ namespace GreenWayBottles.ViewModels
             else
             {
                 alerts.ShowAlertAsync("Operation Failed", "Select a bottle name from the list and enter quantity value");
-                return;
+            }
+        }
+
+        private void WasteAmount()
+        {
+            if (wasteMaterialData.MaterialName != null)
+            {
+                //Calculate current amount of the selected waste material
+                CurrentAmount = wasteMaterialData.Size * wasteMaterialData.Price;
+
+                Amount += currentAmount;
+                AmountString = $"R{amount}";
+            }
+            else
+            {
+                alerts.ShowAlertAsync("Operation Failed", "Select a waste material name from the list and enter size (in Kg) and Price (per Kg)");
             }
         }
 
@@ -377,6 +401,73 @@ namespace GreenWayBottles.ViewModels
             //Switch between the CaptureBottle Display and Payment Display in the CaptureNewBottlesView
             CaptureBottleDisplay = captureBottles;
             PaymentsDisplay = !captureBottleDisplay;
+        }
+
+        private async void SaveCapturedBottles()
+        {
+            if (quantity == 0)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "Quantity Cannot be Zero");
+                return;
+            }
+            //Update the Bottle Object
+            else if (bottleData.BottleDataSourceId != 0)
+            {
+                bottle = new Bottles();
+                //Calculate amount due
+                BottleAmount();
+
+                Bottle.BottleName = BottleData.BottleName;
+                Bottle.Quantity = quantity;
+                Bottle.BottleDataSourceId = BottleData.BottleDataSourceId;
+                Bottle.CollectorId = user.Id;
+                Bottle.BBCId = currentAdmin.UserLogin.BBCId;
+                Bottle.Amount = currentAmount;
+                Bottle.AdminId = currentAdmin.UserLogin.AdminId;
+
+                //Update and Display Captured Bottles
+                capturedBottles.Insert(0, Bottle);
+
+            }
+            else
+                await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+        }
+
+        private async void SaveCapturedOtherWaste()
+        {
+            if (wasteMaterialData.Size == 0)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "Size Cannot be Zero");
+                return;
+            }
+
+            if (wasteMaterialData.Price == 0)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "Price Cannot be Zero");
+                return;
+            }
+
+            if (wasteMaterialData.MaterialName != null)
+            {
+                wasteMaterial = new();
+
+                //Calculate the amount due
+                WasteAmount();
+
+                //Update the Object
+                WasteMaterial.MaterialName = wasteMaterialData.MaterialName;
+                WasteMaterial.Price = wasteMaterialData.Price;
+                WasteMaterial.Size = wasteMaterialData.Size;
+                WasteMaterial.CollectorId = user.Id;
+                WasteMaterial.BBCId = currentAdmin.UserLogin.BBCId;
+                WasteMaterial.Amount = Amount;
+                WasteMaterial.AdminId = currentAdmin.UserLogin.AdminId;
+
+                capturedWaste.Insert(0, wasteMaterial);
+
+            }
+            else
+                await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
         }
 
         #endregion

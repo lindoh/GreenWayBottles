@@ -28,6 +28,11 @@ public partial class CaptureNewBottlesView : ContentPage
         viewModel.selectedBottle(sender, args);
     }
 
+    private void wasteListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)
+    {
+        viewModel.selectedWaste(sender, args);
+    }
+
     /// <summary>
     /// Update the Payment Method as Choosen by the user from the Radio buttons
     /// </summary>
@@ -86,4 +91,6 @@ public partial class CaptureNewBottlesView : ContentPage
             viewModel.ShowBottles = false;
         }
     }
+
+   
 }
