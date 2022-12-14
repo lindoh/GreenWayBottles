@@ -10,7 +10,7 @@
     <ScrollView>
         <VerticalStackLayout Margin="80">
 
-            <Image Source="appicon.png"
+            <Image Source="icon.jpeg"
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 

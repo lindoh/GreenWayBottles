@@ -19,7 +19,7 @@
 		<ApplicationIdGuid>35D76007-1A42-48FB-A9C8-B6932F71BC26</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.0</SupportedOSPlatformVersion>
@@ -42,14 +42,14 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-    <MauiIcon Include="Resources\Appicon\appicon.png" />
-    <MauiIcon Include="Resources\Images\appicon.png" />
+    <MauiIcon Include="Resources\Appicon\*" />
+
 		<!-- Splash Screen -->
-    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+    <MauiSplashScreen Update="Resources\Splash\splash.svg" BaseSize="128, 128" />
+    
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\appicon.png" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -64,12 +64,21 @@
 
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\appicon.png" />
+	  <MauiImage Remove="Resources\Images\icon.jpeg" />
 	  <MauiImage Remove="Resources\Images\logo.png" />
 	  <MauiImage Remove="Resources\Images\logo.scale-400.png" />
+	  <MauiImage Remove="Resources\Images\logo310x310.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\appicon.png" />
+	  <None Remove="Resources\Images\icon.jpeg" />
+	  <None Remove="Resources\Images\logo310x310.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\Images\icon.jpeg" />
+	  <MauiIcon Include="Resources\Images\logo310x310.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

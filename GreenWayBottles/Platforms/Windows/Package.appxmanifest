@@ -36,7 +36,6 @@
                          Wide310x150Logo="Resources\Appicon\logo310x150.png" 
                          Square310x310Logo="Resources\Appicon\logo310x310.png"  ShortName="AppLogo">
         </uap:DefaultTile >
-        <uap:SplashScreen Image="$placeholder$.png"/>
         <uap:LockScreen BadgeLogo="Resources\Appicon\badgelogo.png" Notification="badge"/>
       </uap:VisualElements>
     </Application>
