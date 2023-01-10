@@ -9,8 +9,7 @@
 
     <ScrollView>
         <VerticalStackLayout Margin="80">
-
-            <Image Source="icon.jpeg"
+            <Image Source="Resources\Images\icon0.jpeg" 
                HorizontalOptions="Center" VerticalOptions="Start" 
                MaximumWidthRequest="150" MaximumHeightRequest="150"/>
 

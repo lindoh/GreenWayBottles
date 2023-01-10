@@ -65,6 +65,7 @@
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\appicon.png" />
 	  <MauiImage Remove="Resources\Images\icon.jpeg" />
+	  <MauiImage Remove="Resources\Images\icon.svg" />
 	  <MauiImage Remove="Resources\Images\logo.png" />
 	  <MauiImage Remove="Resources\Images\logo.scale-400.png" />
 	  <MauiImage Remove="Resources\Images\logo310x310.svg" />
@@ -73,10 +74,12 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\appicon.png" />
 	  <None Remove="Resources\Images\icon.jpeg" />
+	  <None Remove="Resources\Images\icon.svg" />
 	  <None Remove="Resources\Images\logo310x310.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiIcon Include="Resources\Images\icon.svg" />
 	  <MauiIcon Include="Resources\Images\icon.jpeg" />
 	  <MauiIcon Include="Resources\Images\logo310x310.svg" />
 	</ItemGroup>

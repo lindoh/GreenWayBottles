@@ -17,6 +17,7 @@ namespace GreenWayBottles.ViewModels
             user = new Users();
             alerts = new AlertService();
             logins = new CreateLoginsViewModel();
+            User.Country = "South Africa";
         }
 
         #endregion

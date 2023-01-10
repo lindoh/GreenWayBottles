@@ -899,6 +899,46 @@ namespace GreenWayBottles.Services
         }
         #endregion
 
+        #region Save Captured Other Waste Material Data
+        public bool CaptureOtherWaste(OtherWaste otherWaste)
+        {
+            bool isSaved = false;
+
+            try
+            {
+                //Open Sql connection
+                sqlConnection.Open();
+
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "CaptureOtherWaste";
+
+                sqlCommand.Parameters.AddWithValue("MaterialName", otherWaste.MaterialName);
+                sqlCommand.Parameters.AddWithValue("Size", otherWaste.Size);
+                sqlCommand.Parameters.AddWithValue("Price", otherWaste.Price);
+                sqlCommand.Parameters.AddWithValue("CollectorId", otherWaste.CollectorId);
+                sqlCommand.Parameters.AddWithValue("BBCId", otherWaste.BBCId);
+                sqlCommand.Parameters.AddWithValue("Amount", otherWaste.Amount);
+                sqlCommand.Parameters.AddWithValue("AdminId", otherWaste.AdminId);
+
+                //If affected number of rows > 0, then the save operation is successful
+                int NoOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                isSaved = NoOfRowsAffected > 0;
+
+            }
+            catch (SqlException ex)
+            {
+
+                alerts.ShowAlert("Error!", ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return isSaved;
+        }
+        #endregion
+
         #region Get Bottle Id
         public int GetBottleId(Bottles bottle)
         {

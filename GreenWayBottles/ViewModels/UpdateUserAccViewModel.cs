@@ -161,9 +161,9 @@ namespace GreenWayBottles.ViewModels
 
             if ((user.FirstName == "" || user.LastName == "" || user.IdNumber == "" ||
                 user.Gender == "" || user.HighestQlfn == "" || user.IncomeRange == "" ||
-                user.Email == "" || user.CellNumber == "" || user.StreetAddress == "" ||
-                user.Suburb == "" || user.City == "" || user.Province == "" || user.Country == "" ||
-                bBC.BuyBackCentreName == "" || bBC.StreetAddress == "" || bBC.Suburb == "" ||
+                user.CellNumber == "" || user.StreetAddress == "" ||
+                user.City == "" || user.Province == "" || user.Country == "" ||
+                bBC.BuyBackCentreName == "" || bBC.StreetAddress == "" ||
                 bBC.City == "" || bBC.Province == "" || bBC.Country == ""))
             {
                 emptyFields = true;

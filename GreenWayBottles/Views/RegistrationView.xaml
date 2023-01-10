@@ -138,7 +138,7 @@
             <!-- Email Address Tag                                 -->
             <Label 
             Grid.Row="9" Grid.Column="0"
-            Text="Email Address" VerticalOptions="End" HorizontalOptions="Start" 
+            Text="Email Address (Optional)" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Entry Grid.Row="10" Grid.Column="0" x:Name="emailTxt"
@@ -167,18 +167,18 @@
             <!-- Street Address Tag                                 -->
             <Label 
             Grid.Row="12" Grid.Column="0"
-            Text="Street Address" VerticalOptions="End" HorizontalOptions="Start" 
+            Text="Street Address/ Locality" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Entry Grid.Row="13" Grid.Column="0" x:Name="streetAddTxt"
-            VerticalOptions="Start" HorizontalOptions="Fill" 
-            FontSize="Caption" TextColor="Black"
+            VerticalOptions="Start" HorizontalOptions="Fill" Placeholder="e.g. Bhomela, Ward 24"
+            PlaceholderColor="Brown" FontSize="Caption" TextColor="Black"
             Margin="10, 0, 5, 5" Text="{Binding User.StreetAddress, Mode=TwoWay}"/>
 
             <!-- Suburb Tag                                 -->
             <Label 
             Grid.Row="12" Grid.Column="1"
-            Text="Suburb" VerticalOptions="End" HorizontalOptions="Start" 
+            Text="Suburb (Optional)" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Entry Grid.Row="13" Grid.Column="1" x:Name="suburbTxt"
@@ -225,14 +225,10 @@
             Text="Country" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Picker 
-                Grid.Row="17" Grid.Column="0" x:Name="countryPicker" SelectedItem="{Binding User.Country, Mode=TwoWay}"
+            <Label 
+                Grid.Row="17" Grid.Column="0" Text="{Binding User.Country, Mode=TwoWay}"
                 FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
-                <Picker.Items>
-                    <x:String></x:String>
-                    <x:String>South Africa</x:String>
-                </Picker.Items>
-            </Picker>
+            </Label>
 
             <!-- Save Button Tag                                 -->
             <Button 

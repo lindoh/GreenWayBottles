@@ -199,7 +199,7 @@
             <!-- Street Address Tag                                 -->
             <Label 
             Grid.Row="13" Grid.Column="0"
-            Text="Street Address" VerticalOptions="End" HorizontalOptions="Start" 
+            Text="Street Address/ Locality" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
             <Entry Grid.Row="14" Grid.Column="0" x:Name="streetAddTxt"
@@ -257,14 +257,11 @@
             Text="Country" VerticalOptions="End" HorizontalOptions="Start" 
             FontSize="Caption" TextColor="Gray"
             Margin="10, 5, 5, 0"/>
-            <Picker 
-                Grid.Row="18" Grid.Column="0" x:Name="countryPicker" SelectedItem="{Binding User.Country, Mode=TwoWay}"
-                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
-                <Picker.Items>
-                    <x:String></x:String>
-                    <x:String>South Africa</x:String>
-                </Picker.Items>
-            </Picker>
+            <Label 
+                Grid.Row="18" Grid.Column="0" Text="{Binding User.Country, Mode=TwoWay}"
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand"
+                Margin="15, 0">
+            </Label>
             
             <!--=======================================================================================================-->
             <!--                              Buy Back Centre Details Section                                          -->
@@ -305,10 +302,10 @@
              <!-- Street Address Tag                                 -->
                <Label 
                 Grid.Row="1" Grid.Column="1"
-                Text="Street Address" VerticalOptions="End" HorizontalOptions="Start" 
+                Text="Street Address/Locality" VerticalOptions="End" HorizontalOptions="Start" 
                 FontSize="Caption" TextColor="Gray"
                 Margin="10, 5, 5, 0"/>
-               <Entry Grid.Row="2" Grid.Column="1"
+               <Entry Grid.Row="2" Grid.Column="1" Placeholder="e.g. 12 Sicily Street" PlaceholderColor="Brown"
                 VerticalOptions="Start" HorizontalOptions="Fill" 
                 FontSize="Caption" TextColor="Black"
                 Margin="10, 0, 5, 5" Text="{Binding BBC.StreetAddress, Mode=TwoWay}"/>
@@ -316,7 +313,7 @@
                <!-- Suburb Tag                                 -->
                <Label 
                 Grid.Row="3" Grid.Column="0"
-                Text="Suburb" VerticalOptions="End" HorizontalOptions="Start" 
+                Text="Suburb (Optional)" VerticalOptions="End" HorizontalOptions="Start" 
                 FontSize="Caption" TextColor="Gray"
                 Margin="10, 5, 5, 0"/>
                <Entry Grid.Row="4" Grid.Column="0"
@@ -361,14 +358,11 @@
                  Text="Country" VerticalOptions="End" HorizontalOptions="Start" 
                  FontSize="Caption" TextColor="Gray"
                  Margin="10, 5, 5, 0"/>
-                <Picker 
-                Grid.Row="6" Grid.Column="1" SelectedItem="{Binding BBC.Country, Mode=TwoWay}"
-                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
-                    <Picker.Items>
-                        <x:String></x:String>
-                        <x:String>South Africa</x:String>
-                    </Picker.Items>
-                </Picker>
+                <Label 
+                Grid.Row="6" Grid.Column="1" Text="{Binding BBC.Country, Mode=TwoWay}"
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand"
+                Margin="15, 0">
+                </Label>
 
 
             </StackLayout>

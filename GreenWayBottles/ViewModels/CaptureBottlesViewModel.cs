@@ -28,6 +28,7 @@ namespace GreenWayBottles.ViewModels
             capturedWaste = new();
 
             wasteMaterialList = new();
+            wasteMaterialData = new();
 
             selectedUser = "Collector";
 
@@ -188,39 +189,12 @@ namespace GreenWayBottles.ViewModels
         /// alert the user of the outcome.
         /// </summary>
         [RelayCommand]
-        public async void Submit()
+        public void Submit()
         {
-            bool isSubmitted = false;
-
-            if (capturedBottles.Count > 0)
-            {
-                bottleIdList = new List<int>();
-
-                foreach (Bottles bottle in capturedBottles)
-                {
-                    isSubmitted = dataService.CaptureBottles(bottle);
-
-                    if (!isSubmitted)
-                    {
-                        await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
-                    }
-                    else
-                        BottleIdList.Insert(0, dataService.GetBottleId(bottle));
-                }
-
-                if (isSubmitted)
-                {
-                    await alerts.ShowAlertAsync("Operation Successful", "Collected bottle(s) data saved successfully!");
-
-                    //Switch to the Payment Display 
-                    SwitchDisplay(false);
-
-                }
-                else
-                    await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
-            }
-            else
-                await alerts.ShowAlertAsync("Operation Failed", "Bottle data was not captured succesfully, please try again!!");
+            if (ShowBottles)
+                SubmitCapturedBottles();
+            else if (showOtherWaste)
+                SubmitCapturedOtherWaste();
         }
 
         /// <summary>
@@ -468,6 +442,46 @@ namespace GreenWayBottles.ViewModels
             }
             else
                 await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+        }
+
+        private async void SubmitCapturedBottles()
+        {
+            bool isSubmitted = false;
+
+            if (capturedBottles.Count > 0)
+            {
+                bottleIdList = new List<int>();
+
+                foreach (Bottles bottle in capturedBottles)
+                {
+                    isSubmitted = dataService.CaptureBottles(bottle);
+
+                    if (!isSubmitted)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
+                    }
+                    else
+                        BottleIdList.Insert(0, dataService.GetBottleId(bottle));
+                }
+
+                if (isSubmitted)
+                {
+                    await alerts.ShowAlertAsync("Operation Successful", "Collected bottle(s) data saved successfully!");
+
+                    //Switch to the Payment Display 
+                    SwitchDisplay(false);
+
+                }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
+            }
+            else
+                await alerts.ShowAlertAsync("Operation Failed", "Bottle data was not captured succesfully, please try again!!");
+        }
+
+        private void SubmitCapturedOtherWaste()
+        {
+            
         }
 
         #endregion
