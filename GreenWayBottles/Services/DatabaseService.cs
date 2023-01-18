@@ -986,6 +986,55 @@ namespace GreenWayBottles.Services
         }
         #endregion
 
+        #region Get Other Waste Id
+        public int GetOtherWasteId(OtherWaste otherWaste)
+        {
+            int id = 0;
+
+            try
+            {
+
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandText = "GetOtherWasteId";
+
+                sqlCommand.Parameters.AddWithValue("MaterialName", otherWaste.MaterialName);
+                sqlCommand.Parameters.AddWithValue("Size", otherWaste.Size);
+                sqlCommand.Parameters.AddWithValue("Price", otherWaste.Price);
+                sqlCommand.Parameters.AddWithValue("CollectorId", otherWaste.CollectorId);
+                sqlCommand.Parameters.AddWithValue("BBCId", otherWaste.BBCId);
+                sqlCommand.Parameters.AddWithValue("Amount", otherWaste.Amount);
+                sqlCommand.Parameters.AddWithValue("AdminId", otherWaste.AdminId);
+
+                sqlConnection.Open();
+
+                var sqlDataReader = sqlCommand.ExecuteReader();
+
+                if (sqlDataReader.HasRows)
+                {
+                    while (sqlDataReader.Read())
+                    {
+                        id = sqlDataReader.GetInt32(0);
+                    }
+                }
+                sqlDataReader.Close();
+
+
+            }
+            catch (SqlException ex)
+            {
+
+                alerts.ShowAlert("Error!", ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return id;
+        }
+
+        #endregion
+
         #region Save Transaction Record
         public bool TransRecord(Transaction transaction)
         {
@@ -998,8 +1047,11 @@ namespace GreenWayBottles.Services
 
                 sqlCommand.Parameters.AddWithValue("TransactionType", transaction.TransactionType);
                 sqlCommand.Parameters.AddWithValue("TransactionDateTime", transaction.LocalDate);
-                sqlCommand.Parameters.AddWithValue("BottleId", transaction.BottleId);
+                sqlCommand.Parameters.AddWithValue("WasteMaterialId", transaction.WasteMaterialId);
                 sqlCommand.Parameters.AddWithValue("BankDetailsId", transaction.BankDetailsId);
+                sqlCommand.Parameters.AddWithValue("Signature", transaction.Signature);
+
+                
 
                 sqlConnection.Open();
 
@@ -1025,6 +1077,8 @@ namespace GreenWayBottles.Services
         }
 
         #endregion
+
+
 
     }
 }

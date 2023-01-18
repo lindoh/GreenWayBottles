@@ -91,6 +91,7 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
 	  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+	  <PackageReference Include="Xamarin.Controls.SignaturePad.Forms" Version="3.0.0" />
 	</ItemGroup>
 
   <ItemGroup>

@@ -85,6 +85,9 @@ namespace GreenWayBottles.ViewModels
         [ObservableProperty]
         List<int> bottleIdList;
 
+        //List of OtherWaste Id's
+        List<int> otherWasteIdList;
+
         //List of Bottles from the database
         [ObservableProperty]
         ObservableCollection<BottleDataSource> bottlesList;
@@ -145,6 +148,9 @@ namespace GreenWayBottles.ViewModels
 
         [ObservableProperty]
         Transaction transactions;
+
+        [ObservableProperty]
+        Image imageSource;
 
         #endregion
 
@@ -208,7 +214,7 @@ namespace GreenWayBottles.ViewModels
             if (display_0)   //If display is set to Banking Display
             {
                 transactions.TransactionType = "Bank Payment";
-                transactions.Signature = null;
+                //transactions.Signature = null;
 
                 //Find the Banking details
                 Banker = dataService.SearchBanking(user.Id);
@@ -228,39 +234,11 @@ namespace GreenWayBottles.ViewModels
                 return;
             }
 
-
-            bool isSaved = false;
-
-            if (bottleIdList == null)
-            {
-                await alerts.ShowAlertAsync("Operation Failed", "No bottles were captured, please capture bottles first");
-                return;
-            }
-            else
-            {
-                foreach (int id in bottleIdList)
-                {
-                    transactions.BottleId = id;
-                    isSaved = dataService.TransRecord(transactions);
-
-                    if (!isSaved)
-                    {
-                        await alerts.ShowAlertAsync("Operation Failed", "One or more transaction records could not be saved");
-                        return;
-                    }
-                }
-
-                if (isSaved)
-                {
-                    await alerts.ShowAlertAsync("Operation Successful", $"Captured Bottles Transaction Record Saved Successfully on {transactions.LocalDate}");
-
-                    //Switch to the CaptureBottle Display 
-                    SwitchDisplay(true);
-
-                    Clear(true);
-                }
-
-            }
+            if (showBottles)
+                MaterialTransactionId(BottleIdList);
+            else if (showOtherWaste)
+                MaterialTransactionId(otherWasteIdList);
+           
         }
 
         #endregion
@@ -434,14 +412,14 @@ namespace GreenWayBottles.ViewModels
                 WasteMaterial.Size = wasteMaterialData.Size;
                 WasteMaterial.CollectorId = user.Id;
                 WasteMaterial.BBCId = currentAdmin.UserLogin.BBCId;
-                WasteMaterial.Amount = Amount;
+                WasteMaterial.Amount = currentAmount;
                 WasteMaterial.AdminId = currentAdmin.UserLogin.AdminId;
 
                 capturedWaste.Insert(0, wasteMaterial);
 
             }
             else
-                await alerts.ShowAlertAsync("Operation Failed", "Please Login to continue.");
+                await alerts.ShowAlertAsync("Operation Failed", "Material name must be selected from the list");
         }
 
         private async void SubmitCapturedBottles()
@@ -479,11 +457,79 @@ namespace GreenWayBottles.ViewModels
                 await alerts.ShowAlertAsync("Operation Failed", "Bottle data was not captured succesfully, please try again!!");
         }
 
-        private void SubmitCapturedOtherWaste()
+        private async void SubmitCapturedOtherWaste()
         {
-            
+            bool isSubmitted = false;
+
+            if (capturedWaste.Count > 0)
+            {
+                otherWasteIdList = new List<int>();
+
+                foreach (OtherWaste waste in capturedWaste)
+                {
+                    isSubmitted = dataService.CaptureOtherWaste(waste);
+
+                    if (!isSubmitted)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
+                    }
+                    else
+                        otherWasteIdList.Insert(0, dataService.GetOtherWasteId(waste));
+                }
+
+                if (isSubmitted)
+                {
+                    await alerts.ShowAlertAsync("Operation Successful", "Collected waste material data saved successfully!");
+
+                    //Switch to the Payment Display 
+                    SwitchDisplay(false);
+
+                }
+                else
+                    await alerts.ShowAlertAsync("Operation Failed", "Couldn't save data successfully, something went wrong");
+            }
+            else
+                await alerts.ShowAlertAsync("Operation Failed", "Other Waste data was not captured succesfully, please try again!!");
         }
 
-        #endregion
+        private async void MaterialTransactionId(List<int> IdList)
+        {
+            bool isSaved = false;
+
+            if (IdList == null)
+            {
+                await alerts.ShowAlertAsync("Operation Failed", "No data were captured, please capture bottles first");
+                return;
+            }
+            else
+            {
+                foreach (int id in IdList)
+                {
+                    transactions.WasteMaterialId = id;
+                    isSaved = dataService.TransRecord(transactions);
+
+                    if (!isSaved)
+                    {
+                        await alerts.ShowAlertAsync("Operation Failed", "One or more transaction records could not be saved");
+                        return;
+                    }
+                }
+
+                if (isSaved)
+                {
+                    await alerts.ShowAlertAsync("Operation Successful", $"Captured Data Transaction Record Saved Successfully on {transactions.LocalDate}");
+
+                    //Switch to the CaptureBottle Display 
+                    SwitchDisplay(true);
+
+                    Clear(true);
+                }
+
+            }
+        }
+
+
     }
+
+        #endregion
 }

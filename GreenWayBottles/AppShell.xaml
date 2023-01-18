@@ -27,7 +27,7 @@
               Route="HomeView"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Capture New Bottles" Icon="recycle.png">
+    <FlyoutItem Title="Capture New Waste Material" Icon="recycle.png">
         <ShellContent 
               ContentTemplate="{x:DataTemplate views:CaptureNewBottlesView}"
               Route="CaptureNewBottlesView"/>

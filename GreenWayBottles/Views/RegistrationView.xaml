@@ -227,7 +227,8 @@
             Margin="10, 5, 5, 0"/>
             <Label 
                 Grid.Row="17" Grid.Column="0" Text="{Binding User.Country, Mode=TwoWay}"
-                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand">
+                FontSize="Caption" TextColor="Black" HorizontalOptions="FillAndExpand"
+                Margin="15,0">
             </Label>
 
             <!-- Save Button Tag                                 -->

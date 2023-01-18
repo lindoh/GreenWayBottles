@@ -1,4 +1,5 @@
 using GreenWayBottles.ViewModels;
+using GreenWayBottles.Services;
 
 namespace GreenWayBottles.Views;
 
@@ -9,7 +10,10 @@ public partial class CaptureNewBottlesView : ContentPage
         InitializeComponent();
         viewModel = new CaptureBottlesViewModel();
         BindingContext = viewModel;
+        alerts = new AlertService();
     }
+
+    AlertService alerts;
 
     CaptureBottlesViewModel viewModel;
 
@@ -60,16 +64,30 @@ public partial class CaptureNewBottlesView : ContentPage
         }
     }
 
-    private async void SignatureDrawing_DrawingLineCompleted(object sender, CommunityToolkit.Maui.Core.DrawingLineCompletedEventArgs e)
+    private async void Button_Clicked(object sender, EventArgs e)
     {
+        using var stream = await SignatureDrawing.GetImageStream(1024, 1024);
+        using var memoryStream = new MemoryStream();
+        stream.CopyTo(memoryStream);
 
-        viewModel.Transactions.Signature = new Image();
-        var stream = await SignatureDrawing.GetImageStream(300, 200);
+        stream.Position = 0;
+        memoryStream.Position = 0;
+
+        byte[] imageFile = memoryStream.ToArray();
+        viewModel.Transactions.Signature = memoryStream.ToArray();
+
+        if (viewModel.Transactions.Signature != null)
+            await alerts.ShowAlertAsync("Success", "Signature saved successfully");
+        else
+            await alerts.ShowAlertAsync("Failure", "System could not save Signature");
 
 
-        viewModel.Transactions.Signature.Source = ImageSource.FromStream(() => stream);
+#if WINDOWS
+        await System.IO.File.WriteAllBytesAsync("D:\\EngineeringWork\\Test\\test.png", imageFile);
 
-        //ImageView = viewModel.Transactions.Signature;
+#elif ANDROID
+
+#endif
     }
 
     private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -92,5 +110,5 @@ public partial class CaptureNewBottlesView : ContentPage
         }
     }
 
-   
+
 }

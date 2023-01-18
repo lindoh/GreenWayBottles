@@ -19,7 +19,13 @@ namespace GreenWayBottles.ViewModels
             User = new Users();
             dataService = new DatabaseService();
             alerts = new AlertService();
+
+            //Default Values
+            User.Email = " ";
+            user.Suburb = " ";
+            User.CellNumber = " ";
             User.Country = "South Africa";
+            
         }
         #endregion
 
@@ -71,8 +77,7 @@ namespace GreenWayBottles.ViewModels
 
             if (!(user.FirstName == "" || user.LastName == "" || user.IdNumber == "" ||
                 user.Gender == "" || user.HighestQlfn == "" || user.IncomeRange == "" ||
-                user.CellNumber == "" || user.StreetAddress == "" ||
-                user.City == "" || user.Province == "" || user.Country == ""))
+                user.StreetAddress == "" || user.City == "" || user.Province == "" || user.Country == ""))
             {
                 emptyFields = true;
 

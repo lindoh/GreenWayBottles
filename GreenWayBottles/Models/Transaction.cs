@@ -12,12 +12,13 @@ namespace GreenWayBottles.Models
         DateTime localDate;
 
         [ObservableProperty]
-        int bottleId;
+        int wasteMaterialId;
 
         [ObservableProperty]
         int bankDetailsId;
 
+        //Signature image
         [ObservableProperty]
-        Image signature;
+        byte[] signature;       
     }
 }

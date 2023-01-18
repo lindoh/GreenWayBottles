@@ -3,6 +3,8 @@ using CommunityToolkit.Maui.Markup;
 using GreenWayBottles.Services;
 using GreenWayBottles.ViewModels;
 using GreenWayBottles.Views;
+using Microsoft.Maui.Embedding;
+using SignaturePad.Forms;
 
 namespace GreenWayBottles;
 
